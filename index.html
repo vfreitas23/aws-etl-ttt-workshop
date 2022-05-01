@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-mkdocs" class="md-skip">
+        <a href="#welcome-to-amazon-emr-train-the-trainer-workshop" class="md-skip">
           Skip to content
         </a>
       
@@ -236,15 +236,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    Commands
+  <a href="#part-0-pre-steps" class="md-nav__link">
+    Part 0 - PRE STEPS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
+  <a href="#part-1-tpcds-rds-mysql" class="md-nav__link">
+    Part 1 - TPCDS &amp; RDS MySQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-glue-database-tables-connections-crawlers-classifiers" class="md-nav__link">
+    Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-glue-studio-streaming" class="md-nav__link">
+    Part 3 - GLUE (STUDIO) STREAMING
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-orchestration" class="md-nav__link">
+    Part 4 - ORCHESTRATION
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-data-analysis" class="md-nav__link">
+    Part 5 - DATA ANALYSIS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-data-quality-preparation-with-aws-glue-databrew" class="md-nav__link">
+    Part 6 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW
   </a>
   
 </li>
@@ -284,15 +319,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    Commands
+  <a href="#part-0-pre-steps" class="md-nav__link">
+    Part 0 - PRE STEPS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
+  <a href="#part-1-tpcds-rds-mysql" class="md-nav__link">
+    Part 1 - TPCDS &amp; RDS MySQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-glue-database-tables-connections-crawlers-classifiers" class="md-nav__link">
+    Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-glue-studio-streaming" class="md-nav__link">
+    Part 3 - GLUE (STUDIO) STREAMING
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-orchestration" class="md-nav__link">
+    Part 4 - ORCHESTRATION
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-data-analysis" class="md-nav__link">
+    Part 5 - DATA ANALYSIS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-6-data-quality-preparation-with-aws-glue-databrew" class="md-nav__link">
+    Part 6 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW
   </a>
   
 </li>
@@ -315,21 +385,54 @@
 
 
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs<a class="headerlink" href="#welcome-to-mkdocs" title="Permanent link">&para;</a></h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout<a class="headerlink" href="#project-layout" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre></div>
+<h1 id="welcome-to-amazon-emr-train-the-trainer-workshop">Welcome to Amazon EMR Train-The-Trainer Workshop<a class="headerlink" href="#welcome-to-amazon-emr-train-the-trainer-workshop" title="Permanent link">&para;</a></h1>
+<p>This workshop contains hands-on labsfor the 2-day ETL Migration &amp; Modernization - Train The Trainer Workshop.
+At the end, participants will be able to build an end-to-end ETL Pipeline to demonstrate most of the Glue Core Capabilities.</p>
+<h4 id="part-0-pre-steps">Part 0 - PRE STEPS<a class="headerlink" href="#part-0-pre-steps" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Setting up Cloud9 Environment Variables</li>
+<li>Switching Cloud9 Role Credentials</li>
+<li>Setting up Security Required Groups Inbound Rules</li>
+<li>Installing Required Libraries (Boto3)</li>
+</ol>
+<h4 id="part-1-tpcds-rds-mysql">Part 1 - TPCDS &amp; RDS MySQL<a class="headerlink" href="#part-1-tpcds-rds-mysql" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Preparing &amp; Generating TPCDS Dataset</li>
+<li>Populating the Amazon RDS-MySQL Database with TPCDS Dataset</li>
+</ol>
+<h4 id="part-2-glue-database-tables-connections-crawlers-classifiers">Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS<a class="headerlink" href="#part-2-glue-database-tables-connections-crawlers-classifiers" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Understanding the Glue Resources Provided (CloudFormation Resources)</li>
+<li>Running the MySQL-RDS-Crawler</li>
+<li>Creating a New Crawler (and a Classifier for it!)</li>
+</ol>
+<h4 id="part-3-glue-studio-streaming">Part 3 - GLUE (STUDIO) STREAMING<a class="headerlink" href="#part-3-glue-studio-streaming" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)</li>
+<li>Validating Streaming Job Logic and Data (Glue Studio Dummy Job)</li>
+<li>Creating the Glue Streaming Job (Cloning Jobs!)</li>
+</ol>
+<h4 id="part-4-orchestration">Part 4 - ORCHESTRATION<a class="headerlink" href="#part-4-orchestration" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Understanding Orchestration Logic</li>
+<li>Creating a Glue Workflow and Glue Event Based Trigger (via CLI)</li>
+<li>Creating Event Bridge Rule and Target (via CLI)</li>
+<li>Starting Orchestration**</li>
+</ol>
+<h4 id="part-5-data-analysis">Part 5 - DATA ANALYSIS<a class="headerlink" href="#part-5-data-analysis" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Amazon Athena - Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog</li>
+<li>Creating Views on Top of Cataloged Tables</li>
+</ol>
+<h4 id="part-6-data-quality-preparation-with-aws-glue-databrew">Part 6 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW<a class="headerlink" href="#part-6-data-quality-preparation-with-aws-glue-databrew" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Creating Datasets &amp; Profiling the Data (with Quality Rules)</li>
+<li>Building &amp; Managing DataBrew Recipes</li>
+<li>Operationalizing a DataBrew Project into a Glue Job.</li>
+</ol>
+<!-- 3. Integrate with AWS LakeFormation
+4. Run Hive/Presto workloads on Amazon EMR
+5. HBase on S3 -->
 
               
             </article>
