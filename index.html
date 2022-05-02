@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#part-0-pre-steps" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -204,9 +209,73 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         Introduction
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-0-pre-steps" class="md-nav__link">
+    Part 0 - PRE STEPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-tpcds-rds-mysql" class="md-nav__link">
+    Part 1 - TPCDS &amp; RDS MySQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-glue-database-tables-connections-crawlers-classifiers" class="md-nav__link">
+    Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-glue-studio-streaming" class="md-nav__link">
+    Part 3 - GLUE (STUDIO) STREAMING
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-orchestration-data-analysis" class="md-nav__link">
+    Part 4 - ORCHESTRATION &amp; DATA ANALYSIS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-data-quality-preparation-with-aws-glue-databrew" class="md-nav__link">
+    Part 5 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -229,6 +298,56 @@
   
   
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-0-pre-steps" class="md-nav__link">
+    Part 0 - PRE STEPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-tpcds-rds-mysql" class="md-nav__link">
+    Part 1 - TPCDS &amp; RDS MySQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-glue-database-tables-connections-crawlers-classifiers" class="md-nav__link">
+    Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-glue-studio-streaming" class="md-nav__link">
+    Part 3 - GLUE (STUDIO) STREAMING
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-orchestration-data-analysis" class="md-nav__link">
+    Part 4 - ORCHESTRATION &amp; DATA ANALYSIS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-data-quality-preparation-with-aws-glue-databrew" class="md-nav__link">
+    Part 5 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -254,45 +373,32 @@ Welcome to Amazon EMR Train-The-Trainer Workshop:
 This workshop contains a set of XXX hands-on labs which complementes the Day One of the ETL Migration &amp; Modernization - Train The Trainer Workshop.  </p>
 <p>Participants will build an end-to-end ETL Pipeline that will...[add details of the pipeline...]</p>
 <p>After completing the labs, the participants will have a high level understand of AWS Glue core capabilities as well as they will be able to demonstrate most of the Glue core capabilities.</p>
-<p><br/>
-<br/></p>
-<h2 id="toc_0" align="center">
-Workshop Parts & Steps
-</h1>
-
-<br/>
-#### Part 0 - PRE STEPS
-**1.** Setting up Cloud9 Environment Variables  
-**2.** Switching Cloud9 Role Credentials  
-**3.** Setting up Security Required Groups Inbound Rules  
-**4.** Installing Required Libraries (Boto3)
-
-#### Part 1 - TPCDS & RDS MySQL
-**1.** Preparing & Generating TPCDS Dataset  
-**2.** Populating the Amazon RDS-MySQL Database with TPCDS Dataset
-
-#### Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
-**1.** Understanding the Glue Resources Provided (CloudFormation Resources)  
-**2.** Running the MySQL-RDS-Crawler  
-**3.** Creating a New Crawler (and a Classifier for it!)
-
-#### Part 3 - GLUE (STUDIO) STREAMING
-**1.** Understanding the Streaming Resources Provided (CloudFormation & Scripts)  
-**2.** Validating Streaming Job Logic and Data (Glue Studio Dummy Job)  
-**3.** Creating the Glue Streaming Job (Cloning Jobs!)
-
-
-#### Part 4 - ORCHESTRATION & DATA ANALYSIS
-**1.** Understanding the Orchestration Flow  
-**2.** Creating Glue Workflow and Glue Event Based Trigger (via CLI)  
-**3.** Creating Event Bridge Rule and Target (via CLI)  
-**4.** Starting Orchestration & Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog  
-**6.** Creating Views on Top of Cataloged Tables
-
-#### Part 5 - DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
-**1.** Creating Datasets & Profiling the Data (with Quality Rules)  
-**2.** Building & Managing DataBrew Recipes  
-**3.** Operationalizing a DataBrew Project into a Glue Job.
+<h4 id="part-0-pre-steps">Part 0 - PRE STEPS<a class="headerlink" href="#part-0-pre-steps" title="Permanent link">&para;</a></h4>
+<p><strong>1.</strong> Setting up Cloud9 Environment Variables<br />
+<strong>2.</strong> Switching Cloud9 Role Credentials<br />
+<strong>3.</strong> Setting up Security Required Groups Inbound Rules<br />
+<strong>4.</strong> Installing Required Libraries (Boto3)</p>
+<h4 id="part-1-tpcds-rds-mysql">Part 1 - TPCDS &amp; RDS MySQL<a class="headerlink" href="#part-1-tpcds-rds-mysql" title="Permanent link">&para;</a></h4>
+<p><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<br />
+<strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset</p>
+<h4 id="part-2-glue-database-tables-connections-crawlers-classifiers">Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS<a class="headerlink" href="#part-2-glue-database-tables-connections-crawlers-classifiers" title="Permanent link">&para;</a></h4>
+<p><strong>1.</strong> Understanding the Glue Resources Provided (CloudFormation Resources)<br />
+<strong>2.</strong> Running the MySQL-RDS-Crawler<br />
+<strong>3.</strong> Creating a New Crawler (and a Classifier for it!)</p>
+<h4 id="part-3-glue-studio-streaming">Part 3 - GLUE (STUDIO) STREAMING<a class="headerlink" href="#part-3-glue-studio-streaming" title="Permanent link">&para;</a></h4>
+<p><strong>1.</strong> Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)<br />
+<strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<br />
+<strong>3.</strong> Creating the Glue Streaming Job (Cloning Jobs!)</p>
+<h4 id="part-4-orchestration-data-analysis">Part 4 - ORCHESTRATION &amp; DATA ANALYSIS<a class="headerlink" href="#part-4-orchestration-data-analysis" title="Permanent link">&para;</a></h4>
+<p><strong>1.</strong> Understanding the Orchestration Flow<br />
+<strong>2.</strong> Creating Glue Workflow and Glue Event Based Trigger (via CLI)<br />
+<strong>3.</strong> Creating Event Bridge Rule and Target (via CLI)<br />
+<strong>4.</strong> Starting Orchestration &amp; Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog<br />
+<strong>6.</strong> Creating Views on Top of Cataloged Tables</p>
+<h4 id="part-5-data-quality-preparation-with-aws-glue-databrew">Part 5 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW<a class="headerlink" href="#part-5-data-quality-preparation-with-aws-glue-databrew" title="Permanent link">&para;</a></h4>
+<p><strong>1.</strong> Creating Datasets &amp; Profiling the Data (with Quality Rules)<br />
+<strong>2.</strong> Building &amp; Managing DataBrew Recipes<br />
+<strong>3.</strong> Operationalizing a DataBrew Project into a Glue Job.</p>
 
               
             </article>
