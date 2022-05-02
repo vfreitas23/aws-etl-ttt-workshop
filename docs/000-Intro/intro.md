@@ -1,6 +1,5 @@
 <h1 id="toc_0" align="center">
-Welcome to the ETL Migration & Modernization
-<br/>Train-The-Trainer Workshop
+ETL Migration & Modernization - <br/>Train-The-Trainer Workshop
 </h1>
 
 This workshop contains a set of XXX hands-on labs which complementes the Day One of the ETL Migration & Modernization - Train The Trainer Workshop.
