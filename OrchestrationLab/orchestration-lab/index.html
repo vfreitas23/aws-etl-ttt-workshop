@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#create-a-view-on-top-of-the-created-table-to-browse-the-top-5-customers-clicking-on-the-website" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -439,9 +444,38 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          ORCHESTRATION & DATA ANALYSIS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         ORCHESTRATION & DATA ANALYSIS
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-view-on-top-of-the-created-table-to-browse-the-top-5-customers-clicking-on-the-website" class="md-nav__link">
+    [CREATE A VIEW ON TOP OF THE CREATED TABLE TO BROWSE THE TOP 5 CUSTOMERS CLICKING ON THE WEBSITE]
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -520,6 +554,21 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-view-on-top-of-the-created-table-to-browse-the-top-5-customers-clicking-on-the-website" class="md-nav__link">
+    [CREATE A VIEW ON TOP OF THE CREATED TABLE TO BROWSE THE TOP 5 CUSTOMERS CLICKING ON THE WEBSITE]
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -538,7 +587,92 @@
 
   <h1>ORCHESTRATION & DATA ANALYSIS</h1>
 
-
+<p>----------[EVENT BRIDGE LAB + STREAMING FOLLOWING STEPS]------------</p>
+<p>EVENT BRIDGE TRIGGERS A WORKFLOW AS SOON AS STREAMING DATA LANDS IN S3 - WORKFLOW CRAWLS THE DATA</p>
+<p>--&gt; MAKE SURE THE TRAIL HAS THE FOLLOWING PATH CONFIGURED:</p>
+<p>Bucket name: etl-ttt-demo-171714944327-ca-central-1
+Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/</p>
+<hr />
+<p>--- create the workflow first  ----</p>
+<p>aws glue create-workflow --name etl-ttt-event-driven-workflow</p>
+<p>aws glue create-trigger \
+    --workflow-name etl-ttt-event-driven-workflow \
+    --type EVENT \
+    --name s3-object-trigger \
+    --actions CrawlerName=crawl_streammed_data \
+    --event-batching-condition "{\"BatchSize\": 2,
+    \"BatchWindow\": 900}"</p>
+<p>--- create the event rule  ----</p>
+<p>aws events put-rule \
+    --name "total-clicks-rule" \
+    --event-pattern "{ \
+                        \"source\": [\"aws.s3\"], \
+                        \"detail-type\": [\"AWS API Call via CloudTrail\"], \
+                        \"detail\": { \
+                            \"eventSource\": [\"s3.amazonaws.com\"], \
+                            \"eventName\": [\"PutObject\"], \
+                            \"requestParameters\": { \
+                                \"bucketName\": [\"${BUCKET_NAME}\"], \
+                                \"key\": [{\"prefix\": \"etl-ttt-demo/output/gluestreaming/total_clicks/\"}]
+                            } \
+                        } \
+                    }"</p>
+<p>aws events put-targets \
+    --rule total-clicks-rule \
+    --targets "Id"="glueworkflow-totalclicks","Arn"="arn:aws:glue:${AWS_REGION}:${AWS_ACCOUNT_ID}:workflow/etl-ttt-event-driven-workflow","RoleArn"="arn:aws:iam::${AWS_ACCOUNT_ID}:role/AWSEventBridgeInvokeRole-etl-ttt-demo" \
+    --region ${AWS_REGION}</p>
+<p>[GET THE SCRIPT FROM BUCKET]</p>
+<p>cd ~//environment/ttt-demo//
+aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/PutRecord_Kinesis.py .</p>
+<p>cat PutRecord_Kinesis.py</p>
+<p>------SCRIPT SHOULD LOOK LIKE THIS -----------------
+import csv
+import json
+import boto3
+import time
+import string
+import random</p>
+<p>def generate(stream_name, kinesis_client):
+    with open("/tmp/dsd/csv_tables/web_page.csv", encoding='utf-8') as csvf:
+        csvReader = csv.DictReader(csvf)
+        for rows in csvReader:
+            partitionaKey = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 20))
+            jsonMsg = json.dumps(rows)
+            kinesis_client.put_record(StreamName = stream_name,
+                                      Data = jsonMsg,
+                                      PartitionKey = partitionaKey)
+            print(jsonMsg)
+            time.sleep(0.2)</p>
+<p>if <strong>name</strong> == '<strong>main</strong>':
+    generate('etl-ttt-demo-stream', boto3.client('kinesis'))
+[end of script]</p>
+<hr />
+<p>[ONCE EVENT BRIDGE IS FULLY SETUP WITH TARGET AND ALL...]
+[START STREAMING DATA BY RUNNIG THE ABOVE SCRIPT WITH THE FOLLOWING COMMAND IN CLOUD9]
+[WAIT UP TO 1 OR 2 MINUTES]</p>
+<p>python PutRecord_Kinesis.py </p>
+<hr />
+<p>[OBSERVE THE WORKFLOW GETTING TRIGGER AS THE FIRST FILES ARRIVE IN S3 FROM THEM STREAMING JOB]
+---OBSERVE THE FAILURES DUE TO MULTIPLE FILES ---
+[OBSERVE THAT WORKFLOW TRIGGERS THE CRAWLER WHICH CREATES THE TABLE (total_clicks) FOR FOLLOWING ANALYSIS LAB]</p>
+<p>[DELETE THE WORKFLOW OR EDIT THE TRIGGER TO 100 SO IT STOP RUNNING AT EVERY BATCH OF STREAMING DATA]</p>
+<p>------------------------------------[ANALYSIS LAB]-----------------------------------</p>
+<p>[ADD DEFAULT BUCKET FOR ATHENA: /athena-output/]
+[RUN THE FOLLOWING QUERY]
+--&gt; SELECT * FROM "AwsDataCatalog"."glue-ttt-demo-db"."total_clicks" order by 3 desc limit 10;</p>
+<h2 id="create-a-view-on-top-of-the-created-table-to-browse-the-top-5-customers-clicking-on-the-website">[CREATE A VIEW ON TOP OF THE CREATED TABLE TO BROWSE THE TOP 5 CUSTOMERS CLICKING ON THE WEBSITE]<a class="headerlink" href="#create-a-view-on-top-of-the-created-table-to-browse-the-top-5-customers-clicking-on-the-website" title="Permanent link">&para;</a></h2>
+<p>CREATE OR REPLACE VIEW "tpc_customer_inter" AS 
+SELECT
+  "c_full_name"
+, "c_email_address"
+, "sum"(CAST("total_clicks" AS integer)) total_clicks
+FROM
+  "total_clicks" 
+GROUP BY 1, 2
+ORDER BY 3 DESC</p>
+<hr />
+<p>SELECT * FROM "glue-ttt-demo-db"."tpc_customer_inter" order by 3 desc limit 10;</p>
+<p>[ADD MORE DATA TO THE STREAM AND KEEP CHECKING] - EVERY 30-60 SECONDS</p>
 
               
             </article>

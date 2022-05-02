@@ -538,7 +538,26 @@
 
   <h1>GLUE (STUDIO) STREAMING</h1>
 
-
+<p>----------[SETTING UP GLUE DATABASE, ALL CRAWLERS AND CLASSIFIER FOR SUBSEQUENT LABS]---------</p>
+<p>---&gt; TEST MYSQL CONNECTION IN GLUE CONSOLE
+---&gt; RUN THE ALREADY CREATED MYSQL-RDS-CRAWLER [3-5 MINUTES] - (THIS CRAWLER AND DATABASE IS ALREADY CREATED)
+-------&gt; 2 TABLES GETS CREATED</p>
+<p>[WHILE ABOVE CRAWLER IS RUNNING, DO THE FOLLOWING TWO PIECES FOR THE STREAMING CRAWL (FOLLOWING LAB)]</p>
+<p>---&gt; [CREATE A CLASSIFIER]
+CSV
+Comma (,)
+Double-quote (")
+Has headings
+c_full_name,c_email_address,total_clicks</p>
+<p>----&gt;[CREATE A CRAWLER TO READ FROM THE PATH OF THE STREAMING JOB - USE A CUSTOM CSV CLASSIFIER FOR THAT!!!]</p>
+<p>--&gt; Name: crawl_streammed_data
+--&gt; Classifier: CSV
+--&gt; Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/
+--&gt; Sample Size: 1
+--&gt; Exclude Pattern: **00001
+--&gt; Database: glue-ttt-demo-db
+--&gt; Grouping Behavior: Create a single schema for each S3 path [check]
+!!!!DO NOT RUN THIS CRAWLER YET!!!!</p>
 
               
             </article>

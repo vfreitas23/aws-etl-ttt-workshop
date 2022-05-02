@@ -58,11 +58,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#part-0-pre-steps" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -348,73 +343,9 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#part-0-pre-steps" class="md-nav__link">
-    Part 0 - PRE STEPS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-1-tpcds-rds-mysql" class="md-nav__link">
-    Part 1 - TPCDS &amp; RDS MySQL
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-2-glue-database-tables-connections-crawlers-classifiers" class="md-nav__link">
-    Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-3-glue-studio-streaming" class="md-nav__link">
-    Part 3 - GLUE (STUDIO) STREAMING
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-4-orchestration-data-analysis" class="md-nav__link">
-    Part 4 - ORCHESTRATION &amp; DATA ANALYSIS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-5-data-quality-preparation-with-aws-glue-databrew" class="md-nav__link">
-    Part 5 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -589,56 +520,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#part-0-pre-steps" class="md-nav__link">
-    Part 0 - PRE STEPS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-1-tpcds-rds-mysql" class="md-nav__link">
-    Part 1 - TPCDS &amp; RDS MySQL
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-2-glue-database-tables-connections-crawlers-classifiers" class="md-nav__link">
-    Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-3-glue-studio-streaming" class="md-nav__link">
-    Part 3 - GLUE (STUDIO) STREAMING
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-4-orchestration-data-analysis" class="md-nav__link">
-    Part 4 - ORCHESTRATION &amp; DATA ANALYSIS
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-5-data-quality-preparation-with-aws-glue-databrew" class="md-nav__link">
-    Part 5 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -655,42 +536,28 @@
 
 
 
-<h1 id="toc_0" align="center">
-Welcome to the ETL Migration & Modernization
-<br/>Train-The-Trainer Workshop
-</h1>
+  <h1>GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS</h1>
 
-<p>This workshop contains a set of XXX hands-on labs which complementes the Day One of the ETL Migration &amp; Modernization - Train The Trainer Workshop.  </p>
-<h2 id="toc_0" align="center">
-Workshop Parts & Steps
-</h2>
-
-<h4 id="part-0-pre-steps">Part 0 - PRE STEPS<a class="headerlink" href="#part-0-pre-steps" title="Permanent link">&para;</a></h4>
-<p><strong>1.</strong> Setting up Cloud9 Environment Variables<br />
-<strong>2.</strong> Switching Cloud9 Role Credentials<br />
-<strong>3.</strong> Setting up Security Required Groups Inbound Rules<br />
-<strong>4.</strong> Installing Required Libraries (Boto3)</p>
-<h4 id="part-1-tpcds-rds-mysql">Part 1 - TPCDS &amp; RDS MySQL<a class="headerlink" href="#part-1-tpcds-rds-mysql" title="Permanent link">&para;</a></h4>
-<p><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<br />
-<strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset</p>
-<h4 id="part-2-glue-database-tables-connections-crawlers-classifiers">Part 2 - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS<a class="headerlink" href="#part-2-glue-database-tables-connections-crawlers-classifiers" title="Permanent link">&para;</a></h4>
-<p><strong>1.</strong> Understanding the Glue Resources Provided (CloudFormation Resources)<br />
-<strong>2.</strong> Running the MySQL-RDS-Crawler<br />
-<strong>3.</strong> Creating a New Crawler (and a Classifier for it!)</p>
-<h4 id="part-3-glue-studio-streaming">Part 3 - GLUE (STUDIO) STREAMING<a class="headerlink" href="#part-3-glue-studio-streaming" title="Permanent link">&para;</a></h4>
-<p><strong>1.</strong> Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)<br />
-<strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<br />
-<strong>3.</strong> Creating the Glue Streaming Job (Cloning Jobs!)</p>
-<h4 id="part-4-orchestration-data-analysis">Part 4 - ORCHESTRATION &amp; DATA ANALYSIS<a class="headerlink" href="#part-4-orchestration-data-analysis" title="Permanent link">&para;</a></h4>
-<p><strong>1.</strong> Understanding the Orchestration Flow<br />
-<strong>2.</strong> Creating Glue Workflow and Glue Event Based Trigger (via CLI)<br />
-<strong>3.</strong> Creating Event Bridge Rule and Target (via CLI)<br />
-<strong>4.</strong> Starting Orchestration &amp; Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog<br />
-<strong>6.</strong> Creating Views on Top of Cataloged Tables</p>
-<h4 id="part-5-data-quality-preparation-with-aws-glue-databrew">Part 5 - DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW<a class="headerlink" href="#part-5-data-quality-preparation-with-aws-glue-databrew" title="Permanent link">&para;</a></h4>
-<p><strong>1.</strong> Creating Datasets &amp; Profiling the Data (with Quality Rules)<br />
-<strong>2.</strong> Building &amp; Managing DataBrew Recipes<br />
-<strong>3.</strong> Operationalizing a DataBrew Project into a Glue Job.</p>
+<p>----------[SETTING UP GLUE DATABASE, ALL CRAWLERS AND CLASSIFIER FOR SUBSEQUENT LABS]---------</p>
+<p>---&gt; TEST MYSQL CONNECTION IN GLUE CONSOLE
+---&gt; RUN THE ALREADY CREATED MYSQL-RDS-CRAWLER [3-5 MINUTES] - (THIS CRAWLER AND DATABASE IS ALREADY CREATED)
+-------&gt; 2 TABLES GETS CREATED</p>
+<p>[WHILE ABOVE CRAWLER IS RUNNING, DO THE FOLLOWING TWO PIECES FOR THE STREAMING CRAWL (FOLLOWING LAB)]</p>
+<p>---&gt; [CREATE A CLASSIFIER]
+CSV
+Comma (,)
+Double-quote (")
+Has headings
+c_full_name,c_email_address,total_clicks</p>
+<p>----&gt;[CREATE A CRAWLER TO READ FROM THE PATH OF THE STREAMING JOB - USE A CUSTOM CSV CLASSIFIER FOR THAT!!!]</p>
+<p>--&gt; Name: crawl_streammed_data
+--&gt; Classifier: CSV
+--&gt; Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/
+--&gt; Sample Size: 1
+--&gt; Exclude Pattern: **00001
+--&gt; Database: glue-ttt-demo-db
+--&gt; Grouping Behavior: Create a single schema for each S3 path [check]
+!!!!DO NOT RUN THIS CRAWLER YET!!!!</p>
 
               
             </article>
