@@ -528,7 +528,49 @@
 
   <h1>Create iam user</h1>
 
+<p>Create IAM User</p>
+<p>Services in AWS, such as AWS Glue, require that you provide credentials when you access them, so that the service can determine whether you have permission to access its resources. The console requires your password. You can create access keys for your AWS account to access the command line interface or API. However, we don't recommend that you access AWS using the credentials for your AWS account; we recommend that you use AWS Identity and Access Management (IAM) instead. Create an IAM user, and then add the user to an IAM group with administrative permissions or grant this user administrative permissions. You can then access AWS using a special URL and the credentials for the IAM user.</p>
+<p>If you signed up for AWS but have not created an IAM user for yourself, you can create one using the IAM console. If you aren't familiar with using the console, see Working with the AWS Management Console for an overview.
+To create an IAM user for yourself and add the user to an Administrators group</p>
+<div class="codehilite"><pre><span></span><code>Use your AWS account email address and password to sign in as the AWS account root user to the IAM console at https://console.aws.amazon.com/iam/
+</code></pre></div>
 
+<p>We strongly recommend that you adhere to the best practice of using the Administrator IAM user below and securely lock away the root user credentials.</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">Sign</span> <span class="nv">in</span> <span class="nv">as</span> <span class="nv">the</span> <span class="nv">root</span> <span class="nv">user</span> <span class="nv">only</span> <span class="nv">to</span> <span class="nv">perform</span> <span class="nv">a</span> <span class="nv">few</span> <span class="nv">account</span> <span class="nv">and</span> <span class="nv">service</span> <span class="nv">management</span> <span class="nv">tasks</span>.
+
+<span class="nv">In</span> <span class="nv">the</span> <span class="nv">navigation</span> <span class="nv">pane</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">console</span>, <span class="nv">choose</span> <span class="nv">Users</span>, <span class="nv">and</span> <span class="k">then</span> <span class="nv">choose</span> <span class="nv">Add</span> <span class="nv">user</span>.
+
+<span class="k">For</span> <span class="nv">User</span> <span class="nv">name</span>, <span class="nv">type</span> <span class="nv">Administrator</span>.
+
+<span class="nv">Select</span> <span class="nv">the</span> <span class="nv">check</span> <span class="nv">box</span> <span class="k">next</span> <span class="nv">to</span> <span class="nv">AWS</span> <span class="nv">Management</span> <span class="nv">Console</span> <span class="nv">access</span>, <span class="nv">select</span> <span class="nv">Custom</span> <span class="nv">password</span>, <span class="nv">and</span> <span class="k">then</span> <span class="nv">type</span> <span class="nv">the</span> <span class="nv">new</span> <span class="nv">user</span><span class="s1">&#39;</span><span class="s">s password in the text box. You can optionally select Require password reset to force the user to create a new password the next time the user signs in.</span>
+
+<span class="nv">Choose</span> <span class="k">Next</span>: <span class="nv">Permissions</span>.
+
+<span class="nv">On</span> <span class="nv">the</span> <span class="nv">Set</span> <span class="nv">permissions</span> <span class="nv">page</span>, <span class="nv">choose</span> <span class="nv">Add</span> <span class="nv">user</span> <span class="nv">to</span> <span class="nv">group</span>.
+</code></pre></div>
+
+<p>Choose Create group.</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">In</span> <span class="nv">the</span> <span class="nv">Create</span> <span class="nv">group</span> <span class="nv">dialog</span> <span class="nv">box</span>, <span class="k">for</span> <span class="nv">Group</span> <span class="nv">name</span> <span class="nv">type</span> <span class="nv">Administrators</span>.
+
+<span class="k">For</span> <span class="nv">Filter</span> <span class="nv">policies</span>, <span class="nv">select</span> <span class="nv">the</span> <span class="nv">check</span> <span class="nv">box</span> <span class="k">for</span> <span class="nv">AWS</span> <span class="nv">managed</span> <span class="o">-</span> <span class="nv">job</span> <span class="nv">function</span>.
+
+<span class="nv">In</span> <span class="nv">the</span> <span class="nv">policy</span> <span class="nv">list</span>, <span class="nv">select</span> <span class="nv">the</span> <span class="nv">check</span> <span class="nv">box</span> <span class="k">for</span> <span class="nv">AdministratorAccess</span>. <span class="k">Then</span> <span class="nv">choose</span> <span class="nv">Create</span> <span class="nv">group</span>.
+
+<span class="nv">Back</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">groups</span>, <span class="nv">select</span> <span class="nv">the</span> <span class="nv">check</span> <span class="nv">box</span> <span class="k">for</span> <span class="nv">your</span> <span class="nv">new</span> <span class="nv">group</span>. <span class="nv">Choose</span> <span class="nv">Refresh</span> <span class="k">if</span> <span class="nv">necessary</span> <span class="nv">to</span> <span class="nv">see</span> <span class="nv">the</span> <span class="nv">group</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">list</span>.
+
+<span class="nv">Choose</span> <span class="k">Next</span>: <span class="nv">Tags</span> <span class="nv">to</span> <span class="nv">add</span> <span class="nv">metadata</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">user</span> <span class="nv">by</span> <span class="nv">attaching</span> <span class="nv">tags</span> <span class="nv">as</span> <span class="nv">key</span><span class="o">-</span><span class="nv">value</span> <span class="nv">pairs</span>.
+
+<span class="nv">Choose</span> <span class="k">Next</span>: <span class="nv">Review</span> <span class="nv">to</span> <span class="nv">see</span> <span class="nv">the</span> <span class="nv">list</span> <span class="nv">of</span> <span class="nv">group</span> <span class="nv">memberships</span> <span class="nv">to</span> <span class="nv">be</span> <span class="nv">added</span> <span class="nv">to</span> <span class="nv">the</span> <span class="nv">new</span> <span class="nv">user</span>. <span class="nv">When</span> <span class="nv">you</span> <span class="nv">are</span> <span class="nv">ready</span> <span class="nv">to</span> <span class="nv">proceed</span>, <span class="nv">choose</span> <span class="nv">Create</span> <span class="nv">user</span>.
+
+<span class="nv">You</span> <span class="nv">can</span> <span class="nv">use</span> <span class="nv">this</span> <span class="nv">same</span> <span class="nv">process</span> <span class="nv">to</span> <span class="nv">create</span> <span class="nv">more</span> <span class="nv">groups</span> <span class="nv">and</span> <span class="nv">users</span>, <span class="nv">and</span> <span class="nv">to</span> <span class="nv">give</span> <span class="nv">your</span> <span class="nv">users</span> <span class="nv">access</span> <span class="nv">to</span> <span class="nv">your</span> <span class="nv">AWS</span> <span class="nv">account</span> <span class="nv">resources</span>.
+</code></pre></div>
+
+<p>To sign in as this new IAM user, sign out of the AWS console, then use the following URL, where your_aws_account_id is your AWS account number without the hyphens (for example, if your AWS account number is 1234-5678-9012, your AWS account ID is 123456789012):</p>
+<p>https://your_aws_account_id.signin.aws.amazon.com/console/</p>
+<p>Enter the IAM user name (not your email address) and password that you just created. When you're signed in, the navigation bar displays "your_user_name @ your_aws_account_id".</p>
+<p>If you don't want the URL for your sign-in page to contain your AWS account ID, you can create an account alias. From the IAM console, choose Dashboard in the navigation pane. From the dashboard, choose Customize and enter an alias such as your company name. To sign in after you create an account alias, use the following URL:</p>
+<p>https://your_account_alias.signin.aws.amazon.com/console/
+To verify the sign-in link for IAM users for your account, open the IAM console and check under IAM users sign-in link on the dashboard.</p>
 
               
             </article>
