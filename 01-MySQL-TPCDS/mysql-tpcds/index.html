@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#below-script-is-stored-in-the-event-engine-module-asset-bucket" class="md-skip">
+        <a href="#1-preparing-generating-tpcds-dataset" class="md-skip">
           Skip to content
         </a>
       
@@ -473,8 +473,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#below-script-is-stored-in-the-event-engine-module-asset-bucket" class="md-nav__link">
-    [BELOW SCRIPT IS STORED IN THE EVENT ENGINE MODULE ASSET BUCKET]
+  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
+    1. Preparing &amp; Generating TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
+    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
+    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
   </a>
   
 </li>
@@ -711,8 +725,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#below-script-is-stored-in-the-event-engine-module-asset-bucket" class="md-nav__link">
-    [BELOW SCRIPT IS STORED IN THE EVENT ENGINE MODULE ASSET BUCKET]
+  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
+    1. Preparing &amp; Generating TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
+    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
+    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
   </a>
   
 </li>
@@ -735,53 +763,95 @@
 
 
 
-  <h1>TPCDS & RDS MySQL Lab</h1>
+<h1 id="toc_0" align="center">
+Working with TPC-DS Data & RDS MySQL Database
+</h1>
 
-<p>----------[TPCDS DATA CONFIGURATION DEMO PART]---------
-mkdir -p ~/environment/ttt-demo
-cd ~//environment/ttt-demo//
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/16d7423c-23d3-4185-8ab4-5b002ec51153-tpc-ds-tool.zip tpc-ds-tool.zip</p>
-<p>unzip tpc-ds-tool.zip 
-cd DSGen-software-code-3.2.0rc1/tools/
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="1-preparing-generating-tpcds-dataset"><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<a class="headerlink" href="#1-preparing-generating-tpcds-dataset" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>[TPCDS DATA CONFIGURATION DEMO PART]</p>
+<p>tpcds - This data is used for a decision support benchmark. When you load this data the schema tpcds is updated with sample data. For more information about the tpcds data, see TPC-DS</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p ~/environment/ttt-demo
+<span class="nb">cd</span> ~//environment/ttt-demo//
+aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/16d7423c-23d3-4185-8ab4-5b002ec51153-tpc-ds-tool.zip tpc-ds-tool.zip
+</code></pre></div>
+
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>unzip tpc-ds-tool.zip 
+<span class="nb">cd</span> DSGen-software-code-3.2.0rc1/tools/
 make
-head -200 tpcds.sql </p>
-<p>[WAIT FOR ABOUT 3 MIN TO COMPLETE]
-mkdir -p /tmp/dsd/csv_tables/
-./dsdgen -scale 1 -dir /tmp/dsd -parallel 2 -child 1
-cd /tmp/dsd/
-ls -lrt</p>
-<hr />
-<p>(OPTIONAL)
-sudo yum -y install telnet
-mysqlendpoint=$(aws cloudformation describe-stacks --query 'Stacks[*].Outputs[?OutputKey==<code>MySQLEndpoint</code>].OutputValue | [0] | [0]' --output text)
-telnet $mysqlendpoint 3306</p>
-<hr />
-<p>[CREATING THE RDS MYSQL DATABASE SCHEMAS FOR TPCDS DATA]
-tpcds_script_path=~//environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
-mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds &lt; $tpcds_script_path
-mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds -e "show tables"</p>
-<h2 id="below-script-is-stored-in-the-event-engine-module-asset-bucket">[BELOW SCRIPT IS STORED IN THE EVENT ENGINE MODULE ASSET BUCKET]<a class="headerlink" href="#below-script-is-stored-in-the-event-engine-module-asset-bucket" title="Permanent link">&para;</a></h2>
-<p>mysqlendpoint=$1
-DIR=/tmp/dsd
-ls $DIR/*.dat | while read file; do
-pipe=$file.pipe
-mkfifo $pipe
-table=<code>basename $file .dat | sed -e 's/_[0-9]_[0-9]//'</code>
-echo $file $table
-LANG=C &amp;&amp; sed -e 's_^|<em>\N|_g' -e 's</em>||<em>|\N|_g' -e 's</em>||_|\N|_g' $file &gt; $pipe &amp; \
-mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd --local-infile -Dtpcds -e \
-"load data local infile '$pipe' replace into table $table character set latin1 fields terminated by '|'"
-rm -f $pipe
-done</p>
-<hr />
-<p>[POPULATING THE MYSQL DATABASE WITH TPCDS TABLES'D DATA]
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/load_TPC-DS_MySQL.sh .
-. load_TPC-DS_MySQL.sh $mysqlendpoint</p>
-<p>[EXTRACT TABLES FOR THE LABS INTO CSV FORMAT AND UPLOADING IT INTO S3]
-mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds --batch -e "select * from web_page" | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' &gt; /tmp/dsd/csv_tables/web_page.csv
-mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds --batch -e "select * from customer" | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' &gt; /tmp/dsd/csv_tables/customer.csv
-mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds --batch -e "select * from income_band" | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' &gt; /tmp/dsd/csv_tables/income_band.csv
-aws s3 cp --recursive /tmp/dsd/csv_tables/ s3://$BUCKET_NAME/etl-ttt-demo/csv_tables/</p>
+head -200 tpcds.sql 
+</code></pre></div>
+
+<p>[WAIT FOR ABOUT 3 MIN TO COMPLETE]</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/
+./dsdgen -scale <span class="m">1</span> -dir /tmp/dsd -parallel <span class="m">2</span> -child <span class="m">1</span>
+<span class="nb">cd</span> /tmp/dsd/
+ls -lrt
+</code></pre></div>
+
+<p>Testing RDS MySQL Database Connection - (OPTIONAL)</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>sudo yum -y install telnet
+<span class="nv">mysqlendpoint</span><span class="o">=</span><span class="k">$(</span>aws cloudformation describe-stacks --query <span class="s1">&#39;Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]&#39;</span> --output text<span class="k">)</span>
+telnet <span class="nv">$mysqlendpoint</span> <span class="m">3306</span>
+</code></pre></div>
+
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset"><strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset<a class="headerlink" href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">tpcds_script_path</span><span class="o">=</span>~//environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds &lt; <span class="nv">$tpcds_script_path</span>
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;show tables&quot;</span>
+</code></pre></div>
+
+<p>[BELOW SCRIPT IS STORED IN THE EVENT ENGINE MODULE ASSET BUCKET]</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">mysqlendpoint</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">DIR</span><span class="o">=</span>/tmp/dsd
+ls <span class="nv">$DIR</span>/*.dat <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> file<span class="p">;</span> <span class="k">do</span>
+<span class="nv">pipe</span><span class="o">=</span><span class="nv">$file</span>.pipe
+mkfifo <span class="nv">$pipe</span>
+<span class="nv">table</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$file</span> .dat <span class="p">|</span> sed -e <span class="s1">&#39;s/_[0-9]_[0-9]//&#39;</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$file</span> <span class="nv">$table</span>
+<span class="nv">LANG</span><span class="o">=</span>C <span class="o">&amp;&amp;</span> sed -e <span class="s1">&#39;s_^|_\\N|_g&#39;</span> -e <span class="s1">&#39;s_||_|\\N|_g&#39;</span> -e <span class="s1">&#39;s_||_|\\N|_g&#39;</span> <span class="nv">$file</span> &gt; <span class="nv">$pipe</span> <span class="p">&amp;</span> <span class="se">\</span>
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="se">\</span>
+<span class="s2">&quot;load data local infile &#39;</span><span class="nv">$pipe</span><span class="s2">&#39; replace into table </span><span class="nv">$table</span><span class="s2"> character set latin1 fields terminated by &#39;|&#39;&quot;</span>
+rm -f <span class="nv">$pipe</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/load_TPC-DS_MySQL.sh .
+. load_TPC-DS_MySQL.sh <span class="nv">$mysqlendpoint</span>
+</code></pre></div>
+
+<h4 id="3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3"><strong>3.</strong> Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3<a class="headerlink" href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff
+[EXTRACT TABLES FOR THE LABS INTO CSV FORMAT AND UPLOADING IT INTO S3]</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from web_page&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/web_page.csv
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from customer&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/customer.csv
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from income_band&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/income_band.csv
+aws s3 cp --recursive /tmp/dsd/csv_tables/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/csv_tables/
+</code></pre></div>
 
               
             </article>

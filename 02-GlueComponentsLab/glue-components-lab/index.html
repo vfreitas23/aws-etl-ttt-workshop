@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -493,9 +498,52 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-nav__link">
+    1. Understanding the Glue Resources Provided (CloudFormation Resources)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
+    3. Creating new Glue Resources (New Crawler &amp; Classifier)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -670,6 +718,35 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-nav__link">
+    1. Understanding the Glue Resources Provided (CloudFormation Resources)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
+    3. Creating new Glue Resources (New Crawler &amp; Classifier)
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -686,28 +763,44 @@
 
 
 
-  <h1>GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS</h1>
+<h1 id="toc_0" align="center">
+AWS GLUE COMPONENTS
+<br/>
+(Databases, Tables, Connections, Crawlers And Classifiers)
+</H1>
 
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="1-understanding-the-glue-resources-provided-cloudformation-resources"><strong>1.</strong> Understanding the Glue Resources Provided (CloudFormation Resources)<a class="headerlink" href="#1-understanding-the-glue-resources-provided-cloudformation-resources" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
 <p>----------[SETTING UP GLUE DATABASE, ALL CRAWLERS AND CLASSIFIER FOR SUBSEQUENT LABS]---------</p>
-<p>---&gt; TEST MYSQL CONNECTION IN GLUE CONSOLE
----&gt; RUN THE ALREADY CREATED MYSQL-RDS-CRAWLER [3-5 MINUTES] - (THIS CRAWLER AND DATABASE IS ALREADY CREATED)
--------&gt; 2 TABLES GETS CREATED</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds"><strong>2.</strong> Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)<a class="headerlink" href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>---&gt; TEST MYSQL CONNECTION IN GLUE CONSOLE<br />
+---&gt; RUN THE ALREADY CREATED MYSQL-RDS-CRAWLER [3-5 MINUTES] - (THIS CRAWLER AND DATABASE IS ALREADY CREATED)<br />
+-------&gt; 2 TABLES GETS CREATED  </p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<h4 id="3-creating-new-glue-resources-new-crawler-classifier"><strong>3.</strong> Creating new Glue Resources (New Crawler &amp; Classifier)<a class="headerlink" href="#3-creating-new-glue-resources-new-crawler-classifier" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
 <p>[WHILE ABOVE CRAWLER IS RUNNING, DO THE FOLLOWING TWO PIECES FOR THE STREAMING CRAWL (FOLLOWING LAB)]</p>
 <p>---&gt; [CREATE A CLASSIFIER]
-CSV
-Comma (,)
-Double-quote (")
-Has headings
-c_full_name,c_email_address,total_clicks</p>
+CSV<br />
+Comma (,)<br />
+Double-quote (")<br />
+Has headings<br />
+c_full_name,c_email_address,total_clicks  </p>
 <p>----&gt;[CREATE A CRAWLER TO READ FROM THE PATH OF THE STREAMING JOB - USE A CUSTOM CSV CLASSIFIER FOR THAT!!!]</p>
-<p>--&gt; Name: crawl_streammed_data
---&gt; Classifier: CSV
---&gt; Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/
---&gt; Sample Size: 1
---&gt; Exclude Pattern: **00001
---&gt; Database: glue-ttt-demo-db
---&gt; Grouping Behavior: Create a single schema for each S3 path [check]
+<p>--&gt; Name: crawl_streammed_data<br />
+--&gt; Classifier: CSV<br />
+--&gt; Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/<br />
+--&gt; Sample Size: 1<br />
+--&gt; Exclude Pattern: **00001<br />
+--&gt; Database: glue-ttt-demo-db<br />
+--&gt; Grouping Behavior: Create a single schema for each S3 path [check]<br />
 !!!!DO NOT RUN THIS CRAWLER YET!!!!</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
 
               
             </article>

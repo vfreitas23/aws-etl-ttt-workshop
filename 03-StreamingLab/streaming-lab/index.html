@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-understanding-the-streaming-resources-provided-cloudformation-scripts" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -541,9 +546,52 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          GLUE (STUDIO) STREAMING
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         GLUE (STUDIO) STREAMING
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-streaming-resources-provided-cloudformation-scripts" class="md-nav__link">
+    1. Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" class="md-nav__link">
+    2. Validating Streaming Job Logic and Data (Glue Studio Dummy Job)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-the-glue-streaming-job-cloning-jobs" class="md-nav__link">
+    3. Creating the Glue Streaming Job (Cloning Jobs!)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -670,6 +718,35 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-streaming-resources-provided-cloudformation-scripts" class="md-nav__link">
+    1. Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" class="md-nav__link">
+    2. Validating Streaming Job Logic and Data (Glue Studio Dummy Job)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-the-glue-streaming-job-cloning-jobs" class="md-nav__link">
+    3. Creating the Glue Streaming Job (Cloning Jobs!)
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -686,28 +763,149 @@
 
 
 
-  <h1>GLUE (STUDIO) STREAMING</h1>
+<h1 id="toc_0" align="center">
+GLUE (STUDIO) STREAMING</h1>
 
-<p>----------[SETTING UP GLUE DATABASE, ALL CRAWLERS AND CLASSIFIER FOR SUBSEQUENT LABS]---------</p>
-<p>---&gt; TEST MYSQL CONNECTION IN GLUE CONSOLE
----&gt; RUN THE ALREADY CREATED MYSQL-RDS-CRAWLER [3-5 MINUTES] - (THIS CRAWLER AND DATABASE IS ALREADY CREATED)
--------&gt; 2 TABLES GETS CREATED</p>
-<p>[WHILE ABOVE CRAWLER IS RUNNING, DO THE FOLLOWING TWO PIECES FOR THE STREAMING CRAWL (FOLLOWING LAB)]</p>
-<p>---&gt; [CREATE A CLASSIFIER]
-CSV
-Comma (,)
-Double-quote (")
-Has headings
-c_full_name,c_email_address,total_clicks</p>
-<p>----&gt;[CREATE A CRAWLER TO READ FROM THE PATH OF THE STREAMING JOB - USE A CUSTOM CSV CLASSIFIER FOR THAT!!!]</p>
-<p>--&gt; Name: crawl_streammed_data
---&gt; Classifier: CSV
---&gt; Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/
---&gt; Sample Size: 1
---&gt; Exclude Pattern: **00001
---&gt; Database: glue-ttt-demo-db
---&gt; Grouping Behavior: Create a single schema for each S3 path [check]
-!!!!DO NOT RUN THIS CRAWLER YET!!!!</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="1-understanding-the-streaming-resources-provided-cloudformation-scripts"><strong>1.</strong> Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)<a class="headerlink" href="#1-understanding-the-streaming-resources-provided-cloudformation-scripts" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>[STREAMING DEMO PART]</p>
+<p>[STREAM IN KINESIS IS PART OF THE TEMPLATE (ADD THE TABLE)<br />
+-----&gt; Use etl-ttt-demo-stream KINESIS DATA STREAM (ALREADY CREATED)</p>
+<p>[DONT NEED TO BELOW TABLE FOR THE STREAMING WEB_PAGE - BUILT IT IN CLOUD FORMATION]</p>
+<p>[TABLE SHOULD LOOK LIKE THE FOLLOWING]<br />
+mysql -h ${mysqlendpoint} -u admin -pVitor123 -Dtpcds -e "DESCRIBE web_page"</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th align="center">Type</th>
+<th align="center">Null</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wp_web_page_sk</td>
+<td align="center">int (PK)</td>
+<td align="center">NO</td>
+</tr>
+<tr>
+<td>wp_web_page_id</td>
+<td align="center">char(16)</td>
+<td align="center">NO</td>
+</tr>
+<tr>
+<td>wp_rec_start_date</td>
+<td align="center">date</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_rec_end_date</td>
+<td align="center">date</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_creation_date_sk</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_access_date_sk</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_autogen_flag</td>
+<td align="center">char(1)</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_customer_sk</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_url</td>
+<td align="center">varchar(100)</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_type</td>
+<td align="center">char(50)</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_char_count</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_link_count</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_image_count</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+<tr>
+<td>wp_max_ad_count</td>
+<td align="center">int</td>
+<td align="center">YES</td>
+</tr>
+</tbody>
+</table>
+<p>KINESIS INGESTION SCRIPT</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/code???/  --CHECK THE PATH*
+cat PutRecord_Kinesis.py
+</code></pre></div>
+
+<!--
+[NO NEED TO DO THIS STEP - KINESIS INGESTION SCRIPT IS IN THE ASSET BUCKET TOO]
+cd ~//environment/ttt-demo//
+cp ~/environment/glue-workshop/code/lab4/PutRecord_Kinesis.py .
+sed -i 's+./data/lab2/sample.csv+/tmp/dsd/csv_tables/web_page.csv+g' PutRecord_Kinesis.py 
+sed -i 's+glueworkshop+etl-ttt-demo-stream+g' PutRecord_Kinesis.py 
+cat PutRecord_Kinesis.py
+[TO SEE IF ABOVE SED WORKED - REPLACE FOR A NEW STREAMING NAME TOO AFTER FIXING THE CFN TEMPLATE ACCORDINGLY]
+-->
+
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="2-validating-streaming-job-logic-and-data-glue-studio-dummy-job"><strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<a class="headerlink" href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>[CREATE A DUMMY GLUE STUDIO JOB TO TEST THE JOIN BETWEEN RDS CUSTOMER AND WEB_PAGE CSV FILE IN S3 - DUMMY DATA TO TEST THE PREVIEW IN GLE STUDIO]
+---&gt; give the job a name
+---&gt; set the job details (workers, role, retries, etc) and save it.</p>
+<p>[SHOW THE CONNECTION IN GLUE AND SHOW CUSTOM CONNECTOR - SEE WHAT'S BETTER - MENTION MARKETPLACE CONNECTORS]</p>
+<p>-&gt; WebPage S3 source: s3://glueworkshop-039185979121-us-east-2/etl-ttt-demo/csv_tables/web_page.csv
+-&gt; Customer RDS source: glue-ttt-demo-db/rds_table_tpcds_customer</p>
+<p>[ADD A JOIN TRANSFORM WITH BOTH SOURCES AS PARENTS AND USE BELOW QUERY TO JOIN RDS TO KINESIS STREAM - FROM SHIV'S DEMO]</p>
+<div class="codehilite"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">cust</span><span class="p">.</span><span class="n">c_first_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">cust</span><span class="p">.</span><span class="n">c_last_name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">full_name</span><span class="p">,</span><span class="w"></span>
+<span class="n">cust</span><span class="p">.</span><span class="n">c_email_address</span><span class="p">,</span><span class="w"></span>
+<span class="k">count</span><span class="p">(</span><span class="n">webpage</span><span class="p">.</span><span class="n">wp_char_count</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"></span>
+<span class="k">from</span><span class="w"> </span><span class="n">cust</span><span class="w"></span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">webpage</span><span class="w"></span>
+<span class="k">on</span><span class="w"> </span><span class="n">cust</span><span class="p">.</span><span class="n">c_customer_sk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">webpage</span><span class="p">.</span><span class="n">wp_customer_sk</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="c1">--remove it after building the output</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="w"></span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"> </span><span class="k">desc</span><span class="w"></span>
+</code></pre></div>
+
+<p>[PREVIEW THE QUERY WITH where 1=2 FIRST TO MAKE PREVIEWING FASTER AND AVOID ISSUES]
+[ONCE PREVIEW IS COMPLETED - APPLY THE OUTPUT SCHEMA FROM DATAPREVIEW - SQL JOIN NODE!]
+-&gt; Appply Mapping: Do it after previewing data with Use Output Previewed button
+---&gt; full_name to c_full_name</p>
+<p>-&gt; Target: s3://etl-ttt-demo-XXXXXXXXXXX-XXXXXXXXX-1/etl-ttt-demo/output/gluestreaming/total_clicks/
+-&gt; Format: CSV !!!!</p>
+<p>[!!! SAVE IT BUT DON'T RUN IT, ALL YOU NEED IS THE PREVIEW TO CONFIRM THE JOIN IS WORKING!!!]</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<h4 id="3-creating-the-glue-streaming-job-cloning-jobs"><strong>3.</strong> Creating the Glue Streaming Job (Cloning Jobs!)<a class="headerlink" href="#3-creating-the-glue-streaming-job-cloning-jobs" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>[CLONE THE DUMMY JOB AND REPLACE THE CSV WEB_PAGE SOURCE BY THE KINESIS WEB_PAGE STREAMING TABLE]
+!!!! RUN THE JOB BUT DON'T SEND ANY STREAMING DATA YET!!!! (SETUP EVENT BRIDGE LAB FIRST !!!!!!</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
 
               
             </article>
