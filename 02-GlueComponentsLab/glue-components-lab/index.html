@@ -794,8 +794,11 @@ c_full_name,c_email_address,total_clicks  </p>
 <p>----&gt;[CREATE A CRAWLER TO READ FROM THE PATH OF THE STREAMING JOB - USE A CUSTOM CSV CLASSIFIER FOR THAT!!!]</p>
 <p>--&gt; Name: crawl_streammed_data<br />
 --&gt; Classifier: CSV<br />
---&gt; Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/<br />
---&gt; Sample Size: 1<br />
+--&gt; Include path: [In Cloud9] -</p>
+<div class="codehilite"><pre><span></span><code>echo &quot;s3://etl-ttt-demo-<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>-<span class="cp">${</span><span class="n">ACCOUNT_REGION</span><span class="cp">}</span>/etl-ttt-demo/output/gluestreaming/total_clicks/&quot;
+</code></pre></div>
+
+<p>--&gt; Sample Size: 1<br />
 --&gt; Exclude Pattern: **00001<br />
 --&gt; Database: glue-ttt-demo-db<br />
 --&gt; Grouping Behavior: Create a single schema for each S3 path [check]<br />

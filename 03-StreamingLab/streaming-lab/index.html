@@ -859,19 +859,36 @@ mysql -h ${mysqlendpoint} -u admin -pVitor123 -Dtpcds -e "DESCRIBE web_page"</p>
 </tbody>
 </table>
 <p>KINESIS INGESTION SCRIPT</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/code???/  --CHECK THE PATH*
+<p>[GET THE SCRIPT FROM BUCKET]</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/
+aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/PutRecord_Kinesis.py .
 cat PutRecord_Kinesis.py
 </code></pre></div>
 
-<!--
-[NO NEED TO DO THIS STEP - KINESIS INGESTION SCRIPT IS IN THE ASSET BUCKET TOO]
-cd ~//environment/ttt-demo//
-cp ~/environment/glue-workshop/code/lab4/PutRecord_Kinesis.py .
-sed -i 's+./data/lab2/sample.csv+/tmp/dsd/csv_tables/web_page.csv+g' PutRecord_Kinesis.py 
-sed -i 's+glueworkshop+etl-ttt-demo-stream+g' PutRecord_Kinesis.py 
-cat PutRecord_Kinesis.py
-[TO SEE IF ABOVE SED WORKED - REPLACE FOR A NEW STREAMING NAME TOO AFTER FIXING THE CFN TEMPLATE ACCORDINGLY]
--->
+<p>[SCRIPT SHOULD LOOK LIKE THIS]</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">stream_name</span><span class="p">,</span> <span class="n">kinesis_client</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/tmp/dsd/csv_tables/web_page.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvf</span><span class="p">:</span>
+        <span class="n">csvReader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csvf</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">csvReader</span><span class="p">:</span>
+            <span class="n">partitionaKey</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">20</span><span class="p">))</span>
+            <span class="n">jsonMsg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+            <span class="n">kinesis_client</span><span class="o">.</span><span class="n">put_record</span><span class="p">(</span><span class="n">StreamName</span> <span class="o">=</span> <span class="n">stream_name</span><span class="p">,</span>
+                                      <span class="n">Data</span> <span class="o">=</span> <span class="n">jsonMsg</span><span class="p">,</span>
+                                      <span class="n">PartitionKey</span> <span class="o">=</span> <span class="n">partitionaKey</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">jsonMsg</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">generate</span><span class="p">(</span><span class="s1">&#39;etl-ttt-demo-stream&#39;</span><span class="p">,</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;kinesis&#39;</span><span class="p">))</span>
+<span class="p">[</span><span class="n">end</span> <span class="n">of</span> <span class="n">script</span><span class="p">]</span>
+</code></pre></div>
 
 <p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
 <h4 id="2-validating-streaming-job-logic-and-data-glue-studio-dummy-job"><strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<a class="headerlink" href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" title="Permanent link">&para;</a></h4>
