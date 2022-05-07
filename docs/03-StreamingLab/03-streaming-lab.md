@@ -42,20 +42,40 @@ mysql -h ${mysqlendpoint} -u admin -pVitor123 -Dtpcds -e "DESCRIBE web_page"
 
 KINESIS INGESTION SCRIPT
 
+[GET THE SCRIPT FROM BUCKET]
+
 ~~~shell
-cd ~/environment/ttt-demo/code???/  --CHECK THE PATH*
+cd ~/environment/ttt-demo/
+aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/PutRecord_Kinesis.py .
 cat PutRecord_Kinesis.py
 ~~~
 
-<!--
-[NO NEED TO DO THIS STEP - KINESIS INGESTION SCRIPT IS IN THE ASSET BUCKET TOO]
-cd ~//environment/ttt-demo//
-cp ~/environment/glue-workshop/code/lab4/PutRecord_Kinesis.py .
-sed -i 's+./data/lab2/sample.csv+/tmp/dsd/csv_tables/web_page.csv+g' PutRecord_Kinesis.py 
-sed -i 's+glueworkshop+etl-ttt-demo-stream+g' PutRecord_Kinesis.py 
-cat PutRecord_Kinesis.py
-[TO SEE IF ABOVE SED WORKED - REPLACE FOR A NEW STREAMING NAME TOO AFTER FIXING THE CFN TEMPLATE ACCORDINGLY]
--->
+[SCRIPT SHOULD LOOK LIKE THIS]
+
+~~~python
+import csv
+import json
+import boto3
+import time
+import string
+import random
+
+def generate(stream_name, kinesis_client):
+    with open("/tmp/dsd/csv_tables/web_page.csv", encoding='utf-8') as csvf:
+        csvReader = csv.DictReader(csvf)
+        for rows in csvReader:
+            partitionaKey = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 20))
+            jsonMsg = json.dumps(rows)
+            kinesis_client.put_record(StreamName = stream_name,
+                                      Data = jsonMsg,
+                                      PartitionKey = partitionaKey)
+            print(jsonMsg)
+            time.sleep(0.2)
+
+if __name__ == '__main__':
+    generate('etl-ttt-demo-stream', boto3.client('kinesis'))
+[end of script]
+~~~
 
 <<<<<<
 
@@ -71,7 +91,7 @@ cat PutRecord_Kinesis.py
 
 [SHOW THE CONNECTION IN GLUE AND SHOW CUSTOM CONNECTOR - SEE WHAT'S BETTER - MENTION MARKETPLACE CONNECTORS]
 
--> WebPage S3 source: s3://glueworkshop-039185979121-us-east-2/etl-ttt-demo/csv_tables/web_page.csv
+-> Navigate to WebPage S3 source: s3://${BUCKET_NAME}/etl-ttt-demo/csv_tables/web_page.csv  
 -> Customer RDS source: glue-ttt-demo-db/rds_table_tpcds_customer
 
 [ADD A JOIN TRANSFORM WITH BOTH SOURCES AS PARENTS AND USE BELOW QUERY TO JOIN RDS TO KINESIS STREAM - FROM SHIV'S DEMO]
@@ -87,13 +107,20 @@ group by 1,2
 order by total_clicks desc
 ~~~
 
-[PREVIEW THE QUERY WITH where 1=2 FIRST TO MAKE PREVIEWING FASTER AND AVOID ISSUES]
-[ONCE PREVIEW IS COMPLETED - APPLY THE OUTPUT SCHEMA FROM DATAPREVIEW - SQL JOIN NODE!]
--> Appply Mapping: Do it after previewing data with Use Output Previewed button
+[PREVIEW THE QUERY WITH where 1=2 FIRST TO MAKE PREVIEWING FASTER AND AVOID ISSUES]  
+[ONCE PREVIEW IS COMPLETED - APPLY THE OUTPUT SCHEMA FROM DATAPREVIEW - SQL JOIN NODE!]  
+-> Appply Mapping: Do it after previewing data with Use Output Previewed button  
 ---> full_name to c_full_name
 
--> Target: s3://etl-ttt-demo-XXXXXXXXXXX-XXXXXXXXX-1/etl-ttt-demo/output/gluestreaming/total_clicks/
--> Format: CSV !!!!
+[Target Node]  
+
+- Format: CSV  
+- S3 Target Location (in cloud9):
+
+~~~shell
+echo "s3://$BUCKET_NAME/etl-ttt-demo/output/gluestreaming/total_clicks/"
+~~~
+
 
 [!!! SAVE IT BUT DON'T RUN IT, ALL YOU NEED IS THE PREVIEW TO CONFIRM THE JOIN IS WORKING!!!]
 
@@ -104,8 +131,9 @@ order by total_clicks desc
 <<<<< write the right stuff
 
 
-[CLONE THE DUMMY JOB AND REPLACE THE CSV WEB_PAGE SOURCE BY THE KINESIS WEB_PAGE STREAMING TABLE]
-!!!! RUN THE JOB BUT DON'T SEND ANY STREAMING DATA YET!!!! (SETUP EVENT BRIDGE LAB FIRST !!!!!!
+[CLONE THE DUMMY JOB AND REPLACE THE CSV WEB_PAGE SOURCE BY THE KINESIS WEB_PAGE STREAMING TABLE]  
+!!!! RUN THE JOB BUT DON'T SEND ANY STREAMING DATA YET!!!!  
+(SETUP EVENT BRIDGE LAB FIRST !!!!!!
 
 
 <<<<< write the right stuff

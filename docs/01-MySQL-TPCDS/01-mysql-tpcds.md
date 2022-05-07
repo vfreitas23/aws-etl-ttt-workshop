@@ -68,6 +68,7 @@ The following commands will blah blah lah blah
 sudo yum -y install telnet
 mysqlendpoint=$(aws cloudformation describe-stacks --query 'Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]' --output text)
 telnet $mysqlendpoint 3306
+
 ~~~
 
 <<<<< write the right stuff
@@ -86,7 +87,7 @@ The following commands will blah blah lah blah
 <<<<<<
 
 ~~~shell
-tpcds_script_path=~//environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
+tpcds_script_path=~/environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
 mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds < $tpcds_script_path
 mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds -e "show tables"
 ~~~

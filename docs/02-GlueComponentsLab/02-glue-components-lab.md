@@ -50,7 +50,12 @@ c_full_name,c_email_address,total_clicks
 
 --> Name: crawl_streammed_data  
 --> Classifier: CSV  
---> Include path: s3://etl-ttt-demo-${BUCKET_NAME}-${ACCOUNT_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/  
+--> Include path: [In Cloud9] -
+
+~~~cli
+echo "s3://${BUCKET_NAME}/etl-ttt-demo/output/gluestreaming/total_clicks/"
+~~~
+  
 --> Sample Size: 1  
 --> Exclude Pattern: **00001  
 --> Database: glue-ttt-demo-db  

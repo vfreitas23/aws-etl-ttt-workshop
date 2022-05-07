@@ -58,10 +58,10 @@ and you could find details about the library there.
 [DISABLE AWS CREDENTIALS FROM CLOUD 9 CONFIG]
 
 ~~~cli
-> aws sts get-caller-identity
-> aws configure set region $AWS_REGION
-> aws configure get region
-> aws sts get-caller-identity --query Arn | grep AWSEC2ServiceRole--etl-ttt-demo -q && echo "IAM role valid" || echo "IAM role NOT valid"
+aws sts get-caller-identity
+aws configure set region $AWS_REGION
+aws configure get region
+aws sts get-caller-identity --query Arn | grep AWSEC2ServiceRole-etl-ttt-demo -q && echo "IAM role valid" || echo "IAM role NOT valid"
 ~~~
 
 
@@ -79,7 +79,7 @@ echo "Source SG:" $ref_sg "has been added to Target SG:" $target_sg
 [INSTALL BOTO3 FOR STREAMIN LAB FURTHER]
 
 ~~~shell
-cli sudo pip3 install boto3
+sudo pip3 install boto3
 ~~~
 
 <!-- 

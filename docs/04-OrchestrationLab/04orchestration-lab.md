@@ -52,7 +52,6 @@ aws glue create-trigger \
 <<<<< write the right stuff
 
 
-
 #### **3.** Creating Event Bridge Rule and Target (via CLI)
 
 
@@ -98,15 +97,11 @@ aws events put-targets \
 <<<<< write the right stuff
 
 
-[GET THE SCRIPT FROM BUCKET]
+[CHECK THE KINESIS SCRIPT ONCE AGAIN]
+
 
 ~~~shell
-cd ~//environment/ttt-demo//
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop  
-PutRecord_Kinesis.py .
-~~~
-
-~~~shell
+cd ~/environment/ttt-demo/
 cat PutRecord_Kinesis.py
 ~~~
 
@@ -150,11 +145,11 @@ python PutRecord_Kinesis.py
 
 [OBSERVE THE WORKFLOW GETTING TRIGGER AS THE FIRST FILES ARRIVE IN S3 FROM THEM STREAMING JOB]
 
----OBSERVE THE FAILURES DUE TO MULTIPLE FILES ---
-
 [OBSERVE THAT WORKFLOW TRIGGERS THE CRAWLER WHICH CREATES THE TABLE (total_clicks) FOR FOLLOWING ANALYSIS LAB]
 
-[DELETE THE WORKFLOW OR EDIT THE TRIGGER TO 100 SO IT STOP RUNNING AT EVERY BATCH OF STREAMING DATA]
+[DELETE THE WORKFLOW]
+[ maybe try cli to EDIT THE TRIGGER TO 100 SO IT STOP RUNNING AT EVERY BATCH OF STREAMING DATA]
+
 
 
 <<<<< write the right stuff
@@ -192,7 +187,8 @@ ORDER BY 3 DESC
 SELECT * FROM "glue-ttt-demo-db"."tpc_customer_inter" order by 3 desc limit 10;
 ~~~
 
-[ADD MORE DATA TO THE STREAM AND KEEP CHECKING WITH ABOVE QUERY] - EVERY 30-60 SECONDS
+[ADD MORE DATA TO THE STREAM AND KEEP CHECKING WITH ABOVE QUERY] - EVERY 30-60 SECONDS  
+[IF YEAR, MONTH, DAY OR HOUR CHANGES NEED TO UPDATE PARTITIONS BY RUNNING CRAWLER AGAIN]
 
 
 <<<<< write the right stuff

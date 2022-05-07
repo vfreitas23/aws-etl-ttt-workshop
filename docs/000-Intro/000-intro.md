@@ -3,7 +3,7 @@ ETL MIGRATION & MODERNIZATION
 <br/>TRAIN-THE-TRAINER WORKSHOP
 </h1>
 
-This workshop contains a set of XXX hands-on labs which complementes the Day One of the ETL Migration & Modernization - Train The Trainer Workshop.
+This workshop contains a set of seven hands-on labs which complementes the Day One of the ETL Migration & Modernization - Train The Trainer Workshop.
 
 Participants will build an end-to-end ETL Pipeline that will...[add details of the pipeline...]
   
@@ -35,7 +35,6 @@ WORKSHOP PARTS & STEPS
 **2.** Validating Streaming Job Logic and Data (Glue Studio Dummy Job)  
 **3.** Creating the Glue Streaming Job (Cloning Jobs!)
 
-
 #### Part 4 - ORCHESTRATION & DATA ANALYSIS
 **1.** Understanding the Orchestration Flow  
 **2.** Creating Glue Workflow and Glue Event Based Trigger (via CLI)  
@@ -43,7 +42,16 @@ WORKSHOP PARTS & STEPS
 **4.** Triggering Orchestration & Following The Flow  
 **5.** Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog
 
-#### Part 5 - DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+#### Part 5 - MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOK
+**0.** (Pre Steps) - Understading & Setting up the Resources for the ML Lab  
+**1.** Creating and Training the Glue FindMatches ML Transform  
+**2.** Testing FindMatches Transform with Glue Studio Notebook
+**3.** Deploying & Running a FindMatches Glue Job 
+
+#### Part 6 - WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+**1.** Creating the Step Function Workflow  
+**2.** Creating an EventBridge Rule & Target for the Step Function Workflow (via CLI) 
+
+#### Part 7 - DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
 **1.** Creating Datasets & Profiling the Data (with Quality Rules)  
-**2.** Building & Managing DataBrew Recipes  
-**3.** Operationalizing a DataBrew Project into a Glue Job.
+**2.** Working with DataBrew Recipes & Projects  
