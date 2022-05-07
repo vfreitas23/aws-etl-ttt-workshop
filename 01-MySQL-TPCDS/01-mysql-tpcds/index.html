@@ -13,7 +13,7 @@
     
     
       
-        <title>Intro - Amazon ETL Train-The-Trainer Workshop</title>
+        <title>01 mysql tpcds - Amazon ETL Train-The-Trainer Workshop</title>
       
     
     
@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-preparing-generating-tpcds-dataset" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -87,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Intro
+              01 mysql tpcds
             
           </span>
         </div>
@@ -197,7 +202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../000-Intro/intro/" class="md-nav__link">
+      <a href="../../000-Intro/intro.md" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -210,14 +215,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
       
@@ -238,19 +241,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/pre-steps.md" class="md-nav__link">
         Intro
       </a>
-      
     </li>
   
 
@@ -288,7 +283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aws-event/" class="md-nav__link">
+      <a href="../../00-PreSteps/aws-event.md" class="md-nav__link">
         Account Setup
       </a>
     </li>
@@ -302,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud9-enviroment-setup/" class="md-nav__link">
+      <a href="../../00-PreSteps/cloud9-enviroment-setup.md" class="md-nav__link">
         Prepare the Enviroment
       </a>
     </li>
@@ -349,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../signup-aws/" class="md-nav__link">
+      <a href="../../00-PreSteps/signup-aws.md" class="md-nav__link">
         Sign Up for AWS
       </a>
     </li>
@@ -363,7 +358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../create-iam-user/" class="md-nav__link">
+      <a href="../../00-PreSteps/create-iam-user.md" class="md-nav__link">
         Create IAM User
       </a>
     </li>
@@ -377,7 +372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploy-cfn/" class="md-nav__link">
+      <a href="../../00-PreSteps/deploy-cfn.md" class="md-nav__link">
         Deploy CloudFormation
       </a>
     </li>
@@ -391,7 +386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cloud9-enviroment-setup/" class="md-nav__link">
+      <a href="../../00-PreSteps/cloud9-enviroment-setup.md" class="md-nav__link">
         Prepare the Enviroment
       </a>
     </li>
@@ -446,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../01-MySQL-TPCDS/mysql-tpcds/" class="md-nav__link">
+      <a href="../mysql-tpcds.md" class="md-nav__link">
         TPCDS & RDS MySQL Lab
       </a>
     </li>
@@ -494,7 +489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../02-GlueComponentsLab/glue-components-lab/" class="md-nav__link">
+      <a href="../../02-GlueComponentsLab/glue-components-lab.md" class="md-nav__link">
         GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
       </a>
     </li>
@@ -542,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../03-StreamingLab/streaming-lab/" class="md-nav__link">
+      <a href="../../03-StreamingLab/streaming-lab.md" class="md-nav__link">
         GLUE (STUDIO) STREAMING
       </a>
     </li>
@@ -590,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../04-OrchestrationLab/orchestration-lab/" class="md-nav__link">
+      <a href="../../04-OrchestrationLab/orchestration-lab.md" class="md-nav__link">
         ORCHESTRATION & DATA ANALYSIS
       </a>
     </li>
@@ -638,7 +633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../05-DataBrewLab/databrew-lab/" class="md-nav__link">
+      <a href="../../05-DataBrewLab/databrew-lab.md" class="md-nav__link">
         DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
       </a>
     </li>
@@ -670,6 +665,35 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
+    1. Preparing &amp; Generating TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
+    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
+    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -680,18 +704,101 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/00-PreSteps/pre-steps.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/01-MySQL-TPCDS/01-mysql-tpcds.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
 <h1 id="toc_0" align="center">
-Lab Pre-Steps
+Working with TPC-DS Data & RDS MySQL Database
 </h1>
 
-<p>If you are at an AWS hosted event (such as AWS re:Invent, AWS Summit, Immersions Day, on-site Workshop or other event hosted by AWS employees), you will be provided with a temporary Event Engine AWS account for the workshop. Please follow the AWS Event instructions to access your Event Engine AWS account.</p>
-<p>If you are running this workshop by yourself, your account must have the ability to create new IAM roles and scope other IAM permissions. Please follow Self Paced Labs instructions to prepare your AWS account. </p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="1-preparing-generating-tpcds-dataset"><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<a class="headerlink" href="#1-preparing-generating-tpcds-dataset" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>[TPCDS DATA CONFIGURATION DEMO PART]</p>
+<p>tpcds - This data is used for a decision support benchmark. When you load this data the schema tpcds is updated with sample data. For more information about the tpcds data, see TPC-DS</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p ~/environment/ttt-demo
+<span class="nb">cd</span> ~//environment/ttt-demo//
+aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/16d7423c-23d3-4185-8ab4-5b002ec51153-tpc-ds-tool.zip tpc-ds-tool.zip
+</code></pre></div>
+
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>unzip tpc-ds-tool.zip 
+<span class="nb">cd</span> DSGen-software-code-3.2.0rc1/tools/
+make
+head -200 tpcds.sql 
+</code></pre></div>
+
+<p>[WAIT FOR ABOUT 3 MIN TO COMPLETE]</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/
+./dsdgen -scale <span class="m">1</span> -dir /tmp/dsd -parallel <span class="m">2</span> -child <span class="m">1</span>
+<span class="nb">cd</span> /tmp/dsd/
+ls -lrt
+</code></pre></div>
+
+<p>Testing RDS MySQL Database Connection - (OPTIONAL)</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>sudo yum -y install telnet
+<span class="nv">mysqlendpoint</span><span class="o">=</span><span class="k">$(</span>aws cloudformation describe-stacks --query <span class="s1">&#39;Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]&#39;</span> --output text<span class="k">)</span>
+telnet <span class="nv">$mysqlendpoint</span> <span class="m">3306</span>
+</code></pre></div>
+
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset"><strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset<a class="headerlink" href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">tpcds_script_path</span><span class="o">=</span>~/environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds &lt; <span class="nv">$tpcds_script_path</span>
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;show tables&quot;</span>
+</code></pre></div>
+
+<p>[BELOW SCRIPT IS STORED IN THE EVENT ENGINE MODULE ASSET BUCKET]</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">mysqlendpoint</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">DIR</span><span class="o">=</span>/tmp/dsd
+ls <span class="nv">$DIR</span>/*.dat <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> file<span class="p">;</span> <span class="k">do</span>
+<span class="nv">pipe</span><span class="o">=</span><span class="nv">$file</span>.pipe
+mkfifo <span class="nv">$pipe</span>
+<span class="nv">table</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$file</span> .dat <span class="p">|</span> sed -e <span class="s1">&#39;s/_[0-9]_[0-9]//&#39;</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="nv">$file</span> <span class="nv">$table</span>
+<span class="nv">LANG</span><span class="o">=</span>C <span class="o">&amp;&amp;</span> sed -e <span class="s1">&#39;s_^|_\\N|_g&#39;</span> -e <span class="s1">&#39;s_||_|\\N|_g&#39;</span> -e <span class="s1">&#39;s_||_|\\N|_g&#39;</span> <span class="nv">$file</span> &gt; <span class="nv">$pipe</span> <span class="p">&amp;</span> <span class="se">\</span>
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="se">\</span>
+<span class="s2">&quot;load data local infile &#39;</span><span class="nv">$pipe</span><span class="s2">&#39; replace into table </span><span class="nv">$table</span><span class="s2"> character set latin1 fields terminated by &#39;|&#39;&quot;</span>
+rm -f <span class="nv">$pipe</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/load_TPC-DS_MySQL.sh .
+. load_TPC-DS_MySQL.sh <span class="nv">$mysqlendpoint</span>
+</code></pre></div>
+
+<h4 id="3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3"><strong>3.</strong> Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3<a class="headerlink" href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff
+[EXTRACT TABLES FOR THE LABS INTO CSV FORMAT AND UPLOADING IT INTO S3]</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from web_page&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/web_page.csv
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from customer&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/customer.csv
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from income_band&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/income_band.csv
+aws s3 cp --recursive /tmp/dsd/csv_tables/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/csv_tables/
+</code></pre></div>
 
               
             </article>
@@ -701,41 +808,6 @@ Lab Pre-Steps
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../../000-Intro/intro/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Introduction
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../aws-event/" class="md-footer__link md-footer__link--next" aria-label="Next: Account Setup" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Account Setup
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

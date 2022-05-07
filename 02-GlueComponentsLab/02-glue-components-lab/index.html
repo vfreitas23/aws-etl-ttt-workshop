@@ -8,19 +8,19 @@
       
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
     
     
       
-        <title>Amazon ETL Train-The-Trainer Workshop</title>
+        <title>02 glue components lab - Amazon ETL Train-The-Trainer Workshop</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
         
       
     
@@ -35,7 +35,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -68,7 +73,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -87,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              02 glue components lab
             
           </span>
         </div>
@@ -166,7 +171,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -197,7 +202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="000-Intro/intro.md" class="md-nav__link">
+      <a href="../../000-Intro/intro.md" class="md-nav__link">
         Introduction
       </a>
     </li>
@@ -238,7 +243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/pre-steps.md" class="md-nav__link">
+      <a href="../../00-PreSteps/pre-steps.md" class="md-nav__link">
         Intro
       </a>
     </li>
@@ -278,7 +283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/aws-event.md" class="md-nav__link">
+      <a href="../../00-PreSteps/aws-event.md" class="md-nav__link">
         Account Setup
       </a>
     </li>
@@ -292,7 +297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/cloud9-enviroment-setup.md" class="md-nav__link">
+      <a href="../../00-PreSteps/cloud9-enviroment-setup.md" class="md-nav__link">
         Prepare the Enviroment
       </a>
     </li>
@@ -339,7 +344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/signup-aws.md" class="md-nav__link">
+      <a href="../../00-PreSteps/signup-aws.md" class="md-nav__link">
         Sign Up for AWS
       </a>
     </li>
@@ -353,7 +358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/create-iam-user.md" class="md-nav__link">
+      <a href="../../00-PreSteps/create-iam-user.md" class="md-nav__link">
         Create IAM User
       </a>
     </li>
@@ -367,7 +372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/deploy-cfn.md" class="md-nav__link">
+      <a href="../../00-PreSteps/deploy-cfn.md" class="md-nav__link">
         Deploy CloudFormation
       </a>
     </li>
@@ -381,7 +386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="00-PreSteps/cloud9-enviroment-setup.md" class="md-nav__link">
+      <a href="../../00-PreSteps/cloud9-enviroment-setup.md" class="md-nav__link">
         Prepare the Enviroment
       </a>
     </li>
@@ -436,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="01-MySQL-TPCDS/mysql-tpcds.md" class="md-nav__link">
+      <a href="../../01-MySQL-TPCDS/mysql-tpcds.md" class="md-nav__link">
         TPCDS & RDS MySQL Lab
       </a>
     </li>
@@ -484,7 +489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="02-GlueComponentsLab/glue-components-lab.md" class="md-nav__link">
+      <a href="../glue-components-lab.md" class="md-nav__link">
         GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
       </a>
     </li>
@@ -532,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="03-StreamingLab/streaming-lab.md" class="md-nav__link">
+      <a href="../../03-StreamingLab/streaming-lab.md" class="md-nav__link">
         GLUE (STUDIO) STREAMING
       </a>
     </li>
@@ -580,7 +585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="04-OrchestrationLab/orchestration-lab.md" class="md-nav__link">
+      <a href="../../04-OrchestrationLab/orchestration-lab.md" class="md-nav__link">
         ORCHESTRATION & DATA ANALYSIS
       </a>
     </li>
@@ -628,7 +633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="05-DataBrewLab/databrew-lab.md" class="md-nav__link">
+      <a href="../../05-DataBrewLab/databrew-lab.md" class="md-nav__link">
         DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
       </a>
     </li>
@@ -660,6 +665,35 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-nav__link">
+    1. Understanding the Glue Resources Provided (CloudFormation Resources)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
+    3. Creating new Glue Resources (New Crawler &amp; Classifier)
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -670,18 +704,53 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/02-GlueComponentsLab/02-glue-components-lab.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
 <h1 id="toc_0" align="center">
-Welcome to the ETL Migration & Modernization
-<br/>Train-The-Trainer Workshop - Hands On Practice!!!
-</h1>
+AWS GLUE COMPONENTS
+<br/>
+(Databases, Tables, Connections, Crawlers And Classifiers)
+</H1>
 
-<p><img alt="Welcome Logo - 1" src="Images/aws-logo-01.png" /></p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>The following commands will blah blah lah blah</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="1-understanding-the-glue-resources-provided-cloudformation-resources"><strong>1.</strong> Understanding the Glue Resources Provided (CloudFormation Resources)<a class="headerlink" href="#1-understanding-the-glue-resources-provided-cloudformation-resources" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>----------[SETTING UP GLUE DATABASE, ALL CRAWLERS AND CLASSIFIER FOR SUBSEQUENT LABS]---------</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<h4 id="2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds"><strong>2.</strong> Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)<a class="headerlink" href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>---&gt; TEST MYSQL CONNECTION IN GLUE CONSOLE<br />
+---&gt; RUN THE ALREADY CREATED MYSQL-RDS-CRAWLER [3-5 MINUTES] - (THIS CRAWLER AND DATABASE IS ALREADY CREATED)<br />
+-------&gt; 2 TABLES GETS CREATED  </p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<h4 id="3-creating-new-glue-resources-new-crawler-classifier"><strong>3.</strong> Creating new Glue Resources (New Crawler &amp; Classifier)<a class="headerlink" href="#3-creating-new-glue-resources-new-crawler-classifier" title="Permanent link">&para;</a></h4>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>[WHILE ABOVE CRAWLER IS RUNNING, DO THE FOLLOWING TWO PIECES FOR THE STREAMING CRAWL (FOLLOWING LAB)]</p>
+<p>---&gt; [CREATE A CLASSIFIER]
+CSV<br />
+Comma (,)<br />
+Double-quote (")<br />
+Has headings<br />
+c_full_name,c_email_address,total_clicks  </p>
+<p>----&gt;[CREATE A CRAWLER TO READ FROM THE PATH OF THE STREAMING JOB - USE A CUSTOM CSV CLASSIFIER FOR THAT!!!]</p>
+<p>--&gt; Name: crawl_streammed_data<br />
+--&gt; Classifier: CSV<br />
+--&gt; Include path: [In Cloud9] -</p>
+<div class="codehilite"><pre><span></span><code>echo &quot;s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/etl-ttt-demo/output/gluestreaming/total_clicks/&quot;
+</code></pre></div>
+
+<p>--&gt; Sample Size: 1<br />
+--&gt; Exclude Pattern: **00001<br />
+--&gt; Database: glue-ttt-demo-db<br />
+--&gt; Grouping Behavior: Create a single schema for each S3 path [check]<br />
+!!!!DO NOT RUN THIS CRAWLER YET!!!!</p>
+<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
 
               
             </article>
@@ -712,10 +781,10 @@ Welcome to the ETL Migration & Modernization
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["tabs"], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
       
     
   </body>
