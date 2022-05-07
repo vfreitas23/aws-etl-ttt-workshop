@@ -7,19 +7,31 @@ theme:
   features:
     - tabs
 nav:
-  - Introduction: '000-Intro/intro.md'
-  - Part 0:
-    - Pre Steps: '00-PreSteps/pre-steps.md'
+  - Introduction: '000-Intro/000-intro.md'
+  - How to Start?:
+    - Intro: '00-PreSteps/001-intro.md'
+    - AWS Event:
+      - Account Setup: '00-PreSteps/002-ee-account-setup.md'
+      - Prepare the Enviroment: '00-PreSteps/003-cloud9-enviroment-setup.md'
+    - Self Paced:
+      - Sign Up for AWS: '00-PreSteps/004-signup-aws.md'
+      - Create IAM User: '00-PreSteps/005-create-iam-user.md'
+      - Deploy CloudFormation: '00-PreSteps/006-deploy-cfn.md'
+      - Prepare the Enviroment: '00-PreSteps/007-cloud9-enviroment-setup.md'
   - Part 1:
-    - TPCDS & RDS MySQL Lab: '01-MySQL-TPCDS/mysql-tpcds.md'
+    - TPCDS & RDS MySQL Lab: '01-MySQL-TPCDS/01-mysql-tpcds.md'
   - Part 2:
-    - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS: '02-GlueComponentsLab/glue-components-lab.md'
+    - GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS: '02-GlueComponentsLab/02-glue-components-lab.md'
   - Part 3:
-    - GLUE (STUDIO) STREAMING: '03-StreamingLab/streaming-lab.md'
+    - GLUE (STUDIO) STREAMING: '03-StreamingLab/03-streaming-lab.md'
   - Part 4:
-    - ORCHESTRATION & DATA ANALYSIS: '04-OrchestrationLab/orchestration-lab.md'
+    - ORCHESTRATION & DATA ANALYSIS: '04-OrchestrationLab/04-orchestration-lab.md'
   - Part 5:
-    - DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW: '05-DataBrewLab/databrew-lab.md'
+    - MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOK: '05-GlueStudioNotebookLab/05-gstudio-notebook-lab.md'
+  - Part 6:
+    - WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS: '06-StepFunctionsLab/06-step-functions-lab.md'
+  - Part 7:
+    - DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW: '07-DataBrewLab/07-databrew-lab.md'
 markdown_extensions:
     - toc:
         permalink: true
