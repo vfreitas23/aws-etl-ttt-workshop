@@ -647,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../04-OrchestrationLab/04-orchestration-lab.md" class="md-nav__link">
+      <a href="../../../04-OrchestrationLab/04-orchestration-lab/" class="md-nav__link">
         ORCHESTRATION & DATA ANALYSIS
       </a>
     </li>
@@ -696,7 +696,7 @@
   
     <li class="md-nav__item">
       <a href="../../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-nav__link">
-        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOK
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
       </a>
     </li>
   
@@ -876,18 +876,26 @@
 
 
 <h1 id="toc_0" align="center">
-Preparing the Cloud9 Enviroment
+PREPARING THE CLOUD9 ENVIROMENT
 </h1>
 
 <p>We will use AWS Cloud9 to run shell commands, edit and run Python scripts for the labs. Cloud9 is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It combines the rich code editing features of an IDE such as code completion, hinting, and step-through debugging, with access to a full Linux server for running and storing code.</p>
-<p>Go to the AWS Cloud9 console in your environment and you should see a Cloud9 with name glueworkshop. Click Open IDE button to enter Cloud9 IDE environment.</p>
-<p><LINK> Cloud 9 console - In Cloud9, close the welcome tab then click on the menu bar Window and then New Terminal. This will create a new tab and load a command-line terminal.</p>
-<p>You will use this terminal window throughout this pre-step lab to execute the AWS CLI commands and scripts.</p>
-<p>new Cloud9 terminal</p>
-<p>During the workshop environment setup, a S3 bucket is created for storing lab files and CloudTrail logs. Copy following command to Cloud9 terminal window to get your lab S3 bucket name to ${BUCKET_NAME}. Please save the ${BUCKET_NAME} value, you will be using it through out the workshop.</p>
-<p>[detail more what we are doing below]</p>
+<p>Go to the [ADD CLOUD9 LINK HERE] AWS Cloud9 Console in your environment and you should see a Cloud9 Enviroment named "etl-ttt-demo". Select this enviroment and click on the View details button.</p>
+<p><img alt="C91" src="../images/cloud9-console-details-IDE.png" /></p>
+<p>Under EC2 Instance, click on Go To Instance link. This will open a new tab on your browser and take you to the AWS EC2 Console. TIP: Leave the AWS Cloud9 Console tab open for now!</p>
+<p><img alt="C92" src="../images/cloud9-go-to-instance.png" /></p>
+<p>In the AWS EC2 Console, select the Cloud9 EC2 Instance that starts with "aws-cloud9-". Click on the Actions dropdown button, followed by Security, then click on Modify IAM Role! </p>
+<p><img alt="IAM1" src="../images/ec2-modify-IAM-role.png" /></p>
+<p>In the next screen's dropdown box select the role that contains "-AWSEC2InstanceProfileTTT-" and click Save. TIP: You can close the AWS EC2 Console tab now!</p>
+<p><img alt="IAM2" src="images/ec2-modify-IAM-role-popup.png" /> <!-- need another picture with the TTT in the name --></p>
+<p>Go back to the AWS Cloud9 Console tab and, while still on the Enviroment Details page, click on the Open IDE button to launch your AWS Cloud9 IDE environment. Tip: Now, you can close the AWS Cloud9 Console tab.</p>
+<p>Allow for the launched AWS Cloud9 Enviroment's setup to finish, then close the Welcome tab and click on the green plus icon (+) to add a New Terminal tab. This will create a new tab and load a command-line terminal.</p>
+<p><img alt="NEW TERMINAL" src="../images/cloud9-new-terminal.png" /></p>
+<p>From now on, you will use this terminal window throughout this workshop lab to execute all the AWS CLI commands and scripts. TIP: Keep this tab open!</p>
 <h4 id="1-setting-up-cloud9-environment-variables"><strong>1.</strong> Setting up Cloud9 Environment Variables<a class="headerlink" href="#1-setting-up-cloud9-environment-variables" title="Permanent link">&para;</a></h4>
-<p>[AT FIRST, REPLACE THE IAM ROLE IN THE INSTANCE FOR THE mod-XXXXX-AWSEC2InstanceProfile-XXXXXXX] - refresh the screen</p>
+<p>[EXPLAIN WHAT GETS CREATED IN THIS LAB]
+During the workshop environment setup, a S3 bucket is created for storing lab files and CloudTrail logs. Copy following command to Cloud9 terminal window to get your lab S3 bucket name to ${BUCKET_NAME}. Please save the ${BUCKET_NAME} value, you will be using it through out the workshop.</p>
+<p>[detail more what we are doing below]</p>
 <div class="codehilite"><pre><span></span><code> <span class="nv">AWS_ACCOUNT_ID</span><span class="o">=</span><span class="sb">`</span>aws sts get-caller-identity --query Account --output text<span class="sb">`</span>
  <span class="nv">AWS_REGION</span><span class="o">=</span><span class="sb">`</span>aws configure get region<span class="sb">`</span>
  <span class="nv">BUCKET_NAME</span><span class="o">=</span>etl-ttt-demo-<span class="si">${</span><span class="nv">AWS_ACCOUNT_ID</span><span class="si">}</span>-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>
@@ -902,56 +910,42 @@ Preparing the Cloud9 Enviroment
 </code></pre></div>
 
 <p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>The following commands will download and unzip the lab files to your Cloud9 environment, download and zip the 3rd party Python library, upload lab files to your S3 bucket, then copy the COVID-19 dataset to your S3 bucket.
+<p>[EXPLAIN WHAT THIS COMMAND WILL DO...]</p>
+<p>BLAH BLAH BLAH .... The following commands will download and unzip the lab files to your Cloud9 environment, download and zip the 3rd party Python library, upload lab files to your S3 bucket, then copy the COVID-19 dataset to your S3 bucket.
 We will use data from a public COVID-19 dataset curated by AWS. We will show details about how to access and exchange data on AWS platform Access COVID-19 Dataset. If you are interested in learning more about this COVID-19 dataset, read this AWS blog
 for more information. The 3rd party Python library is from github
-and you could find details about the library there.</p>
+and you could find details about the library there. BLAH BLAH BLAH...</p>
 <p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
 <h4 id="2-switching-cloud9-role-credentials"><strong>2.</strong> Switching Cloud9 Role Credentials<a class="headerlink" href="#2-switching-cloud9-role-credentials" title="Permanent link">&para;</a></h4>
 <p>[DISABLE AWS CREDENTIALS FROM CLOUD 9 CONFIG]</p>
+<p>After running the first set of commands, you need to disable the auto management of AWS Temporary Credentials wich is controled by Cloud9 by default. In your Cloud9 Enviroment click on the Preferences (Gear Icon on the far top right), the Preferences tab will open. There, scroll to AWS Settings and disable the option "AWS managed temporary credentials. </p>
+<p><img alt="CREDS" src="../images/cloud9-env-disable-creds.png" /></p>
+<p>Once done, close the Preferences tab and in your Cloud9 terminal tab run the following commands to validate that Cloud9 is now using the AWSEC2ServiceRole-etl-ttt-demo role which belongs to the "AWSEC2InstanceProfileTTT" you setup earlier in for the Cloud9 EC2 instance. </p>
 <div class="codehilite"><pre><span></span><code><span class="n">aws</span><span class="w"> </span><span class="n">sts</span><span class="w"> </span><span class="n">get</span><span class="o">-</span><span class="n">caller</span><span class="o">-</span><span class="n">identity</span><span class="w"></span>
 <span class="n">aws</span><span class="w"> </span><span class="n">configure</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">$AWS_REGION</span><span class="w"></span>
 <span class="n">aws</span><span class="w"> </span><span class="n">configure</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">region</span><span class="w"></span>
 <span class="n">aws</span><span class="w"> </span><span class="n">sts</span><span class="w"> </span><span class="n">get</span><span class="o">-</span><span class="n">caller</span><span class="o">-</span><span class="n">identity</span><span class="w"> </span><span class="o">--</span><span class="n">query</span><span class="w"> </span><span class="n">Arn</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="n">AWSEC2ServiceRole</span><span class="o">-</span><span class="n">etl</span><span class="o">-</span><span class="n">ttt</span><span class="o">-</span><span class="n">demo</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;IAM role valid&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;IAM role NOT valid&quot;</span><span class="w"></span>
 </code></pre></div>
 
+<p>You should see your current region and a message "IAM role valid" in the output.</p>
 <h4 id="3-setting-up-security-required-groups-inbound-rules"><strong>3.</strong> Setting up Security Required Groups Inbound Rules<a class="headerlink" href="#3-setting-up-security-required-groups-inbound-rules" title="Permanent link">&para;</a></h4>
+<p>Next, a new Inbound Rule will be added to the Default Security group for this workshop which is tagged with the name "etl-ttt-demo" Security Group. This new Inboud Rule is to allow traffic from the AWS Cloud9 Instance's Security Group to the resources in the "etl-ttt-demo". Run the following commands to do that:</p>
 <div class="codehilite"><pre><span></span><code><span class="nv">ref_sg</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-security-groups --query <span class="s1">&#39;SecurityGroups[?contains(GroupName, `aws-cloud9-etl-ttt-demo`) == `true`].GroupId&#39;</span> --output text<span class="k">)</span>
 <span class="nv">target_sg</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-security-groups --query <span class="s1">&#39;SecurityGroups[?contains(GroupName, `DefaultVPCSecurityGroup`) == `true`].GroupId&#39;</span> --output text<span class="k">)</span>
 aws ec2 authorize-security-group-ingress --group-id <span class="nv">$target_sg</span> --protocol -1 --source-group <span class="nv">$ref_sg</span>
 <span class="nb">echo</span> <span class="s2">&quot;Source SG:&quot;</span> <span class="nv">$ref_sg</span> <span class="s2">&quot;has been added to Target SG:&quot;</span> <span class="nv">$target_sg</span>
 </code></pre></div>
 
+<p>You should see a message " Source SG: sg-XXXXX has been added to Target SG: sg-XXXXX " where XXXXX are the IDs of both, EC2's and DefaultVPC's Security Group.</p>
+<p>[Optional]: You can go to your VPC Console [add link here] to verify that a new Inbound Role has been added to the "etl-ttt-demo", it should have two Inbound Rules now.</p>
 <h4 id="4-installing-required-libraries-boto3"><strong>4.</strong> Installing Required Libraries (Boto3)<a class="headerlink" href="#4-installing-required-libraries-boto3" title="Permanent link">&para;</a></h4>
-<p>[INSTALL BOTO3 FOR STREAMIN LAB FURTHER]</p>
+<p>In this next step, BOTO3 Library will be installed to your Cloud9 enviroment. That step is required in order to support running the Kinesis Streaming Python script during the Part 4 - Orchestration &amp; Data Analysis - of this workshop. Run the following command to do so:</p>
 <div class="codehilite"><pre><span></span><code>sudo pip3 install boto3
 </code></pre></div>
 
-<!-- 
-
------------[NOT NEED TO DO THE FOLLOWING THINGS - GET ONLY NECESSARY FILE - MOVE IT TO MY OWN ASSETS BUCKET]
-cd ~/environment
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/aa287fde7dd448ffac85ed7824e5c1f0/v7/download/glue-workshop.zip glue-workshop.zip
-unzip glue-workshop.zip
-mkdir ~/environment/glue-workshop/library
-mkdir ~/environment/glue-workshop/output
-mkdir -p /tmp/dsd/csv_tables/
-
-[NOT NEED THIS...]
-git clone https://github.com/jefftune/pycountry-convert.git
-cd ~/environment/pycountry-convert
-zip -r pycountry_convert.zip pycountry_convert/
-mv ~/environment/pycountry-convert/pycountry_convert.zip ~/environment/glue-workshop/library/
-
----[NOT NEED THIS]
----cd ~/environment/glue-workshop
----aws s3 cp --recursive ~/environment/glue-workshop/code/ s3://$BUCKET_NAME/script/
---------------------------------------------------------------------
-
--->
-
-<p>Go to the AWS S3 console and explore the bucket ${BUCKET_NAME}. [AND OTHER SETTINGS YOU DID!!!] You should see the following prefixes in the bucket. Take some time to explore the content in the bucket.</p>
-<p>You are finished setting up the workshop environment and can move on to Lab 01 now.</p>
+<p>Wait untill you see a message that says: "Successfully installed boto3-1.22.9 botocore-1.25.9 s3transfer-0.5.2"</p>
+<p><br/>
+You are finished with the initial setup of the workshop environment. Take some time the explore the commands you ran here and to check the resources (such as the workshop's bucket: etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION} ) that have been created for you as part of the CloudFormation Template execution. Once you are ready you can move on to Part 1 - Working with TPC-DS Data &amp; RDS MySQL Database!</p>
 
               
             </article>
