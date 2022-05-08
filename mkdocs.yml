@@ -11,13 +11,13 @@ nav:
   - How to Start?:
     - Intro: '00-PreSteps/001-intro.md'
     - AWS Event:
-      - Account Setup: '00-PreSteps/002-ee-account-setup.md'
-      - Prepare the Enviroment: '00-PreSteps/003-cloud9-enviroment-setup.md'
+      - Account Setup: '00-PreSteps/AWSEvent/002-ee-account-setup.md'
+      - Prepare the Enviroment: '00-PreSteps/AWSEvent/003-cloud9-enviroment-setup.md'
     - Self Paced:
-      - Sign Up for AWS: '00-PreSteps/004-signup-aws.md'
-      - Create IAM User: '00-PreSteps/005-create-iam-user.md'
-      - Deploy CloudFormation: '00-PreSteps/006-deploy-cfn.md'
-      - Prepare the Enviroment: '00-PreSteps/007-cloud9-enviroment-setup.md'
+      - Sign Up for AWS: '00-PreSteps/SelfPaced/004-signup-aws.md'
+      - Create IAM User: '00-PreSteps/SelfPaced/005-create-iam-user.md'
+      - Deploy CloudFormation: '00-PreSteps/SelfPaced/006-deploy-cfn.md'
+      - Prepare the Enviroment: '00-PreSteps/SelfPaced/007-cloud9-enviroment-setup.md'
   - Part 1:
     - TPCDS & RDS MySQL Lab: '01-MySQL-TPCDS/01-mysql-tpcds.md'
   - Part 2:
@@ -27,7 +27,7 @@ nav:
   - Part 4:
     - ORCHESTRATION & DATA ANALYSIS: '04-OrchestrationLab/04-orchestration-lab.md'
   - Part 5:
-    - MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOK: '05-GlueStudioNotebookLab/05-gstudio-notebook-lab.md'
+    - MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS: '05-GlueStudioNotebookLab/05-gstudio-notebook-lab.md'
   - Part 6:
     - WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS: '06-StepFunctionsLab/06-step-functions-lab.md'
   - Part 7:
