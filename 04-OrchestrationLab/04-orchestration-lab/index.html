@@ -813,7 +813,7 @@ ORCHESTRATION & DATA ANALYSIS</h1>
 <p>That is possible because once a file lands in this bucket it records a <strong>write event</strong> in the <strong>Trail</strong>. This <strong>write event</strong> further triggers an <strong>EventBridge Rule</strong> which, consequently, cat fire <strong>(Step Functionn and Glue) Workflows</strong>.</p>
 <h4 id="2-creating-glue-workflow-and-glue-event-based-trigger-via-cli"><strong>2.</strong> Creating Glue Workflow and Glue Event Based Trigger (via CLI)<a class="headerlink" href="#2-creating-glue-workflow-and-glue-event-based-trigger-via-cli" title="Permanent link">&para;</a></h4>
 <p>In this lab, we will create a <strong>Glue Workflow</strong> that will get triggered upon a <strong>write event notification</strong> received by <strong>EventBridge</strong>. This workflow will then initiate a <strong>Crawler</strong> to immediatelly crawl the file that just landed in the <strong>S3 bucket</strong></p>
-<p>So, let's create the <strong>Glue Workflow</strong> followed by a <strong>Glue Trigger</strong>. To do this, run the following <strong>AWS CLI commands</strong> in sequence.</p>
+<p>So, let's create the <strong>Glue Workflow</strong> followed by a <strong>Glue Trigger</strong>. To do this, go back to your <strong>Cloud9 Enviroment Terminal</strong> and run the following <strong>AWS CLI commands</strong> in sequence.</p>
 <ul>
 <li>First the <strong>Glue Workflow</strong>:</li>
 </ul>
@@ -827,7 +827,7 @@ ORCHESTRATION & DATA ANALYSIS</h1>
     --workflow-name etl-ttt-event-driven-workflow \
     --type EVENT \
     --name s3-object-trigger \
-    --actions CrawlerName=crawl_streammed_data \
+    --actions CrawlerName=crawl-streammed-data \
     --event-batching-condition &quot;{\&quot;BatchSize\&quot;: 2,
     \&quot;BatchWindow\&quot;: 900}&quot;
 </code></pre></div>
@@ -862,7 +862,7 @@ ORCHESTRATION & DATA ANALYSIS</h1>
 </ul>
 <div class="codehilite"><pre><span></span><code>aws events put-targets \
     --rule total-clicks-rule \
-    --targets &quot;Id&quot;=&quot;glueworkflow-totalclicks&quot;,&quot;Arn&quot;=&quot;arn:aws:glue:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:workflow/etl-ttt-event-driven-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
+    --targets &quot;Id&quot;=&quot;etl-ttt-event-driven-workflow&quot;,&quot;Arn&quot;=&quot;arn:aws:glue:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:workflow/etl-ttt-event-driven-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
     --region <span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>
 </code></pre></div>
 
@@ -881,11 +881,12 @@ python PutRecord_Kinesis.py
 </code></pre></div>
 
 <p>You will start to see data flowing on your <strong>Cloud9 Terminal</strong>, wait for few seconds for this to complete. In the meantime, go back to the <strong>Glue Studio Console</strong> and verify that the <strong>Glue Streaming Job</strong> is still running.</p>
-<p>Once the script finishes and you have verified that the <strong>Glue Streaming Job is running</strong>. Go back to the <strong>AWS Glue Console</strong> and look for your workflow. Refresh the <strong>Workflows</strong> screen and select your <strong>etl-ttt-event-driven-workflow</strong>.</p>
+<p>Once the script finishes and you have verified that the <strong>Glue Streaming Job is running</strong>. Go back to the <strong>AWS Glue Console</strong> and look for your workflow. Refresh the <strong>Workflows</strong> screen and select your <strong>etl-ttt-event-driven-workflow</strong>. </p>
+<p><em>(it may take couple of minutes for data to land in the buckect, just wait and keep refreshing at every 15 seconds!)</em></p>
 <p><img alt="TRAIL" src="../images/orch-workflow-runing.png" /></p>
 <p>Then click on the <strong>History</strong> tab at the bottom of the page, select the <strong>Run ID</strong> you see there and click on <strong>View run details</strong> button to see the workflow <em>flowing</em>:</p>
 <p><img alt="TRAIL" src="../images/orch-workflow-view-details.png" /></p>
-<p>While the workflow is running, you can check the <strong>Glue Crawler</strong> that the workflow is triggering. You can also go to you <strong>S3 Bucket</strong> and see the files that were generated there by the <strong>AWS Glue Streaming Job</strong> which was fed by the Kinesis Data Stream (after running the Kinesis Ingestion Script):</p>
+<p>While the workflow is running, you can check the <strong>Glue Crawler</strong> that the workflow is triggering. You can also go to you <strong>S3 Bucket</strong> and see the files that were generated there by the <strong>AWS Glue Streaming Job</strong> which was sent from the <strong>Kinesis Data Stream</strong> (after running the <strong>Kinesis Ingestion Script</strong>):</p>
 <p><strong>Running Crawler's name</strong>: <strong><code>crawl_streammed_data</code></strong><br />
 <strong>Streaming Job's target path</strong>: <strong><code>s3://etl-ttt-demo-${AWS\_ACCOUNT\_ID}-${AWS_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/</code></strong></p>
 <p><strong>NOTE:</strong> To keep this workflow from getting trigger multiple times, <strong>delete it now as you don't need it anymore!</strong></p>
@@ -923,7 +924,7 @@ python PutRecord_Kinesis.py
 
 <p><img alt="TRAIL" src="../images/orch-athena-view1.png" /></p>
 <p>In a new <strong>Query Tab</strong>, run below query to query the view now:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue_ttt_demo_db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p>Note down the results you see:</p>
@@ -934,7 +935,7 @@ python PutRecord_Kinesis.py
 </code></pre></div>
 
 <p>Allow for it to complete and wait for about 30-60 seconds and re-run the last Athena query.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue_ttt_demo_db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
 <p><img alt="TRAIL" src="../images/orch-athena-query2-results.png" /></p>

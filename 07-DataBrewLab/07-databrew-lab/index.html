@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-creating-datasets-profiling-the-data-with-quality-rules" class="md-skip">
+        <a href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" class="md-skip">
           Skip to content
         </a>
       
@@ -672,16 +672,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-creating-datasets-profiling-the-data-with-quality-rules" class="md-nav__link">
-    1. Creating Datasets &amp; Profiling the Data (with Quality Rules)
+  <a href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" class="md-nav__link">
+    1. Creating Datasets &amp; Profiling the Data (with Quality Rules). (switch to your right region if needed!)
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#-table-name-income_band" class="md-nav__link">
+    - Table Name: income_band
+  </a>
+  
+    <nav class="md-nav" aria-label="- Table Name: income_band">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#2-working-with-databrew-recipes-projects" class="md-nav__link">
     2. Working with DataBrew Recipes &amp; Projects
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -725,16 +738,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-creating-datasets-profiling-the-data-with-quality-rules" class="md-nav__link">
-    1. Creating Datasets &amp; Profiling the Data (with Quality Rules)
+  <a href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" class="md-nav__link">
+    1. Creating Datasets &amp; Profiling the Data (with Quality Rules). (switch to your right region if needed!)
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#-table-name-income_band" class="md-nav__link">
+    - Table Name: income_band
+  </a>
+  
+    <nav class="md-nav" aria-label="- Table Name: income_band">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#2-working-with-databrew-recipes-projects" class="md-nav__link">
     2. Working with DataBrew Recipes &amp; Projects
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -762,54 +788,91 @@ DATA QUALITY & DATA PREPARATION
 WITH AWS GLUE DATABREW
 </h1>
 
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>The following commands will blah blah lah blah</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
-<h4 id="1-creating-datasets-profiling-the-data-with-quality-rules"><strong>1.</strong> Creating Datasets &amp; Profiling the Data (with Quality Rules)<a class="headerlink" href="#1-creating-datasets-profiling-the-data-with-quality-rules" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p><strong>AWS Glue DataBrew</strong> is a visual data preparation tool that makes it easy for data analysts and data scientists to prepare data with an interactive, point-and-click visual interface without writing code. With Glue DataBrew, you can easily visualize, clean, and normalize terabytes, and even petabytes of data directly from your data lake, data warehouses, and databases, including Amazon S3, Amazon Redshift, Amazon Aurora, and Amazon RDS.</p>
+<p>AWS Glue DataBrew is built for users who need to clean and normalize data for analytics and machine learning. Data analysts and data scientists are the primary users.</p>
+<p>In this final lab, <strong>Part 7 - Data Quality &amp; Data Preparation with AWS Glue DataBrew -</strong> You, as part of the fictitious <strong>Data Analytics Team</strong>, will work with it the AWS Glue Databrew to create, profile and prepare datasets while, at the same time, work, evolve and public Step Recipes using Glue DataBrew Recipes.</p>
+<h4 id="1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed"><strong>1.</strong> Creating Datasets &amp; Profiling the Data (with Quality Rules). <strong><em>(switch to your right region if needed!)</em></strong><a class="headerlink" href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" title="Permanent link">&para;</a></h4>
+<p>Go to the <a href="https://console.aws.amazon.com/databrew/">AWS Glue DataBrew</a> console.</p>
 <p>[CREATE A DATASET FROM THE SHIVS THIRD DEMO (INCOME BAND AND CUSTOMER TABLE]</p>
-<p>---&gt; Create TopCustomer Dataset from Data Catalog
-    ---&gt; (Cataloged via crawler + step functions in the previous lab after removing duplicates with ML Transform job)
----&gt; Create Income Band from RDS connection (delete income band from crawler - check template and lab instruction)</p>
-<p>[PROFILE THE CUSTOMER DATASET WITH DATA QUALITY RULES - 3-5 minutes for profile job to finish]
---&gt; Full dataset
---&gt; Output Settings: Navigate to -&gt; s3://$BUCKET_NAME/etl-ttt-demo/output/databrew/jobprofiles/
-[CREATE RULE SET]
----&gt; TopCustomer-Ruleset
+<ul>
+<li>
+<p>Create TopCustomer Dataset from Data Catalog  </p>
+</li>
+<li>
+<p>(Cataloged via crawler + step functions in the previous lab after removing duplicates with ML Transform job)  </p>
+</li>
+</ul>
+<p>[PROFILE THE CUSTOMER DATASET WITH DATA QUALITY RULES - 3-5 minutes for profile job to finish]</p>
+<ul>
+<li>
+<p>Full dataset</p>
+</li>
+<li>
+<p>Output Settings: Navigate to -  s3://$BUCKET_NAME/etl-ttt-demo/output/databrew/jobprofiles/
+[CREATE RULE SET]</p>
+</li>
+<li>
+<p>TopCustomer-Ruleset
 [ADD RECOMMENDED QUALITY RULES + ANY OTHER I WANT]
 Rule Set Name: TopCustomer-Ruleset
 Associated Dataset: TopCustomers
-recommended rules:
---&gt; duplicates? (The rule will pass if dataset has duplicate rows count &lt;= 1 )
---&gt; missing values less than 2%
-custom rules:
---&gt; The rule will pass if c_email_address has length &lt;= 5 FOR greater than or equal to 100% of rows </p>
-<p>[PROFILE INCOME_BAND DATASET WITH 1 QUALITY RULE]
-Full dataset
-Rule Name: Income Check for Negative Values
+recommended rules:</p>
+</li>
+<li>
+<p>duplicates? (The rule will pass if dataset has duplicate rows count &lt;= 1 )</p>
+</li>
+<li>
+<p>missing values less than 2%</p>
+</li>
+</ul>
+<p>custom rules:</p>
+<ul>
+<li>
+<p>The rule will pass if c_email_address has length &gt;= 5 FOR greater than or equal to 100% of rows </p>
+</li>
+<li>
+<p>Create Income Band from RDS (JDBC connection)</p>
+<h2 id="-table-name-income_band">- Table Name: income_band<a class="headerlink" href="#-table-name-income_band" title="Permanent link">&para;</a></h2>
+<p>[PROFILE INCOME_BAND DATASET WITH 1 QUALITY RULE]</p>
+</li>
+</ul>
+<p>Full dataset  </p>
+<p>Ruleset: Income-Band-Ruleset
+Rule Name: Income Check for Negative Values<br />
 Rule Summary: The rule will pass if <strong>ib_lower_bound</strong>, <strong>ib_upper_bound</strong> has values &gt;= 0 FOR greater than or equal to 100% of rows</p>
 <h4 id="2-working-with-databrew-recipes-projects"><strong>2.</strong> Working with DataBrew Recipes &amp; Projects<a class="headerlink" href="#2-working-with-databrew-recipes-projects" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>[CREATE A PROJECT FOR INCOME_BAND DATASET]
-Project Name: TopCustomers-PerBand</p>
-<p>---&gt; show all the transformations available (quick overview)
+<p>[CREATE A PROJECT FOR INCOME_BAND DATASET]</p>
+<p>Project Name: TopCustomers-PerBand</p>
+<ul>
+<li>show all the transformations available (quick overview)
 Choose: Join
-            -&gt; Choose Customer Dataset to join with A RIGHT JOIN
-                --&gt; Join by Income_Band Sk and Birthday_day (income band goes from 1-20 only)
-                --&gt; Remove ib_income_band_sk</p>
-<p>---&gt; To add the steps:
-    -&gt; Go to Recipes and import the recipe received from data analytics team
-    -&gt; Show all the steps in the recipe and the JSON original recipe.
-    -&gt; Publish the recipe
-    -&gt; Go back to the Project:    <br />
-                ---&gt; Import the Recipe into the project
-                ---&gt; Explain step validation (append/overwrite)
-                ---&gt; Reorder the Rename steps (17,18 and 19)
-                ---&gt; Create an Age field using DATE_DIFF only.
-                ---&gt; Drop the c_birth_column, c_login and match_id
-                ---&gt; Save and Publish this as a new recipe.</p>
-<p>---&gt; Run the Job and share the results.</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+            - Choose Customer Dataset to join with A RIGHT JOIN
+                -Join by Income_Band Sk and Birthday_day (income band goes from 1-20 only)
+                -Remove ib_income_band_sk</li>
+</ul>
+<p>Ask people to download from here:</p>
+<p>[fix the command - that is an upload command!!]</p>
+<p>aws s3 cp TopCustomers-PerBand-recipe.json s3://ee-assets-prod-${AWS_DEFAULT_REGION}/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json</p>
+<ul>
+<li>
+<p>To add the steps:</p>
+<ul>
+<li>Go to Recipes and import the recipe received from data analytics team</li>
+<li>Show all the steps in the recipe and the JSON original recipe.</li>
+<li>Publish the recipe</li>
+<li>Go back to the Project:    <br />
+            - Import the Recipe into the project (Append!!)
+            - Explain step validation (append/overwrite)
+            - Reorder the Rename steps (17,18 and 19)
+            - Create an Age field using DATE_DIFF only. (between date_of_birth and todays date )
+            - Drop the c_birth_month column, c_login and match_id
+            - Save and Publish this as a new recipe.</li>
+</ul>
+</li>
+<li>
+<p>Run the Job and share the results.</p>
+</li>
+</ul>
 
               
             </article>

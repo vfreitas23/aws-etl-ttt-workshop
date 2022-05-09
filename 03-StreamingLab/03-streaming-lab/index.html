@@ -773,17 +773,17 @@
 <h1 id="toc_0" align="center">
 GLUE (STUDIO) STREAMING</h1>
 
-<p>The <strong>Part 3 - Glue (Studio) Streaming -</strong> of the <strong>ETL Train the Trainer workshop</strong> is where you are going to use AWS Glue Studio Graphical Interface for the first time.</p>
-<p>You are going to use Glue Studio do build 2 jobs here. The first job is a <em>dummy</em> Glue Streaming Job that will validate the JOIN between the <strong>customer</strong> RDS table and a <strong>web_page</strong> CSV data that you uploaded earlier to S3. </p>
+<p>The <strong>Part 3 - Glue (Studio) Streaming -</strong> of the <strong>ETL Train the Trainer workshop</strong> is where you are going to use <strong>AWS Glue Studio Graphical Interface</strong> for the first time.</p>
+<p>You are going to use <strong>Glue Studio</strong> do build 2 jobs here. The first job is a <em>dummy</em> Glue Streaming Job that will validate the JOIN between the <strong>customer</strong> RDS table and a <strong>web_page</strong> CSV data that you uploaded earlier to S3. </p>
 <p><strong>Note:</strong> This CSV data is basically a representation of the actual <strong>web-page-streaming-table</strong> (with the different of that one being in JSON format) that you will use in real Glue Streaming Job</p>
-<p>Apart from validate the JOIN between datasets, this <em>dummy</em> job will also validate the SQL code used in the SQL Transform node of this lab. If validation succeeds, you will then be able to Preview the Data before outputting it or, in this case, before building the real Glue Streaming Job.</p>
+<p>Apart from validate the <strong>JOIN</strong> between datasets, this <em>dummy</em> job will also validate the SQL code used in the <strong>SQL Transform node</strong> of this lab. If validation succeeds, you will then be able to <strong>Preview the Data</strong> before outputting it or, in this case, before building the real <strong>Glue Streaming Job</strong>.</p>
 <h4 id="1-understanding-the-streaming-resources-provided-cloudformation-scripts"><strong>1.</strong> Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)<a class="headerlink" href="#1-understanding-the-streaming-resources-provided-cloudformation-scripts" title="Permanent link">&para;</a></h4>
 <p>For this lab to work, the CloudFormation template provided few resources for you already.</p>
 <p><strong>Kinesis Data Stream</strong></p>
 <p>A Kinesis Data Stream named <strong>etl-ttt-demo-stream</strong> has been added already which will receive the stream of data from a script you will run later on this lab. Click <a href="http://console.aws.amazon.com/">here</a> to search for <strong>Amazon Kinesis</strong> and explore the <strong>Kinesis Data Stream</strong> if you want.</p>
 <p><img alt="KINESIS STREAM" src="../images/studio-kinises-data-stream.png" /></p>
 <p><strong>Cataloged Streaming Table</strong></p>
-<p>As you already saw it, a table named <strong>etl-ttt-demo-stream</strong> has been created for you with a proper schema definition and all the necessary settings. You can see the details of this table in the AWS Glue Console <link>.</p>
+<p>As you already saw it, a table named <strong>web-page-streaming-table</strong> has been created for you with a proper schema definition and all the necessary settings. You can see the details of this table in the <strong>AWS Glue Console</strong> <link>.</p>
 <p>Here's a snapshot of that table's schema.</p>
 <p><img alt="WEP-PAGE SCHEMA" src="../images/studio-web-page-table-schema.png" /></p>
 <p><strong>Kinesis Data Ingestion Script (python)</strong></p>
@@ -805,15 +805,15 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <p></br></p>
 <h4 id="2-validating-streaming-job-logic-and-data-glue-studio-dummy-job"><strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<a class="headerlink" href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" title="Permanent link">&para;</a></h4>
 <p>Let's start building the <strong>dummy</strong> job to validate our Glue Streaming Job logic.</p>
-<p>From the AWS Glue Console, click on AWS Glue Studio under the ETL section in the far left menu.</p>
+<p>From the <strong>AWS Glue Console</strong>, click on <strong>AWS Glue Studio</strong> under the <strong>ETL</strong> section in the far left menu.</p>
 <p align="center">
  <img src=images/studio-job-menu.png>
 </p>
 
-<p>This will take you to the AWS Glue Studio Console where you will be authoring the jobs graphically. For that, click on Jobs on the far left menu, select <strong>Visual with a blank</strong> canvas option and click on <strong>Create</strong>.</p>
+<p>This will take you to the AWS Glue Studio Console where you will be authoring the jobs graphically. For that, click on <strong>Jobs</strong> on the far left menu, select <strong>Visual with a blank</strong> canvas option and click on <strong>Create</strong>.</p>
 <p><img alt="DUMMY JOB" src="../images/studio-create-dummy-job.png" /></p>
 <p>You will be presented with a blank canvas. The first thing you must do there is to rename you job. Just click where it says <strong>"Untitled job"</strong>
-, type <strong>dummy-streaming-job</strong> and click out the Job name box.</p>
+, type <code>dummy-streaming-job</code> and click out the <strong>Job's</strong> name box.</p>
 <p><img alt="BLANK CANVAS" src="../images/studio-blank-canvas.png" /></p>
 <p>Now, the next thing you must do, is to set your jobs detail. Click on the tab <strong>Job details</strong> tab and set the following configurations:</p>
 <ul>
@@ -829,7 +829,7 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <p>For the <strong>Web Page CSV</strong> source, click on the <strong>Source</strong> dropdown icon and choose <strong>Amazon S3</strong> in dropdown list. Click on the node that has been automatically added to the canvas to highlight it. Make the following changes to it:</p>
 <ul>
 <li>Click <strong>Node properties</strong> tab</li>
-<li>Set <strong>Name</strong> to <strong>Web Page S3</strong></li>
+<li>Set <strong>Name</strong> to <code>Web Page S3</code></li>
 <li>Click <strong>Data source properties - S3</strong> tab</li>
 <li>Under <strong>S3 source type</strong> select <strong>S3 location</strong></li>
 <li>To set the <strong>S3 URL</strong>, use the <strong>Browse S3</strong> button to navigate to: <strong><em>s3://${BUCKET_NAME}/etl-ttt-demo/csv_tables/web_page.csv</em></strong></li>
@@ -841,10 +841,12 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <p>For the <strong>Customer RDS</strong> source, click on the <strong>Source</strong> dropdown icon and choose <strong>AWS Glue Data Catalog</strong> in the dropdown list.</p>
 <ul>
 <li>Click <strong>Node properties</strong> tab</li>
-<li>Change Name to <strong>Customer RDS</strong></li>
-<li>Click <strong>Data source properties - Data Catalog</strong> tab</li>
+<li>Change Name to <code>Customer RDS</code></li>
+<li>Click <strong>Data source properties - Data Catalog</strong> tab<ul>
 <li>Under <strong>Database</strong> select <strong>glue_ttt_demo_db</strong></li>
 <li>Under <strong>Table</strong> select <strong>rds_crawled_tpcds_customer</strong></li>
+</ul>
+</li>
 <li>Click on <strong>Output schema</strong> tab to see schema, then click <strong>Save</strong></li>
 </ul>
 <p><img alt="SOURCES ADDED" src="../images/studio-canvas-sources-added.png" /></p>
@@ -857,8 +859,8 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <li>Click <strong>Node properties</strong> tab</li>
 <li>Under <strong>Node parents</strong>, select <strong>Customer RDS</strong> by clicking the checkbox next to it</li>
 <li>Click <strong>Transform tab</strong><ul>
-<li>Set Input sources <strong>Web Page S3</strong> with <strong>Spark SQL aliases</strong> value to <strong>wp</strong></li>
-<li>Set Input sources <strong>Customer RDS</strong> with <strong>Spark SQL aliases</strong> value to <strong>cust</strong></li>
+<li>Set Input sources <strong>Web Page S3</strong> with <strong>Spark SQL aliases</strong> value to <code>wp</code></li>
+<li>Set Input sources <strong>Customer RDS</strong> with <strong>Spark SQL aliases</strong> value to <code>cust</code></li>
 <li>Copy the following code to SQL query and click <strong>Save</strong></li>
 </ul>
 </li>
@@ -874,10 +876,12 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 </code></pre></div>
 
 <ul>
-<li>Click on <strong>Data Preview</strong> tab</li>
+<li>Click on <strong>Data Preview</strong> tab<ul>
 <li>Click on the <strong>Start data preview session</strong> button there.</li>
 <li>In the pop-up window that will open, choose the IAM role <strong>AWSGlueServiceRole-etl-ttt-demo</strong></li>
 <li>Wait for <strong>Data Preview</strong> to finish (it takes about 5 minutes to preview)</li>
+</ul>
+</li>
 </ul>
 <p>Note: It will return zero rows because you are previewing the query with <strong>where 1=2</strong> first. This is to make previewing faster and to avoid issues. If issues happen (or previewing is taking more than 5 minutes), <strong>Save</strong> this job, go back to <strong>Jobs</strong> in the <strong>Glue Studio</strong> left menu and, under <strong>Your jobs</strong> select the <em>dummy</em> job you created and clone it into a new one. Rename it <strong>dummy-streaming-job-2</strong>. <strong>TIP:</strong> You can delete the first job <strong>dummy-streaming-job</strong> later too.</p>
 <ul>
@@ -916,7 +920,7 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <ul>
 <li>Click <strong>Save</strong>. </li>
 </ul>
-<p>[ADD PICTURE HERE]</p>
+<p><img alt="DUMMY" src="../images/studio-dummy-job-done.png" /></p>
 <h4 id="toc_0" align="center"> !!! You can now save this job for the last time but DO NOT RUN IT!!!! </h4>
 
 <h4 id="3-creating-the-glue-streaming-job-cloning-jobs"><strong>3.</strong> Creating the Glue Streaming Job (Cloning Jobs!)<a class="headerlink" href="#3-creating-the-glue-streaming-job-cloning-jobs" title="Permanent link">&para;</a></h4>
@@ -926,11 +930,11 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <p>Now, all you have to do is:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> Remove the <strong>Web Page S3</strong> by clicking on it to highlight it first, then clicking on <strong>Remove</strong> (trash icon)   </p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> click on the <strong>Source</strong> dropdown icon and choose <strong>Amazon Kinesis</strong> in dropdown list. A new and isolated <strong>Amazon Kinesis</strong> node will appear.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Click on the new <strong>Amazon Kinesis</strong> node to highlight it, go to <strong>Node Properties</strong> tab and name it <strong>Web Page Stream</strong>.  </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Click on the new <strong>Amazon Kinesis</strong> node to highlight it, go to <strong>Node Properties</strong> tab and name it <code>Web Page Stream</code> .  </p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Click on <strong>Data source properties - Kinesis Stream</strong> tab and under <strong>Amazon Kinesis Source</strong> choose <strong>Data Catalog table</strong>. Then, under <strong>Database</strong> choose <strong>glue_ttt_demo_db</strong> and under <strong>Table</strong> choose <strong>web-page-streaming-table</strong>.  </p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong>  Uncheck <strong>Detect Schema</strong>, set <strong>Starting position</strong> to <strong>Latest</strong> and set <strong>Window size</strong> to <strong>60</strong>. Click <strong>Save</strong></p>
 <p><img alt="CLONE" src="../images/studio-isolated-kinesis-node.png" /></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Now, click on the <strong>SQL</strong> joint node at the center of the canvans to highlight it. Go to <strong>Node Properties</strong> tab and under <strong>Node parents</strong> check <strong>Amazon Kinesis</strong> to complete the <strong>Join</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Now, click on the <strong>SQL</strong> joint node at the center of the canvans to highlight it. Go to <strong>Node Properties</strong> tab and under <strong>Node parents</strong> check the <strong>Web Page Stream</strong> node to complete the <strong>Join</strong>.</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> Click on the <strong>Transform</strong> tab and fix the <strong>SQL aliases</strong> for the <strong>Amazon Kinesis Input Source</strong> by typing <strong>wp</strong> there to match the alias in the <strong>SQL query</strong>. Click <strong>Save</strong>.</p>
 <p><img alt="CLONE" src="../images/studio-streaming-job-done.png" /></p>
 <h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS JOB YET !!! !!! </h4>
