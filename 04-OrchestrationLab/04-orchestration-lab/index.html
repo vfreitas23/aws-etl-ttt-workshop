@@ -749,7 +749,7 @@
   
     <li class="md-nav__item">
       <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
-        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
       </a>
     </li>
   
@@ -890,23 +890,31 @@
 <h1 id="toc_0" align="center">
 ORCHESTRATION & DATA ANALYSIS</h1>
 
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>The following commands will blah blah lah blah</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<p>In the <strong>Part 4 - Orchestration &amp; Data Analysis -</strong> of this workshop you will combine the forces of <strong>AWS CloudTrail, Amazon EventBridge, AWS Glue Workflows and Amazon Athena</strong> to orchestrate the entire data pipeline - from the streaming of <strong>JSON data</strong> until the <strong>query analysis in Amazon Athena</strong>.</p>
 <h4 id="1-understanding-the-orchestration-flow"><strong>1.</strong> Understanding the Orchestration Flow<a class="headerlink" href="#1-understanding-the-orchestration-flow" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>EVENT BRIDGE TRIGGERS A WORKFLOW AS SOON AS STREAMING DATA LANDS IN S3 - WORKFLOW CRAWLS THE DATA</p>
-<p>--&gt; MAKE SURE THE TRAIL HAS THE FOLLOWING PATH CONFIGURED:</p>
-<p>Bucket name: etl-ttt-demo-171714944327-ca-central-1<br />
-Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>To understand the Orchestration flow, first you need to take a look at the pre-created resources you havefrom the CloudFormation Template for this lab.</p>
+<p>Go to <a href="https://console.aws.amazon.com/cloudtrail/">AWS CloudTrail</a> console <strong><em>(switch to your right region if needed!)</em></strong> to explore the Trail created for your named <strong>etl-ttt-demo-trail</strong></p>
+<p><img alt="TRAIL" src="../images/orch-trail.png" /></p>
+<p>Note that this Trail is monitoring for <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong> Bucket as you can see in the following picture:</p>
+<p>[ADD UPDATED PICTURE HERE WITH THE TWO DATA EVENTS - NEW CFN TEMPLATE!!!0</p>
+<!-- Bucket name: etl-ttt-demo-171714944327-ca-central-1
+Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/
+-->
+
+<p>By having such <strong>Trail configuration</strong>, you will be able to leverage <strong>AWS Event Bridge</strong> during this lab to trigger <strong>(Step Function and Glue) Workflows</strong> as soon as streaming data lands in the <strong>trail-enabled S3 Bucket</strong>.</p>
+<p>That is possible because once a file lands in this bucket it records a <strong>write event</strong> in the <strong>Trail</strong>. This <strong>write event</strong> further triggers an <strong>EventBridge Rule</strong> which, consequently, cat fire <strong>(Step Functionn and Glue) Workflows</strong>.</p>
 <h4 id="2-creating-glue-workflow-and-glue-event-based-trigger-via-cli"><strong>2.</strong> Creating Glue Workflow and Glue Event Based Trigger (via CLI)<a class="headerlink" href="#2-creating-glue-workflow-and-glue-event-based-trigger-via-cli" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>--- create the workflow first  ----</p>
+<p>In this lab, we will create a <strong>Glue Workflow</strong> that will get triggered upon a <strong>write event notification</strong> received by <strong>EventBridge</strong>. This workflow will then initiate a <strong>Crawler</strong> to immediatelly crawl the file that just landed in the <strong>S3 bucket</strong></p>
+<p>So, let's create the <strong>Glue Workflow</strong> followed by a <strong>Glue Trigger</strong>. To do this, run the following <strong>AWS CLI commands</strong> in sequence.</p>
+<ul>
+<li>First the <strong>Glue Workflow</strong>:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>aws glue create-workflow --name etl-ttt-event-driven-workflow
 </code></pre></div>
 
-<p>--- then the trigger  ----</p>
+<ul>
+<li>Then the <strong>Glue Trigger</strong>:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>aws glue create-trigger \
     --workflow-name etl-ttt-event-driven-workflow \
     --type EVENT \
@@ -916,10 +924,15 @@ Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/</p>
     \&quot;BatchWindow\&quot;: 900}&quot;
 </code></pre></div>
 
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-trigger.png" /></p>
+<p>After running both commands, go to the <strong>Glue Console</strong> and click on <strong>Workflows</strong> under the <strong>ETL</strong> section of the <strong>Glue Console's left menu</strong>. You will see a new <strong>Glue Workflow</strong> created there. Click on the <strong>radio button</strong> close to its name to see the workflow in the <strong>Graph Canvans</strong> as bellow:</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-canvas.png" /></p>
+<p><strong>Note:</strong> You can also see the <strong>Glue Trigger</strong> in the <strong>Trigger</strong> menu under the <strong>ETL</strong> section.</p>
 <h4 id="3-creating-event-bridge-rule-and-target-via-cli"><strong>3.</strong> Creating Event Bridge Rule and Target (via CLI)<a class="headerlink" href="#3-creating-event-bridge-rule-and-target-via-cli" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>--- next the event rule  ----</p>
+<p>Now, let's create the <strong>EventBridge Event Rule</strong> followed by an <strong>EventBridge Event Target</strong> which is, of course, the <strong>Glue Trigger</strong> created in the previous step. Run the following <strong>AWS CLI commands</strong> in sequence to create everything.</p>
+<ul>
+<li>First the <strong>Event Rule</strong>:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>aws events put-rule \
     --name &quot;total-clicks-rule&quot; \
     --event-pattern &quot;{ \
@@ -936,68 +949,59 @@ Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/</p>
                     }&quot;
 </code></pre></div>
 
-<p>--- finally the event rule target  ----</p>
+<ul>
+<li>Then the <strong>Event Target</strong>:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>aws events put-targets \
     --rule total-clicks-rule \
     --targets &quot;Id&quot;=&quot;glueworkflow-totalclicks&quot;,&quot;Arn&quot;=&quot;arn:aws:glue:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:workflow/etl-ttt-event-driven-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
     --region <span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>
 </code></pre></div>
 
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p><img alt="TRAIL" src="../images/orch-event-rule-target.png" /></p>
+<p>After running both commands, go to <a href="https://console.aws.amazon.com/events/">AWS EventBridge</a> console. <strong><em>(switch to your right region if needed!)</em></strong>.</p>
+<p>On the left side menu, click on <strong>Rules</strong>, then click on top of the rule <strong>total-clicks_rule</strong> to open its details. You should see under the <strong>Event Pattern</strong> tab the following:</p>
+<p><img alt="TRAIL" src="../images/orch-event-pattern.png" /></p>
+<p>This pattern is basically saying that this <strong>EventRule</strong> is watching for every <strong>PutObject</strong> event that occur in the <strong>bucket/prefix</strong> specified in there.</p>
+<p>Click on the <strong>Targets</strong> tab. Here, you can see that the <strong>Target Name</strong> points to the <strong>Glue Workflow</strong> you just created <strong>etl-ttt-event-driven-workflow</strong>. Also that it has a <strong>EventBridge Role</strong>, with all the required permissions, associated with it. This <strong>Role</strong> has also been created as part of the <strong>CloudFormation template</strong>.</p>
+<p><img alt="TRAIL" src="../images/orch-event-target-tab.png" /></p>
 <h4 id="4-triggering-orchestration-following-the-flow"><strong>4.</strong> Triggering Orchestration &amp; Following The Flow<a class="headerlink" href="#4-triggering-orchestration-following-the-flow" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>[CHECK THE KINESIS SCRIPT ONCE AGAIN]</p>
+<p>Now, it is time to push data into the <strong>Kinesis Data Stream</strong>. You will run the <strong>Kinesis Ingestion Python Script</strong> you saw in the previous lab: <strong>Part 3 - Glue (Studio) Streaming -</strong> to push data into the stream. </p>
+<p>To start the script, run the following in the <strong>Cloud9 Enviroment</strong>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/
-cat PutRecord_Kinesis.py
+python PutRecord_Kinesis.py 
 </code></pre></div>
 
-<p>[SCRIPT SHOULD LOOK LIKE THIS]</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">boto3</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">string</span>
-<span class="kn">import</span> <span class="nn">random</span>
+<p>You will start to see data flowing on your <strong>Cloud9 Terminal</strong>, wait for few seconds for this to complete. In the meantime, go back to the <strong>Glue Studio Console</strong> and verify that the <strong>Glue Streaming Job</strong> is still running.</p>
+<p>Once the script finishes and you have verified that the <strong>Glue Streaming Job is running</strong>. Go back to the <strong>AWS Glue Console</strong> and look for your workflow. Refresh the <strong>Workflows</strong> screen and select your <strong>etl-ttt-event-driven-workflow</strong>.</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-runing.png" /></p>
+<p>Then click on the <strong>History</strong> tab at the bottom of the page, select the <strong>Run ID</strong> you see there and click on <strong>View run details</strong> button to see the workflow <em>flowing</em>:</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-view-details.png" /></p>
+<p>While the workflow is running, you can check the <strong>Glue Crawler</strong> that the workflow is triggering. You can also go to you <strong>S3 Bucket</strong> and see the files that were generated there by the <strong>AWS Glue Streaming Job</strong> which was fed by the Kinesis Data Stream (after running the Kinesis Ingestion Script):</p>
+<p><strong>Running Crawler's name</strong>: <strong><code>crawl_streammed_data</code></strong><br />
+<strong>Streaming Job's target path</strong>: <strong><code>s3://etl-ttt-demo-${AWS\_ACCOUNT\_ID}-${AWS_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/</code></strong></p>
+<p><strong>NOTE:</strong> To keep this workflow from getting trigger multiple times, <strong>delete it now as you don't need it anymore!</strong></p>
+<p><img alt="TRAIL" src="../images/orch-delete-workflow.png" /></p>
+<!--  maybe try cli to EDIT THE TRIGGER TO 100 SO IT STOP RUNNING AT EVERY BATCH OF STREAMING DATA] -->
 
-<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="n">stream_name</span><span class="p">,</span> <span class="n">kinesis_client</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/tmp/dsd/csv_tables/web_page.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvf</span><span class="p">:</span>
-        <span class="n">csvReader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">csvf</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">csvReader</span><span class="p">:</span>
-            <span class="n">partitionaKey</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">20</span><span class="p">))</span>
-            <span class="n">jsonMsg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-            <span class="n">kinesis_client</span><span class="o">.</span><span class="n">put_record</span><span class="p">(</span><span class="n">StreamName</span> <span class="o">=</span> <span class="n">stream_name</span><span class="p">,</span>
-                                      <span class="n">Data</span> <span class="o">=</span> <span class="n">jsonMsg</span><span class="p">,</span>
-                                      <span class="n">PartitionKey</span> <span class="o">=</span> <span class="n">partitionaKey</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">jsonMsg</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">generate</span><span class="p">(</span><span class="s1">&#39;etl-ttt-demo-stream&#39;</span><span class="p">,</span> <span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;kinesis&#39;</span><span class="p">))</span>
-<span class="p">[</span><span class="n">end</span> <span class="n">of</span> <span class="n">script</span><span class="p">]</span>
-
-<span class="p">[</span><span class="n">ONCE</span> <span class="n">EVENT</span> <span class="n">BRIDGE</span> <span class="n">IS</span> <span class="n">FULLY</span> <span class="n">SETUP</span> <span class="n">WITH</span> <span class="n">TARGET</span> <span class="n">AND</span> <span class="n">ALL</span><span class="o">...</span><span class="p">]</span>
-<span class="p">[</span><span class="n">START</span> <span class="n">STREAMING</span> <span class="n">DATA</span> <span class="n">BY</span> <span class="n">RUNNIG</span> <span class="n">THE</span> <span class="n">ABOVE</span> <span class="n">SCRIPT</span> <span class="n">WITH</span> <span class="n">THE</span> <span class="n">FOLLOWING</span> <span class="n">COMMAND</span> <span class="n">IN</span> <span class="n">CLOUD9</span><span class="p">]</span>
-<span class="p">[</span><span class="n">WAIT</span> <span class="n">UP</span> <span class="n">TO</span> <span class="mi">1</span> <span class="n">OR</span> <span class="mi">2</span> <span class="n">MINUTES</span><span class="p">]</span>
-</code></pre></div>
-
-<p>[START THE SCRIPT]</p>
-<div class="codehilite"><pre><span></span><code>python PutRecord_Kinesis.py 
-</code></pre></div>
-
-<p>[OBSERVE THE WORKFLOW GETTING TRIGGER AS THE FIRST FILES ARRIVE IN S3 FROM THEM STREAMING JOB]</p>
-<p>[OBSERVE THAT WORKFLOW TRIGGERS THE CRAWLER WHICH CREATES THE TABLE (total_clicks) FOR FOLLOWING ANALYSIS LAB]</p>
-<p>[DELETE THE WORKFLOW]
-[ maybe try cli to EDIT THE TRIGGER TO 100 SO IT STOP RUNNING AT EVERY BATCH OF STREAMING DATA]</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
 <h4 id="5-exploring-and-analyzing-tables-data-cataloged-in-glue-data-catalog"><strong>5.</strong> Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog<a class="headerlink" href="#5-exploring-and-analyzing-tables-data-cataloged-in-glue-data-catalog" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>[ADD DEFAULT BUCKET FOR ATHENA: /athena-output/]</p>
-<p>[RUN THE FOLLOWING QUERY]</p>
-<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;AwsDataCatalog&quot;</span><span class="p">.</span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;total_clicks&quot;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<p>Once the workflow completes, you will noticed that the <strong>Crawler</strong> triggered by the workflow actually produced <strong>1 new table</strong>. In the <strong>Glue Console</strong>, go to <strong>Tables</strong> to see a new table named <strong>total_clicks</strong>. <em>(Feel free to explore this table's details as much as you want!)</em></p>
+<p><img alt="TRAIL" src="../images/orch-total-clicks.png" /></p>
+<p>In the <strong>Glue Console's Table</strong> page, click on the checkbox near the <strong>total_clicks</strong> table, then click on the <strong>Action</strong> dropdown button to launch the table in the <strong>Amazon Athena Console</strong>. <em>(Hit the</em> <strong><em>Preview Button</em></strong> <em>if a pop-up is prompted)</em></p>
+<p align="center">
+ <img src=images/orch-view-data.png>
+</p>
+
+<p>In the <strong>Athena Query Editor Console</strong>, you may see a blue banner at the top that says <em>"Before you run your first query, you need to set up a query result location in Amazon S3."</em>. Just click on the <strong>View settings</strong> button you see there, then click on the <strong>Manage</strong> button in the far top right of the page, then click on <strong>Browse S3</strong>. Search for a bucket that starts with <strong>aws-glue-assets-</strong> and select it. Complement this bucket with <strong><code>/athena-output/</code></strong> and hit <strong>Save</strong></p>
+<p><img alt="TRAIL" src="../images/orch-athena-settings.png" /></p>
+<p>Click on <strong>Editor</strong> to start running your queries. In the <strong>Query 1</strong> tab, erase everything there, paste and <em>Run</em> the following query:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;AwsDataCatalog&quot;</span><span class="p">.</span><span class="ss">&quot;glue_ttt_demo_db&quot;</span><span class="p">.</span><span class="ss">&quot;total_clicks&quot;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
-<p>[Creating Views on Top of Cataloged Tables]
-[CREATE A VIEW ON TOP OF THE CREATED TABLE TO BROWSE THE TOP 5 CUSTOMERS CLICKING ON THE WEBSITE]</p>
+<p>You should see the query results at the bottom:</p>
+<p><img alt="TRAIL" src="../images/orch-athena-query1-results.png" /></p>
+<p>Now, you are going to create a <strong>View</strong> on top of this table to allow for <strong>aggregation</strong> of the underlying files that compose this table's data.</p>
+<p>Run the following command to create a view that is meant to select the <strong>Top 5 customers aggregated by their number of clicks</strong> in a particular website: <em>(That's the</em> <strong><em>web_page</em></strong> <em>streaming data you have captured!)</em></p>
 <div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span>
 <span class="k">SELECT</span><span class="w"></span>
 <span class="w">  </span><span class="ss">&quot;c_full_name&quot;</span><span class="w"></span>
@@ -1009,13 +1013,25 @@ cat PutRecord_Kinesis.py
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
 </code></pre></div>
 
-<p>[QUERY THE VIEW WITH BELOW QUERY]</p>
-<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<p><img alt="TRAIL" src="../images/orch-athena-view1.png" /></p>
+<p>In a new <strong>Query Tab</strong>, run below query to query the view now:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 
-<p>[ADD MORE DATA TO THE STREAM AND KEEP CHECKING WITH ABOVE QUERY] - EVERY 30-60 SECONDS<br />
-[IF YEAR, MONTH, DAY OR HOUR CHANGES NEED TO UPDATE PARTITIONS BY RUNNING CRAWLER AGAIN]</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>Note down the results you see:</p>
+<p><img alt="TRAIL" src="../images/orch-results-1.png" /></p>
+<p>Now, go back to your Cloud9 Enviroment and run the <strong>Kinesis Ingestion Python Script</strong> again: </p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/
+python PutRecord_Kinesis.py 
+</code></pre></div>
+
+<p>Allow for it to complete and wait for about 30-60 seconds and re-run the last Athena query.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p><img alt="TRAIL" src="../images/orch-athena-query2-results.png" /></p>
+<p><strong>Note:</strong> If you noticed that above results hasn't changed. It might be that your calendar <strong>Year, Month, Day, or Hour</strong> has changed (most probably the <strong>Hour</strong>). Run the <strong>crawl_streammed_data</strong> crawler again to <strong>update partitions</strong> or try the <strong>MSCK REPAIR TABLE `total_clicks`;</strong> command from within <strong>Athena</strong> itself.</p>
+<p>You have reached to the end of this lab. If you want, you can keep pushing more data into your Kinesis Data Stream by running the <strong>Kinesis Ingestion Python Script</strong> multiple times and allowing few seconds each time for the <strong>Glue Streaming Job</strong> to process it. Once you are ready move to <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>.</p>
 
               
             </article>

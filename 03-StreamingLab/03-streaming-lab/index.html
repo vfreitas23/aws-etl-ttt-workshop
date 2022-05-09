@@ -735,7 +735,7 @@
   
     <li class="md-nav__item">
       <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
-        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
       </a>
     </li>
   
@@ -862,14 +862,14 @@
 <h1 id="toc_0" align="center">
 GLUE (STUDIO) STREAMING</h1>
 
-<p>The Part 3 - Glue (Studio) Streaming of the ETL Train the Trainer workshop is where you are going to use AWS Glue Studio Graphical Interface for the first time.</p>
+<p>The <strong>Part 3 - Glue (Studio) Streaming -</strong> of the <strong>ETL Train the Trainer workshop</strong> is where you are going to use AWS Glue Studio Graphical Interface for the first time.</p>
 <p>You are going to use Glue Studio do build 2 jobs here. The first job is a <em>dummy</em> Glue Streaming Job that will validate the JOIN between the <strong>customer</strong> RDS table and a <strong>web_page</strong> CSV data that you uploaded earlier to S3. </p>
-<p>Note: This CSV data is basically a representation of the actual <strong>web-page-streaming-table</strong> (with the different of that one being in JSON format) that you will use in real Glue Streaming Job</p>
+<p><strong>Note:</strong> This CSV data is basically a representation of the actual <strong>web-page-streaming-table</strong> (with the different of that one being in JSON format) that you will use in real Glue Streaming Job</p>
 <p>Apart from validate the JOIN between datasets, this <em>dummy</em> job will also validate the SQL code used in the SQL Transform node of this lab. If validation succeeds, you will then be able to Preview the Data before outputting it or, in this case, before building the real Glue Streaming Job.</p>
 <h4 id="1-understanding-the-streaming-resources-provided-cloudformation-scripts"><strong>1.</strong> Understanding the Streaming Resources Provided (CloudFormation &amp; Scripts)<a class="headerlink" href="#1-understanding-the-streaming-resources-provided-cloudformation-scripts" title="Permanent link">&para;</a></h4>
 <p>For this lab to work, the CloudFormation template provided few resources for you already.</p>
 <p><strong>Kinesis Data Stream</strong></p>
-<p>A Kinesis Data Stream named <strong>etl-ttt-demo-stream</strong> has been added already which will receive the stream of data from a script you will run later on this lab. Click here <add link> to explore the Kinesis Data Stream if you want.</p>
+<p>A Kinesis Data Stream named <strong>etl-ttt-demo-stream</strong> has been added already which will receive the stream of data from a script you will run later on this lab. Click <a href="http://console.aws.amazon.com/">here</a> to search for <strong>Amazon Kinesis</strong> and explore the <strong>Kinesis Data Stream</strong> if you want.</p>
 <p><img alt="KINESIS STREAM" src="../images/studio-kinises-data-stream.png" /></p>
 <p><strong>Cataloged Streaming Table</strong></p>
 <p>As you already saw it, a table named <strong>etl-ttt-demo-stream</strong> has been created for you with a proper schema definition and all the necessary settings. You can see the details of this table in the AWS Glue Console <link>.</p>
@@ -884,6 +884,13 @@ aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38
 cat PutRecord_Kinesis.py
 </code></pre></div>
 
+<p><strong>RDS MySQL Customer Table</strong></p>
+<p>For the <strong>Part 3 only of this workshop</strong>, you need to delete multiple rows from the <strong>RDS MySQL's customer table</strong>. That's because the <strong>customer</strong> is too big originally so <strong>previewing</strong> such amount of data with <strong>Glue Studio Data Preview</strong> feature is <strong>inneficient and may fail</strong>.</p>
+<p>Run the following <strong>SQL Delete Statement</strong> to reduce the table to only <strong>1000 rows</strong>:</p>
+<div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;delete from customer where c_customer_sk &gt; 1000&quot;</span><span class="p">;</span>
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;commit&quot;</span><span class="p">;</span> 
+</code></pre></div>
+
 <p></br></p>
 <h4 id="2-validating-streaming-job-logic-and-data-glue-studio-dummy-job"><strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<a class="headerlink" href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" title="Permanent link">&para;</a></h4>
 <p>Let's start building the <strong>dummy</strong> job to validate our Glue Streaming Job logic.</p>
@@ -894,7 +901,7 @@ cat PutRecord_Kinesis.py
 
 <p>This will take you to the AWS Glue Studio Console where you will be authoring the jobs graphically. For that, click on Jobs on the far left menu, select <strong>Visual with a blank</strong> canvas option and click on <strong>Create</strong>.</p>
 <p><img alt="DUMMY JOB" src="../images/studio-create-dummy-job.png" /></p>
-<p>You will be presented with a blank canva. The first thing you must do there is to rename you job. Just click where it says <strong>"Untitled job"</strong>
+<p>You will be presented with a blank canvas. The first thing you must do there is to rename you job. Just click where it says <strong>"Untitled job"</strong>
 , type <strong>dummy-streaming-job</strong> and click out the Job name box.</p>
 <p><img alt="BLANK CANVAS" src="../images/studio-blank-canvas.png" /></p>
 <p>Now, the next thing you must do, is to set your jobs detail. Click on the tab <strong>Job details</strong> tab and set the following configurations:</p>
@@ -914,7 +921,7 @@ cat PutRecord_Kinesis.py
 <li>Set <strong>Name</strong> to <strong>Web Page S3</strong></li>
 <li>Click <strong>Data source properties - S3</strong> tab</li>
 <li>Under <strong>S3 source type</strong> select <strong>S3 location</strong></li>
-<li>Set <strong>S3 URL</strong> to: <em>s3://${BUCKET_NAME}/etl-ttt-demo/csv_tables/web_page.csv</em> - (use the <strong>Browse S3</strong> bucket to navigate.)</li>
+<li>To set the <strong>S3 URL</strong>, use the <strong>Browse S3</strong> button to navigate to: <strong><em>s3://${BUCKET_NAME}/etl-ttt-demo/csv_tables/web_page.csv</em></strong></li>
 <li>Uncheck the <strong>Recursive</strong> option</li>
 <li>Click <strong>Infer schema</strong> button at the bottom</li>
 <li>Click on <strong>Output schema</strong> tab to see schema infered, then click <strong>Save</strong></li>
@@ -939,7 +946,7 @@ cat PutRecord_Kinesis.py
 <li>Click <strong>Node properties</strong> tab</li>
 <li>Under <strong>Node parents</strong>, select <strong>Customer RDS</strong> by clicking the checkbox next to it</li>
 <li>Click <strong>Transform tab</strong><ul>
-<li>Set Input sources <strong>Web Page S3</strong> with <strong>Spark SQL aliases</strong> value to <strong>webpage</strong></li>
+<li>Set Input sources <strong>Web Page S3</strong> with <strong>Spark SQL aliases</strong> value to <strong>wp</strong></li>
 <li>Set Input sources <strong>Customer RDS</strong> with <strong>Spark SQL aliases</strong> value to <strong>cust</strong></li>
 <li>Copy the following code to SQL query and click <strong>Save</strong></li>
 </ul>
@@ -947,10 +954,10 @@ cat PutRecord_Kinesis.py
 </ul>
 <div class="codehilite"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">CONCAT</span><span class="p">(</span><span class="n">cust</span><span class="p">.</span><span class="n">c_first_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">cust</span><span class="p">.</span><span class="n">c_last_name</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">full_name</span><span class="p">,</span><span class="w"></span>
 <span class="n">cust</span><span class="p">.</span><span class="n">c_email_address</span><span class="p">,</span><span class="w"></span>
-<span class="k">count</span><span class="p">(</span><span class="n">webpage</span><span class="p">.</span><span class="n">wp_char_count</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"></span>
+<span class="k">count</span><span class="p">(</span><span class="n">wp</span><span class="p">.</span><span class="n">wp_char_count</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"></span>
 <span class="k">from</span><span class="w"> </span><span class="n">cust</span><span class="w"></span>
-<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">webpage</span><span class="w"></span>
-<span class="k">on</span><span class="w"> </span><span class="n">cust</span><span class="p">.</span><span class="n">c_customer_sk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">webpage</span><span class="p">.</span><span class="n">wp_customer_sk</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="c1">--remove the where clause after preview!!</span>
+<span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">wp</span><span class="w"></span>
+<span class="k">on</span><span class="w"> </span><span class="n">cust</span><span class="p">.</span><span class="n">c_customer_sk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wp</span><span class="p">.</span><span class="n">wp_customer_sk</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="c1">--remove the where clause after preview!!</span>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="w"></span>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"> </span><span class="k">desc</span><span class="w"></span>
 </code></pre></div>
@@ -959,22 +966,22 @@ cat PutRecord_Kinesis.py
 <li>Click on <strong>Data Preview</strong> tab</li>
 <li>Click on the <strong>Start data preview session</strong> button there.</li>
 <li>In the pop-up window that will open, choose the IAM role <strong>AWSGlueServiceRole-etl-ttt-demo</strong></li>
-<li>Wait for <strong>Data Preview</strong> to finish (it takes about 5 minutes to complete)</li>
+<li>Wait for <strong>Data Preview</strong> to finish (it takes about 5 minutes to preview)</li>
 </ul>
-<p>Note: Preview the query with <strong>where 1=2</strong> first to make previewing faster and to avoid issues. If issues happen, close this job and clone it into a new one (clone steps is following).</p>
+<p>Note: It will return zero rows because you are previewing the query with <strong>where 1=2</strong> first. This is to make previewing faster and to avoid issues. If issues happen (or previewing is taking more than 5 minutes), <strong>Save</strong> this job, go back to <strong>Jobs</strong> in the <strong>Glue Studio</strong> left menu and, under <strong>Your jobs</strong> select the <em>dummy</em> job you created and clone it into a new one. Rename it <strong>dummy-streaming-job-2</strong>. <strong>TIP:</strong> You can delete the first job <strong>dummy-streaming-job</strong> later too.</p>
 <ul>
-<li>Once preview is completed, remove the <strong>where 1=2</strong> clause.</li>
-<li>Click on the <strong>Data Preview</strong> tab again to see the data there.</li>
-</ul>
-<p>Note that that only relevant columns were brought from the SQL query.</p>
-<ul>
-<li>Click on <strong>Output schema</strong> tab to see schema,</li>
+<li>Once preview is completed, Click on <strong>Output schema</strong> tab to see the schemas(s)</li>
 </ul>
 <p>Note that you have 2 outputs: <strong>Output 1</strong> and <strong>Output 2</strong>.</p>
 <ul>
 <li>Click on the <strong>Use datapreview schema</strong> button that you see right there in the <strong>Output schema</strong> tab.</li>
 </ul>
-<p>Note that the schema now matches only the relevant columns of the query. Click <strong>Save</strong>.</p>
+<p>Note that the schema now matches only the relevant columns of the query. </p>
+<ul>
+<li>Click on <strong>Transform</strong> tab again and remove the <strong>where 1=2</strong> clause.</li>
+<li>Click on the <strong>Data Preview</strong> tab one last time to see the data appearing there.</li>
+</ul>
+<p>Note that that only relevant columns were brought from the SQL query. Click <strong>Save</strong>.</p>
 <p><img alt="PREVIEW OUTPUT" src="../images/studio-preview-output.png" /></p>
 <p>Now, add an <strong>Apply Mapping</strong> transform by clickinng on the <strong>SQL</strong> node first to highlight it, then click on <strong>Transform</strong> dropdown icon and choose <strong>Apply Mapping</strong> from the list.</p>
 <p>A new <strong>Apply Mapping</strong> node will be linked to the <strong>SQL</strong> node. Click on this new <strong>Apply Mapping</strong> node to highligt it and do the following:</p>
@@ -989,20 +996,51 @@ cat PutRecord_Kinesis.py
 <ul>
 <li>Click on <strong>Data target properties - S3</strong> tab</li>
 <li>Set <strong>Format</strong> to <strong>CSV</strong></li>
-<li>Set <strong>S3 Target Location</strong> to <em>s3://$BUCKET_NAME/etl-ttt-demo/output/gluestreaming/total_clicks/</em> </li>
+<li>Set <strong>S3 Target Location</strong> to <em>s3://$BUCKET_NAME/etl-ttt-demo/output/gluestreaming/total_clicks/</em></li>
 </ul>
 <p>TIP: Switch back quickly to your Cloud9 enviroment and use the following command to build the entire path you need for the <strong>S3 Target Location</strong> above.</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;s3://</span><span class="nv">$BUCKET_NAME</span><span class="s2">/etl-ttt-demo/output/gluestreaming/total_clicks/&quot;</span>
 </code></pre></div>
 
+<ul>
+<li>Click <strong>Save</strong>. </li>
+</ul>
+<p>[ADD PICTURE HERE]</p>
 <h4 id="toc_0" align="center"> !!! You can now save this job for the last time but DO NOT RUN IT!!!! </h4>
 
 <h4 id="3-creating-the-glue-streaming-job-cloning-jobs"><strong>3.</strong> Creating the Glue Streaming Job (Cloning Jobs!)<a class="headerlink" href="#3-creating-the-glue-streaming-job-cloning-jobs" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>[CLONE THE DUMMY JOB AND REPLACE THE CSV WEB_PAGE SOURCE BY THE KINESIS WEB_PAGE STREAMING TABLE]<br />
-!!!! RUN THE JOB BUT DON'T SEND ANY STREAMING DATA YET!!!!<br />
-(SETUP EVENT BRIDGE LAB FIRST !!!!!!</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>Go back to <strong>Jobs</strong> in the <strong>Glue Studio</strong> left menu and, under <strong>Your jobs</strong> select the <em>dummy-streaming-job</em>  (or any clone of it). Click on the <strong>Actions</strong> dropdown button and choose <strong>Clone Job</strong>.</p>
+<p><img alt="CLONE" src="../images/studio-your-jobs-clone.png" /></p>
+<p>The visual canvas will open and you will notice that the cloned job contains the exact same nodes with the exact same definitions you choose for the <em>dummy</em> job. Rename this new job to <strong>glue-streaming-job</strong> and <strong>Save</strong> it.</p>
+<p>Now, all you have to do is:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> Remove the <strong>Web Page S3</strong> by clicking on it to highlight it first, then clicking on <strong>Remove</strong> (trash icon)   </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> click on the <strong>Source</strong> dropdown icon and choose <strong>Amazon Kinesis</strong> in dropdown list. A new and isolated <strong>Amazon Kinesis</strong> node will appear.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Click on the new <strong>Amazon Kinesis</strong> node to highlight it, go to <strong>Node Properties</strong> tab and name it <strong>Web Page Stream</strong>.  </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Click on <strong>Data source properties - Kinesis Stream</strong> tab and under <strong>Amazon Kinesis Source</strong> choose <strong>Data Catalog table</strong>. Then, under <strong>Database</strong> choose <strong>glue_ttt_demo_db</strong> and under <strong>Table</strong> choose <strong>web-page-streaming-table</strong>.  </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong>  Uncheck <strong>Detect Schema</strong>, set <strong>Starting position</strong> to <strong>Latest</strong> and set <strong>Window size</strong> to <strong>60</strong>. Click <strong>Save</strong></p>
+<p><img alt="CLONE" src="../images/studio-isolated-kinesis-node.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Now, click on the <strong>SQL</strong> joint node at the center of the canvans to highlight it. Go to <strong>Node Properties</strong> tab and under <strong>Node parents</strong> check <strong>Amazon Kinesis</strong> to complete the <strong>Join</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> Click on the <strong>Transform</strong> tab and fix the <strong>SQL aliases</strong> for the <strong>Amazon Kinesis Input Source</strong> by typing <strong>wp</strong> there to match the alias in the <strong>SQL query</strong>. Click <strong>Save</strong>.</p>
+<p><img alt="CLONE" src="../images/studio-streaming-job-done.png" /></p>
+<h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS JOB YET !!! !!! </h4>
+
+<p>Before running this job, go back to your <strong>Cloud9 Enviroment</strong> tab and run the following commands to repopulate the <strong>RDS MySQL's customer table</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> /tmp/dsd/
+<span class="nv">file</span><span class="o">=</span>customer_1_2.dat
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="s2">&quot;truncate table tpcds.customer&quot;</span>
+
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="se">\</span>
+<span class="s2">&quot;load data local infile &#39;</span><span class="nv">$file</span><span class="s2">&#39; replace into table tpcds.customer character set latin1 fields terminated by &#39;|&#39;&quot;</span>
+
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="s2">&quot;select count(*) from tpcds.customer&quot;</span>
+</code></pre></div>
+
+<p>You should have <strong>100.000</strong> rows in the <strong>customer</strong> table now.</p>
+<p>Now, you are free to run the <strong>Glue Streaming Job</strong>. Go back to the <strong>Glue Studio</strong> tab and click <strong>Run</strong>. A green banner will appear at the top with a message <strong>"Successfully started job glue-streaming-job. Navigate to Run Details for more details."</strong>. Click on <strong>Run Details</strong> to confirm that the job is indeed <strong>Running</strong>. </p>
+<p><img alt="CLONE" src="../images/studio-job-running.png" /></p>
+<p><strong>TIP:</strong> You can delete all the <em>dummy</em> jobs now (Once you validate the data previewed previously).</p>
+<p><br/></p>
+<p>You have finshed <strong>creating &amp; running a Glue Streaming Job</strong>. At this point, there's no data being pushed into the <strong>Kinesis Data Stream source</strong> of this job. Once you are ready move to the <strong>Part 4 - Orchestration &amp; Data Analytsis</strong> where you will start to push data into the <strong>Kinesis Stream</strong>.</p>
 
               
             </article>

@@ -742,7 +742,7 @@
   
     <li class="md-nav__item">
       <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
-        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
       </a>
     </li>
   
@@ -875,44 +875,65 @@
 
 <h1 id="toc_0" align="center">
 MACHINE LEARNING WITH GLUE
-<br/> & <br/>GLUE STUDIO NOTEBOOK
+<br/> & <br/>GLUE STUDIO NOTEBOOKS
 </h1>
 
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>The following commands will blah blah lah blah</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<p>The <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks -</strong> of the <strong>ETL Train The Trainer Workshop</strong> is going to cover the steps required to work with the Glue ML Transforms, more specifically, it will teach you about how to <strong>create</strong>, <strong>train</strong> (with <strong>labeling files</strong>), and <strong>write Glue ETL code</strong> that leverages the <strong>Glue's FindMatches ML Transform</strong> using <strong>Glue Studio Notebooks</strong> that you can further operationalize it into <strong>Glue Jobs</strong>. </p>
 <h4 id="0-pre-steps-understading-setting-up-the-resources-for-ml-lab"><strong>0.</strong> (Pre Steps) - Understading &amp; Setting up the Resources for ML Lab<a class="headerlink" href="#0-pre-steps-understading-setting-up-the-resources-for-ml-lab" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>[MACHINE LEARNING TRANSFORM LAB]  </p>
-<p>DESCRIPTION: CSV with duplicated customers but with </p>
+<p>To begin, you must first run the following commands in your <strong>Cloud9 Terminal</strong> to download the the <strong>ML Lab files</strong> from the <strong>Workshop's default S3 Bucket</strong>.</p>
+<p>These commands will:</p>
+<ul>
+<li>Create the local directory structure for this lab in your Cloud9 Envirment</li>
+<li>Place each file in its respective folder.</li>
+<li>Re-upload all these files to your own S3 Bucket</li>
+<li>Building the required S3 Bucket Path structure for this lab:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/ml-lab/ml-customer-sampling /tmp/dsd/csv_tables/ml-lab/ml-customer-full /tmp/dsd/csv_tables/ml-lab/ml-labeling-file
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/sample_topcustomer.csv /tmp/dsd/csv_tables/ml-lab/ml-customer-sampling/sample_topcustomer.csv
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/full-topcustomer.csv /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-topcustomer.csv
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/topcuustomer-labeling-file.csv /tmp/dsd/csv_tables/ml-lab/ml-labeling-file/topcuustomer-labeling-file.csv
 
-aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/csv_tables/ml-lab/
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/sample-customer/sample-top-customer.csv /tmp/dsd/csv_tables/ml-lab/ml-customer-sampling/sample-top-customer.csv
+
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/top-customer/full-top-customer.csv /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-top-customer.csv
+
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/labeled-customer/top-customer-labeling-file.csv /tmp/dsd/csv_tables/ml-lab/ml-labeling-file/top-customer-labeling-file.csv
+
+aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/ml-lab/
 </code></pre></div>
 
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<h4 id="1-creating-and-training-the-glue-findmatches-ml-transform"><strong>1.</strong> Creating and Training the Glue FindMatches ML Transform<a class="headerlink" href="#1-creating-and-training-the-glue-findmatches-ml-transform" title="Permanent link">&para;</a></h4>
+<p>For this part of the <strong>ETL Train the Trainer Workshop</strong>, two crawlers have been created for you as part of the <strong>CloudFormation Template</strong>:</p>
 <ul>
-<li>
-<p>Run the ML- Crawler (add this one to the CFN template)</p>
-</li>
-<li>
-<p>Use the sample file to generate labeling file (in S3)</p>
-</li>
-<li>Download the generated labeling file and show how to add the labels to similar records (Just show 2 or 3 records to demonstrate)</li>
-<li>Use the already-filled labeling file to train the ML FindMatches transform (get it from S3)</li>
+<li>The <strong>ml-sample-cust-crawler</strong> will create the <strong>S3-based</strong> table named <strong>ml_sample-customer</strong> which has much less amount of data but enought to be used as <strong>sample source data</strong> to train and label the <strong>FindMatches ML Transform</strong> you are going to create next. </li>
 </ul>
-<p>[Don't need to wait anything to complete, just show it. Then use the pre-created ones]</p>
+<p><img alt="TRAIL" src="../images/ml-sample-crawler.png" /></p>
+<ul>
+<li>The <strong>ml-bootstrap-crawler</strong> will create the <strong>S3-based</strong> table named <strong>ml_dedup_sample_customer</strong> which is the <strong>full dataset</strong> that the future <strong>Notebook Job</strong> will try to deduplicate using the <strong>FindMatch ML Transform</strong> that you trained using the smaller <strong>ml_sample-customer</strong> dataset.</li>
+</ul>
+<p><img alt="TRAIL" src="../images/ml-bootstrap-crawler.png" /></p>
+<h4 id="1-creating-and-training-the-glue-findmatches-ml-transform"><strong>1.</strong> Creating and Training the Glue FindMatches ML Transform<a class="headerlink" href="#1-creating-and-training-the-glue-findmatches-ml-transform" title="Permanent link">&para;</a></h4>
+<p>Run both crawler to create the aforementioned tables. <em>(Both tables' schema are exactly the same as the original</em> <strong>RDS customer</strong><em>. They both contain</em> <strong>14 columns</strong><em>)</em></p>
+<p>Once <strong>ml-bootstrap-crawler</strong> finish, click on <strong>ML Transforms</strong> menu, under the <strong>ETL</strong> section on the menu at the left. There, click on <strong>Add transform</strong> or the <strong>Create ML transform</strong> buttons.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On <strong>Configure transform properties</strong> page, name the Trasform as <code>FindMatches</code>. Also, set the <strong>IAM Role</strong> to <strong>AWSGlueServiceRole-etl-ttt-demo</strong>. Click <strong>Next</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On <strong>Choose a data source</strong> page, select the table <strong>ml_sample_customer</strong>. Click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> On <strong>Choose a primary key</strong> page, select the table <strong>c_customer_sk</strong>. Click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> On <strong>Tune transform</strong> page, under <strong>Recall vs. precision</strong> select the option <strong>Favor precision</strong> <em>(0.9)</em>. Keep the option <strong>Balanced</strong> <em>(0.5)</em> selected. Click <strong>Next</strong>. </p>
+<p><img alt="TRAIL" src="../images/ml-tune-transform-pg.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> Review everything on the <strong>Review</strong> page and Click <strong>Finish</strong> to create the FindMatches ML Transform.</p>
+<p><img alt="TRAIL" src="../images/ml-review-pg.png" /></p>
+<p>Now, it is time to teach your ML Transform. To do this, select the <strong>FindMatches</strong> Transform you just created, then click on the <strong>Action</strong> dropdown button and choose <strong>Teach Transform</strong>.</p>
+<p><img alt="TRAIL" src="../images/ml-teach-transform-1.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On <strong>Teach the transform using labels</strong> page, under <strong>Labeling file</strong> choose the option <strong>I don't have labels</strong>, then click on the <strong>Generate labeling file</strong> button. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On <strong>Generate labeling file</strong> pop-up window, choose to S3 Path where you want to store the generated label file. Navigate to <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/output</strong>, then add <code>/ml_gen_label_file/</code> and click <strong>Generate</strong>. </p>
+<p><img alt="TRAIL" src="../images/ml-gen-label-1.png" /></p>
+<p><strong>Note:</strong> You don't need to wait for this <em>generating labeling file</em> process to finish because you already downloaded a fully labeled file (during the first step of this lab) to be used here. <strong>Jump to step 3</strong> or, if you have enough time, you can wait for it to finish, then click on <strong>Download labeling file</strong> and perform the labeling process yourself.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Click <strong>Next</strong> and, On the <strong>Upload labels</strong>, under <strong>Labeling file</strong>, now choose <strong>I have labels</strong>. Then click on <strong>Upload labeling file from S3</strong> and navigate to the path: <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/ml-lab/ml-labeling-file/top-customer-labeling-file.csv</strong> and click <strong>Upload</strong>, then click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> On <strong>Estimate quality metrics (optional)</strong> just click <strong>Finish</strong>.</p>
+<p>You can see in the <strong>Task type</strong> column that the <strong>Label Uploading Process</strong> has succeeded.</p>
+<p><img alt="TRAIL" src="../images/ml-train-success.png" /></p>
 <h4 id="2-testing-findmatches-transform-with-glue-studio-notebook"><strong>2.</strong> Testing FindMatches Transform with Glue Studio Notebook<a class="headerlink" href="#2-testing-findmatches-transform-with-glue-studio-notebook" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>Once the FindMatches transform is trained, Open Glue studio and create a new Glue Studio Notebook.
-    - Name: ml-lab-notebook-job
-    - IAM Role: Glue Service Role - etl-ttt-demo</p>
-<p>Write the following Spark Code into 4 differente cells</p>
-<p>Cell 1 [replace the existing Cell 1]:</p>
+<p>Now that the <strong>FindMatches Transform</strong> is trained, go to the <strong>AWS Glue Studio</strong> once again and click on <strong>Jobs</strong> in the left side menu. On the <strong>Jobs</strong> page, choose the <strong>Jupyter Notebook</strong> option and, under <strong>Options</strong>, choose the option <strong>Upload and edit an existing notebook</strong> and click on <strong>Choose File</strong>. Choose the file that has been shared with you by the Instructor. Click on <strong>Create</strong> afterwards.</p>
+<p><img alt="TRAIL" src="../images/ml-job-jupyter-nb.png" /></p>
+<p>On the <strong>Notebook setup</strong> page, give the name to the <em>Job</em> as <code>ml-lab-notebook-job</code> and set the <strong>IAM</strong> to <strong>AWSGlueServiceRole-etl-ttt-demo</strong>. Click on <strong>Start notebook job</strong> button to create a <strong>Jupyter Notebook</strong> from an unpload notebook file. </p>
+<p>Once the Notebook is fully ready, copy the following code and replace the <strong>Cell [1]</strong> with it. Afterwards, click on the <strong><em>Play</em></strong> button ( <strong>|&gt;</strong> ) at the top-center-left of the notebook interface: <strong>---DO NOT click on the orange run button on the far left---</strong></p>
+<p><strong>Cell [1]</strong> (<em>replace the existing Cell [*]</em> ):</p>
 <div class="codehilite"><pre><span></span><code><span class="o">%</span><span class="n">glue_version</span> <span class="mf">2.0</span>
 <span class="o">%</span><span class="n">idle_timeout</span> <span class="mi">60</span>
 
@@ -930,16 +951,68 @@ aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab s3://<span class="nv">$BUCKET_N
 <span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">glueContext</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Cell 2:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">datasource0</span> <span class="o">=</span>      <span class="n">glueContext</span><span class="o">.</span><span class="n">create_dynamic_frame</span><span class="o">.</span><span class="n">from_catalog</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s2">&quot;glue-ttt-demo-db&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;ml_dedup_full_topcustomer_csv&quot;</span><span class="p">,</span>  <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;datasource0&quot;</span><span class="p">)</span>      
+<p><img alt="TRAIL" src="../images/ml-output-cell-1.png" /></p>
+<p>Once you see a message saying "Session XXXX-XXXX-XXXX has been created", run the <strong>Cell [2]</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-2.png" /></p>
+<p>You should see the <strong>ml_to_dedup_top_customer table's schema</strong> in the above output.</p>
+<p>Before you can run the <strong>Cell [3]</strong>, replace the <strong>\${YOUR_TRANSFORM_ID}</strong> placeholder for the <strong>Transform ID</strong> of the the <strong>FindMatches Transform</strong> that you created.</p>
+<p><img alt="TRAIL" src="../images/ml-transform-id.png" /></p>
+<p>Once <strong>Transform ID</strong> is correctly replaced, run the <strong>Cell [3]</strong>. <em>(This Cell should take about 6 minutes to finish!)</em></p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-3.png" /></p>
+<p>You should see the output displaying the message: <em>"Duplicate count of matching IDs : 530"</em></p>
+<!-- 
+
+[IN CASE I DECIDE TO CHANGE TO CREATING A NEW NOTEBOOK IN THE FEATURE INSTEAD OF UPLOADING ONE]
+
+On the **Notebook setup** page, give the name to the *Job* as `ml-lab-notebook-job` and set the **IAM** to **AWSGlueServiceRole-etl-ttt-demo**. Click on **Start notebook job** button to create a **Jupyter Notebook**. 
+
+Once the Notebook is ready, copy the following code and replace the **first cell** with it. Click run (play **|>** icon) afterwards: **---DO NOT click on the orange run button on the far left---**
+
+**Cell 0** [*replace the existing Cell 0*]:
+
+
+<div class="codehilite"><pre><span></span><code><span class="o">%</span><span class="n">glue_version</span> <span class="mf">2.0</span>
+<span class="o">%</span><span class="n">idle_timeout</span> <span class="mi">60</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">awsglue.transforms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">awsglue.utils</span> <span class="kn">import</span> <span class="n">getResolvedOptions</span>
+<span class="kn">from</span> <span class="nn">pyspark.context</span> <span class="kn">import</span> <span class="n">SparkContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.context</span> <span class="kn">import</span> <span class="n">GlueContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.job</span> <span class="kn">import</span> <span class="n">Job</span>
+<span class="kn">from</span> <span class="nn">awsglueml.transforms</span> <span class="kn">import</span> <span class="n">FindMatches</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="n">glueContext</span> <span class="o">=</span> <span class="n">GlueContext</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">spark_session</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">glueContext</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+![TRAIL](images/ml-output-cell-1.png)
+
+Once you see a message saying "Session XXXX-XXXX-XXXX has been created", add a new cell by clicking on the plus sign (**+**) at the top of left of the notebook interface. Copy the following code and paste it into the **Cell 2** and **run** it:
+
+**Cell 2:**
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">datasource0</span> <span class="o">=</span>      <span class="n">glueContext</span><span class="o">.</span><span class="n">create_dynamic_frame</span><span class="o">.</span><span class="n">from_catalog</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s2">&quot;glue_ttt_demo_db&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;ml_to_dedup_top_customer&quot;</span><span class="p">,</span>  <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;datasource0&quot;</span><span class="p">)</span>      
 
 <span class="n">resolvechoice1</span> <span class="o">=</span> <span class="n">ResolveChoice</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">datasource0</span><span class="p">,</span> <span class="n">choice</span> <span class="o">=</span> <span class="s2">&quot;MATCH_CATALOG&quot;</span><span class="p">,</span> <span class="n">database</span> <span class="o">=</span> <span class="s2">&quot;glue-ttt-demo-db&quot;</span><span class="p">,</span>  <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&quot;ml_dedup_full_topcustomer_csv&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;resolvechoice1&quot;</span><span class="p">)</span>
 
 <span class="n">resolvechoice1</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
 </code></pre></div>
 
-<p>Cell 3:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">findmatches2</span> <span class="o">=</span> <span class="n">FindMatches</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">resolvechoice1</span><span class="p">,</span> <span class="n">transformId</span> <span class="o">=</span> <span class="s2">&quot;tfm-733f49ce1a5f98c4e2b8a9604ae4427368b08b07&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;findmatches2&quot;</span><span class="p">)</span>
+
+
+![TRAIL](images/ml-output-cell-2.png)
+
+Once you see the **ml\_to\_dedup\_top\_customer table's schema** in the output, copy the following code and paste it into the **Cell 3**. *Don't run it as is!*
+**Cell 3:**
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">findmatches2</span> <span class="o">=</span> <span class="n">FindMatches</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">resolvechoice1</span><span class="p">,</span> <span class="n">transformId</span> <span class="o">=</span> <span class="s2">&quot;$</span><span class="si">{YOUR_TRANSFORM_ID}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;findmatches2&quot;</span><span class="p">)</span>
 
 <span class="n">resolvechoice3</span> <span class="o">=</span> <span class="n">ResolveChoice</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">findmatches2</span><span class="p">,</span> <span class="n">choice</span> <span class="o">=</span> <span class="s2">&quot;make_struct&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;resolvechoice3&quot;</span><span class="p">)</span>
 
@@ -949,7 +1022,17 @@ aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab s3://<span class="nv">$BUCKET_N
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duplicate count of matching IDs : &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">count</span><span class="p">()))</span>
 </code></pre></div>
 
-<p>Cell 4:</p>
+
+
+Before you run the **Cell 3**, replace the **\${YOUR\_TRANSFORM\_ID}** placeholder for the **Transform ID** of the the **FindMatches Transform** that you created.
+
+![TRAIL](images/ml-transform-id.png)
+
+Now you can run the **Cell 3:**. 
+
+Cell 4:
+
+
 <div class="codehilite"><pre><span></span><code><span class="n">custidlist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAAAAAAANDCFBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAAJLKGBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAAJLKGBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAAPLNDAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAANDCFBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAAPLNDAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAANDCFBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAANKFAAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAANKFAAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAADFHGAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAADFHGAAAA&quot;</span><span class="p">]</span>
 <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;c_customer_id&#39;</span><span class="p">,</span><span class="s1">&#39;c_current_addr_sk&#39;</span><span class="p">,</span><span class="s1">&#39;c_salutation&#39;</span><span class="p">,</span><span class="s1">&#39;c_first_name&#39;</span><span class="p">,</span><span class="s1">&#39;c_last_name&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_day&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_month&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_year&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_country&#39;</span><span class="p">,</span><span class="s1">&#39;c_login&#39;</span><span class="p">,</span><span class="s1">&#39;c_email_address&#39;</span><span class="p">,</span><span class="s1">&#39;match_id&#39;</span><span class="p">]</span>
 
@@ -958,34 +1041,56 @@ aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab s3://<span class="nv">$BUCKET_N
 <span class="n">df1</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">c_customer_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">custidlist</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;match_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 
-<p>Cell 5:</p>
+
+
+Cell 5:
+
+
 <div class="codehilite"><pre><span></span><code><span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;match_id&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distinct count of matching IDs : &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">count</span><span class="p">()))</span>
 
 <span class="n">df2</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">c_customer_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">custidlist</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;match_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 
-<p>---&gt; Wait for the last cell to finish and output the results.</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<h4 id="3-validating-and-deploying-the-findmatches-glue-job"><strong>3.</strong> Validating and Deploying the FindMatches Glue Job<a class="headerlink" href="#3-validating-and-deploying-the-findmatches-glue-job" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>---&gt; validate the results:
-    --&gt; Reference this blog: Reference This Blog: http://blog.zenof.ai/machine-learning-based-fuzzy-matching-using-aws-glue-ml-transforms/</p>
-<p>"However, the Find matches transform adds another column named match_id to identify matching records in the output. Rows with the same match_id are considered matching records."</p>
-<p>Once done explaining the Matching IDs logic, add a new cell to the notebook to sink the very final dataframe to S3 but DON'T RUN this cell!!!</p>
-<p>[DON'T RUN THIS CELL] Cell 6:</p>
+
+
+[DON'T RUN THIS CELL] Cell 6:
+
+
 <div class="codehilite"><pre><span></span><code><span class="n">new_df</span>  <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;match_id&quot;</span><span class="p">)</span>
 
 <span class="n">new_df</span><span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;header&quot;</span><span class="p">,</span><span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;overwrite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;s3://etl-ttt-demo-589541849248-us-east-2/etl-ttt-demo/output/ml-lab/topcustomers-dedup/&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<p>[DON'T RUN THIS CELL]</p>
+
+
+[DON'T RUN THIS CELL]
+
 <!--
 S3 Target Location: s3://etl-ttt-demo-589541849248-us-east-2/etl-ttt-demo/output/ml-lab/topcustomers-dedup/ 
 !-->
 
-<p>JUST SAVE THE JOB TO DEPLOY IT PROPERLY AND MOVE TO THE NEXT LAB]</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>--&gt;</p>
+<h4 id="3-validating-and-deploying-the-findmatches-glue-job"><strong>3.</strong> Validating and Deploying the FindMatches Glue Job<a class="headerlink" href="#3-validating-and-deploying-the-findmatches-glue-job" title="Permanent link">&para;</a></h4>
+<p>Now, to validate the <strong>FindML Transform results</strong>, simply run the <strong>Cell [4]</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-4.png" /></p>
+<p>You should also see that the <strong>FindMatches Transform</strong> has added another column named <strong>match_id</strong> to identify matching records in the output. That means that rows with the same <strong>match_id</strong> are considered matching records. </p>
+<p>To confirm that the <strong>FindML Transform</strong> worked, you can actually see that from the <strong>10 rows</strong> returned in the output <strong>5 are duplicates</strong>. This proves that the <strong>FindMatches ML Transform is working!</strong>.</p>
+<p>Now, let's leverage the <strong>match_id</strong> column created by the <strong>FindMatches Transform</strong> to eliminate the duplicates from the dataset. Run the <strong>Cell 5</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-5.png" /></p>
+<p>Notice how the duplicates are now gone. That means that you were able to <strong>create a code that leverages the a ML Transform</strong> that you created to help you <strong>find and eliminate duplicates</strong> in your dataset.</p>
+<p>You can now operationalize this code into a Glue Studio Job, but first, you must run the last cell, the <strong>Cell 6</strong>, in order to <strong>sink the output data into an S3 Bucket</strong> of your choice. For this lab, you can use the <strong>S3 path</strong>:  </p>
+<p><code>"s3://${BUCKET_NAME}/etl-ttt-demo/output/ml-lab/topcustomers-dedup/</code></p>
+<p><strong>TIP:</strong> Run the following command in your <strong>Cloud9 Terminal</strong> to build the full path you need:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;s3://</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">/etl-ttt-demo/output/ml-lab/topcustomers-dedup/&quot;</span>
+</code></pre></div>
+
+<p>Replace the <strong>\$BUCKET_NAME</strong> placeholder in the last cell for the above <strong>S3 path</strong> and run the <strong>Cell 6</strong> to output the data to <strong>S3</strong>.</p>
+<p>Once the code ran, check the S3 Bucket Path you just set as a target. Optionally, you can also run <strong>S3 Select</strong> queries on the data generated to validate.</p>
+<p><img alt="TRAIL" src="../images/ml-s3-select-output.png" /></p>
+<p></br>
+Finally, you can now <strong>Save</strong> the job and download the notebook file to keep it locally on your computer. Once you are ready move to the P<strong>art 6 - Workflow Orchestration with
+AWS Step Function</strong>.</p>
 
               
             </article>
@@ -1015,13 +1120,13 @@ S3 Target Location: s3://etl-ttt-demo-589541849248-us-east-2/etl-ttt-demo/output
       
       
         
-        <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS" rel="next">
+        <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+              WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
             </div>
           </div>
           <div class="md-footer__button md-icon">

@@ -735,7 +735,7 @@
   
     <li class="md-nav__item">
       <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
-        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
       </a>
     </li>
   
@@ -864,50 +864,44 @@ WORKING WITH TPC-DS DATA & RDS MYSQL DATABASE
 </h1>
 
 <p>Welcome to Part 1!</p>
-<p>In the Part 1 - Working with TPC-DS Data &amp; RDS MySQL Database - you will be installing and configuring everything that is required to prepare and load TPC-DS* data into a RDS MySQL Database Instance in order to supply the necessary dataset samples for each piece of the ETL Traine The Trainer Workshop.</p>
+<p>In the <strong>Part 1 - Working with TPC-DS Data &amp; RDS MySQL Database -</strong> you will be installing and configuring everything that is required to prepare and load <strong>TPC-DS*</strong> data into a <strong>RDS MySQL Database Instance</strong> in order to supply the necessary dataset samples for each piece of the <strong>ETL Train The Trainer Workshop</strong>.</p>
 <h4 id="1-preparing-generating-tpcds-dataset"><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<a class="headerlink" href="#1-preparing-generating-tpcds-dataset" title="Permanent link">&para;</a></h4>
-<!-- [ADD QUOTE FOR TPC-DS]  -->
-
 <ul>
-<li><strong>TPC-DS</strong> - TPC data is used for a decision support benchmark. When you load this data the schema tpcds is updated with sample data. For more information about the tpcds data, see TPC-DS.</li>
+<li><strong>TPC-DS</strong> - TPC data is used for a decision support benchmark. When you load this data the schema tpcds is updated with sample data. For more information about the tpcds data, see <a href="https://www.tpc.org/tpcds/">TPC-DS</a>.</li>
 </ul>
-<!-- [ADD QUOTE FOR TPC-DS]  -->
-
-<p>Before you can install and generate TPC-Data, you need to build the necessary folders and download the necessary files. </p>
-<p>Run the following command to create the base level directory for the ETL Train the Trainer Workshop and to download the TCP-DS tool to your local AWS Cloud9 Enviroment</p>
+<p>Before you can install and generate <strong>TPC-Data</strong>, you need to build the necessary folders and download the necessary files. </p>
+<p>Run the following command to create the base level directory for the <strong>ETL Train the Trainer Workshop</strong> and to download the <strong>TCP-DS tool</strong> to your local <strong>AWS Cloud9 Enviroment</strong>:</p>
 <div class="codehilite"><pre><span></span><code>mkdir -p ~/environment/ttt-demo
 <span class="nb">cd</span> ~//environment/ttt-demo//
 aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/16d7423c-23d3-4185-8ab4-5b002ec51153-tpc-ds-tool.zip tpc-ds-tool.zip
 </code></pre></div>
 
-<p>Next, run the following commands to unzip the previous downloaded (.zip) file and get into the DSGen software's directory to install the tool.
-&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<p>Next, run the following commands to <strong>unzip the previous downloaded (.zip)</strong> file and get into the <strong>DSGen software's directory</strong> to install the tool.</p>
 <div class="codehilite"><pre><span></span><code>unzip tpc-ds-tool.zip 
 <span class="nb">cd</span> DSGen-software-code-3.2.0rc1/tools/
 make
 head -200 tpcds.sql 
 </code></pre></div>
 
-<p>The last command (head) prints out the TPC-DS sql script for the tables' schemas to validate the instalation of the tool.</p>
-<p>Now, let's run the DSGen software to generate the sample data for all the TPC-DS tables and store the sample datasets in a temporary directory. TIP: This should take about 3 minutes to complete!
-&lt;&lt;&lt;&lt;&lt;&lt;</p>
+<p>The last command (<strong>head</strong>) prints out the <strong>TPC-DS sql script for the tables' schemas</strong> to validate the instalation of the tool.</p>
+<p>Now, let's run the <strong>DSGen software</strong> to generate the sample data for all the <strong>TPC-DS tables</strong> and store the sample datasets in a <strong>temporary directory</strong>. <strong>TIP:</strong> This should take about <strong>3 minutes</strong> to complete!</p>
 <div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/
 ./dsdgen -scale <span class="m">1</span> -dir /tmp/dsd -parallel <span class="m">2</span> -child <span class="m">1</span>
 <span class="nb">cd</span> /tmp/dsd/
 ls -lrt
 </code></pre></div>
 
-<p>[OPTIONAL STEP] -  Performing this optional step should allow for enough time for the previous step to complete!</p>
-<p>&lt;&lt;&lt; write the right stuff
-While the above command is running, you can proactively test the reacheability of your RDS MySQL Database Instance for access coming from your AWS Cloud9 Enviroment. To do that, run the following command in a NEW terminal tab:</p>
+<p><img alt="SHOW ALL" src="../images/mysql-dsgen.png" /></p>
+<p><strong>[Optional]:</strong> (Performing this optional step should allow for enough time for the previous step to complete!)</p>
+<p>While the above command is running, you can proactively test the <strong>reacheability of your RDS MySQL Database Instance for access coming from your AWS Cloud9 Enviroment</strong>. To do that, run the following command in a <strong>NEW</strong> terminal tab (<strong>+</strong> icon):</p>
 <div class="codehilite"><pre><span></span><code>sudo yum -y install telnet
 <span class="nv">mysqlendpoint</span><span class="o">=</span><span class="k">$(</span>aws cloudformation describe-stacks --query <span class="s1">&#39;Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]&#39;</span> --output text<span class="k">)</span>
 telnet <span class="nv">$mysqlendpoint</span> <span class="m">3306</span>
 </code></pre></div>
 
-<p>TIP: Close this additional Terminal tab once Telnet command succeed!</p>
+<p><strong>TIP:</strong> Close this <strong>additional Terminal</strong> tab once <strong>Telnet</strong> command succeed and go back to the <strong>original one</strong>!</p>
 <h4 id="2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset"><strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset<a class="headerlink" href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" title="Permanent link">&para;</a></h4>
-<p>Once the dataset samples get generated, it is time to load the data into the RDS MySQL Database. But first, run the following commands to create the TPC-DS tables' schemas in the MySQL database:</p>
+<p>Once the dataset samples get generated, it is time to load the data into the <strong>RDS MySQL Database</strong>. But first, run the following commands to create the <strong>TPC-DS tables' schemas in the MySQL database</strong>:</p>
 <div class="codehilite"><pre><span></span><code><span class="nv">tpcds_script_path</span><span class="o">=</span>~/environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
 mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds &lt; <span class="nv">$tpcds_script_path</span>
 mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;show tables&quot;</span>
@@ -915,25 +909,26 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 
 <p>The last output should be a list of all the tables that have been created in the database.</p>
 <p><img alt="SHOW ALL" src="../images/mysql-show-all-tables.png" /></p>
-<p>Now, it is time to load the data into the tables. To easily do that, you can run the following commands to download and run the a Shell script that does all the loading process into the RDS MySQL Database:</p>
+<p>Now, it is time to load the data into the tables. To easily do that, you can run the following commands to download and run the a <strong>Shell Script</strong> that does all the loading process into the <strong>RDS MySQL Database</strong>! <strong>TIP:</strong> This should take about <strong>3 minutes</strong> to complete!</p>
 <div class="codehilite"><pre><span></span><code>aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/load_TPC-DS_MySQL.sh .
 . load_TPC-DS_MySQL.sh <span class="nv">$mysqlendpoint</span>
-
-mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;delete from customer where c_customer_sk &gt; 1000&quot;</span><span class="p">;</span>
-mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;commit&quot;</span><span class="p">;</span> 
 </code></pre></div>
 
-<p>NOTE: Observe that for this workshop's purposes only, once the loading process is done a SQL Delete Statement is performed in order to delete multiple rows of the customer table since this table is too big originally.</p>
 <p>You can see all the tables getting loaded one by one...</p>
 <p><img alt="LOAD" src="../images/mysql-load-output.png" /></p>
-<p>And here's a snippet of the Shell Script code (You don't need to create it!):</p>
+<p>And here's a snippet of the <strong>Shell Script</strong> code.</p>
 <p><img alt="SCRIPT" src="../images/mysql-load-script.png" /></p>
+<p><strong>NOTE:</strong> You don't have to create it but if you want just to have a look at the script, simply run the following commands:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> /tmp/dsd/ 
+cat load_TPC-DS_MySQL.sh
+</code></pre></div>
+
 <h4 id="3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3"><strong>3.</strong> Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3<a class="headerlink" href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" title="Permanent link">&para;</a></h4>
 <p>Finally, running the following commands will:</p>
 <ul>
-<li>Extract the 3 required tables (web_page, customers and income_band) from the MySQL database;</li>
-<li>Save these tables in the local temporary directory (in CSV format);</li>
-<li>And, subsequently, upload these CSV files into the Workshop's S3 Bucket's path: " .../etl-ttt-demo/csv_tables/ "</li>
+<li>Extract the <strong>3 required tables</strong> (<strong>web_page, customers and income_band</strong>) from the <strong>MySQL database</strong>;</li>
+<li>Save these tables in the <strong>local temporary directory</strong> (in <strong>CSV format</strong>);</li>
+<li>And, subsequently, upload these <strong>CSV files</strong> into the <strong>Workshop's S3 Bucket's path</strong>: <em>" .../etl-ttt-demo/csv_tables/"</em></li>
 </ul>
 <div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from web_page&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/web_page.csv
 mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from customer&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/customer.csv
@@ -943,7 +938,7 @@ aws s3 cp --recursive /tmp/dsd/csv_tables/ s3://<span class="nv">$BUCKET_NAME</s
 
 <p><img alt="CSV" src="../images/mysql-csv-tables-uploaded.png" /></p>
 <p><br/>
-You are finished populating the RDS MySQL Database with TPC-DS sample data. Now, feel free to explore the workshop's bucket again ( etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION} ) and check the files insite the "etl-ttt-demo/csv_tables" path. Once you are ready you can move on to Part 2 - AWS GLUE COMPONENTS!</p>
+You are finished populating the <strong>RDS MySQL Database with TPC-DS sample data</strong>. Now, feel free to explore the  <a href="https://s3.console.aws.amazon.com/s3">Amazon S3</a> workshop's bucket again (<strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong>) and check the path and files inside the <strong>etl-ttt-demo/csv_tables/</strong> path. Once you are ready you can move on to <strong>Part 2 - AWS GLUE COMPONENTS!</strong></p>
 
               
             </article>

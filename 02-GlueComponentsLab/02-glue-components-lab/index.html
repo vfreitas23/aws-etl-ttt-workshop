@@ -528,16 +528,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
-    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  <a href="#databases" class="md-nav__link">
+    Databases
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connections" class="md-nav__link">
+    Connections
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crawlers" class="md-nav__link">
+    Crawlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classifiers" class="md-nav__link">
+    Classifiers
+  </a>
+  
+    <nav class="md-nav" aria-label="Classifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
     3. Creating new Glue Resources (New Crawler &amp; Classifier)
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -735,7 +776,7 @@
   
     <li class="md-nav__item">
       <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
-        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
       </a>
     </li>
   
@@ -828,16 +869,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
-    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  <a href="#databases" class="md-nav__link">
+    Databases
   </a>
   
 </li>
       
         <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connections" class="md-nav__link">
+    Connections
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crawlers" class="md-nav__link">
+    Crawlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classifiers" class="md-nav__link">
+    Classifiers
+  </a>
+  
+    <nav class="md-nav" aria-label="Classifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
     3. Creating new Glue Resources (New Crawler &amp; Classifier)
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -866,91 +948,95 @@ AWS GLUE DISCOVERY COMPONENTS
 </H1>
 
 <p>Welcome to Part 2!</p>
-<p>In the Part 2 - AWS Glue Discovery Componets - of this ETL Train The Trainer workshop, you will understand the AWS Glue Data Catalog and all the Glue resources associated with it.</p>
-<p>At first, you will explore all the Glue resources created for you as part of the CloudFormation. Then, you will create and run couple more Glue Resources that will be required for the subsequent parts of the workshop.</p>
-<p>The Glue components that you work with during this lab include Glue Databases, Tables, Connection, Crawlers and Classifiers.</p>
+<p>In the <strong>Part 2 - AWS Glue Discovery Componets -</strong> of this <strong>ETL Train The Trainer workshop</strong>, you will understand the <strong>AWS Glue Data Catalog</strong> and all the <strong>Glue resources</strong> associated with it.</p>
+<p>At first, you will explore all the <strong>Glue resources</strong> created for you as part of the <strong>CloudFormation Template</strong>. Then, you will create and run couple more <strong>Glue Resources</strong> that will be required for the subsequent parts of the workshop.</p>
+<p>The <strong>Glue components</strong> that you work with during this lab include <strong>Glue Databases, Tables, Connection, Crawlers and Classifiers</strong>.</p>
 <h4 id="1-understanding-the-glue-resources-provided-cloudformation-resources"><strong>1.</strong> Understanding the Glue Resources Provided (CloudFormation Resources)<a class="headerlink" href="#1-understanding-the-glue-resources-provided-cloudformation-resources" title="Permanent link">&para;</a></h4>
-<p>To browse through all the Glue provided resources first go to the AWS Glue Console <ADD LINK>. In the far left menu of the AWS Glue Console you can access all your resources like Database, Tables, Crawlers, Jobs, etc.</p>
-<p><strong>Databases</strong></p>
-<p>Definition: A database is a set of associated table definitions, organized into a logical group.</p>
-<p>To see all your databases, click on Databases. There, you should see 2 databases, the Default - which, as the name suggests, is the default database for Glue in this region - and the "glue_ttt_demo_db" which is the database where you will be creating and storing all the workshop's tables metadata for all the labs.</p>
+<p>To browse through all the Glue provided resources first go to the <strong>AWS Glue Console</strong> by searching for it in the <a href="http://console.aws.amazon.com/">AWS Management Console</a> (<strong>Make sure you are in the right region where you started the lab!</strong>).</p>
+<p>In the far left menu of the <strong>AWS Glue Console</strong> you can access all your resources like <strong>Database, Tables, Crawlers, Jobs, etc</strong>.</p>
+<h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A database is a set of associated table definitions, organized into a logical group.</p>
+<p>To see all your databases, click on <strong>Databases</strong>. There, you should see <strong>2 databases</strong>, the <strong>Default</strong> - which, as the name suggests, is the default database for Glue in this region - and the <strong>glue_ttt_demo_db</strong> which is the database where you will be creating and storing <strong>all the workshop's tables metadata</strong> for all the labs.</p>
 <p><img alt="DATABASE" src="../images/glue-databases.png" /></p>
-<p><strong>Tables</strong></p>
-<p>Definition: A table is the metadata definition that represents your data, including its schema. A table can be used as a source or target in a job definition.</p>
-<p>To see all your databases, click on Tables, under Databases. There, you should see just one table named "web-page-streaming-table". This table has been created as part of the CloudFormation template and you will explore this table in details in the subsequent Part 3 - Glue Streaming Lab of this workshop.</p>
+<h3 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A table is the metadata definition that represents your data, including its schema. A table can be used as a source or target in a job definition.</p>
+<p>To see all your databases, click on <strong>Tables</strong>, under <strong>Databases</strong>. There, you should see just one table named <strong>web-page-streaming-table</strong>. This table has been created as part of the <strong>CloudFormation template</strong> and you will explore this table in details in the subsequent <strong>Part 3 - Glue (Studio) Streaming -</strong> lab of this workshop.</p>
 <p><img alt="TABLES" src="../images/glue-tables.png" /></p>
-<p><strong>Connections</strong></p>
-<p>Definition: A connection contains the properties needed to connect to your data.</p>
-<p>To see all your connections, click on Connections, under Databases. There, you should see only one connection named "rds-mysql-connection" which we will explore and test in the next step of this lab.</p>
+<h3 id="connections">Connections<a class="headerlink" href="#connections" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A connection contains the properties needed to connect to your data.</p>
+<p>To see all your connections, click on <strong>Connections</strong>, under <strong>Databases</strong>. There, you should see <strong>only one connection</strong> named <strong>rds-mysql-connection</strong> which we will explore and test in the next step of this lab.</p>
 <p><img alt="CONNECTIONS" src="../images/glue-connections.png" /></p>
-<p><strong>Crawlers</strong></p>
-<p>Definition: A crawler connects to a data store, progresses through a prioritized list of classifiers to determine the schema for your data, and then creates metadata tables in your data catalog.</p>
-<p>To see all your crawlers, click on Crawlers. There, you should see 2 crawlers which were created as part of the CloudFormation template:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <em>ml_bootstrap_crawler</em>: This crawler is to bootstrap a table that is required for the Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks. You will explore it later.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <em>mysql-rds-crawler</em>: This crawler is to crawl RDS MySQL customer's table. It uses a the above Glue Connection reach the RDS MySQL database instance. You will explore it in the next step.</p>
+<h3 id="crawlers">Crawlers<a class="headerlink" href="#crawlers" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A crawler connects to a data store, progresses through a prioritized list of classifiers to determine the schema for your data, and then creates metadata tables in your data catalog.</p>
+<p>To see all your crawlers, click on <strong>Crawlers</strong>. There, you should see <strong>3 crawlers</strong> which were created as part of the <strong>CloudFormation template</strong>:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>- ml-bootstrap-crawler :</strong> This crawler is to <strong>bootstrap a table</strong> that is required for the <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>. You will explore it later.    </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>- mysql-rds-crawler :</strong> This crawler is to crawl <strong>RDS MySQL customer's table</strong>. It uses a the above <strong>Glue Connection reach the RDS MySQL database instance</strong>. You will explore it in the next step.</p>
 <p><img alt="CRAWLERS" src="../images/glue-crawlers.png" /></p>
-<p><strong>Classifiers</strong></p>
-<p>Definition: A classifier determines the schema of your data. You can use the AWS Glue built-in classifiers or write your own.</p>
-<p>To see all your classifiers, click on Classifiers, under Crawlers. There is no classifiers created yet but you will be creating one in the third step step of this lab.</p>
+<h3 id="classifiers">Classifiers<a class="headerlink" href="#classifiers" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A classifier determines the schema of your data. You can use the AWS Glue built-in classifiers or write your own.</p>
+<p>To see all your classifiers, click on <strong>Classifiers</strong>, under <strong>Crawlers</strong>. There is <strong>no classifiers created yet</strong> but you will be creating one in the third step step of this lab.</p>
 <p><img alt="CLASSIFIERS" src="../images/glue-classifiers.png" /></p>
 <h4 id="2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds"><strong>2.</strong> Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)<a class="headerlink" href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" title="Permanent link">&para;</a></h4>
-<p>Now, let's run a Crawler and verify the tables it will create. But first, let's confirm that the connection that the crawler is going to use is working properly.</p>
-<p>Click on Connections, then click on the blue name "rds-mysql-connection" to open the details of that connection.</p>
-<p>You can see that the connection has a JDBC URL that points to the "tpcds" database that you created earlier in the RDS MySQL. The JDBC URL uses the RDS instance's endpoint. The connection also has the right VPC and Subnet configured as well as a Security Group. </p>
+<p>Now, let's run a <strong>Crawler</strong> and verify the tables it will create. But first, let's confirm that the connection that the crawler is going to use is working properly.</p>
+<p>Click on <strong>Connections</strong>, then click on the blue name <strong>rds-mysql-connection</strong> to open the details of that connection.</p>
+<p>You can see that the connection has a <strong>JDBC URL</strong> that points to the <strong>tpcds database</strong> that you created earlier in the <strong>RDS MySQL</strong>. The <strong>JDBC URL uses the RDS instance's endpoint</strong>. The connection also has the <strong>right VPC and Subnet configured</strong> as well as a <strong>Security Group</strong>.</p>
 <p><img alt="CONNECTION DETAILS" src="../images/glue-rds-connection-details.png" /></p>
-<p>Note 1: As part of the CloudFormation template, this security has been added to an Inboud Rule at the RDS Instance's Security Group which allows traffic on port 3306 (MySQL's default port) of the RDS instance.</p>
-<p>Click on Connections again, then check "rds-mysql-connection" connections box and click on Test Connection button.</p>
-<p>In the pop-up screen, choose the required IAM Role to perform the connection test ("AWSGlueServiceRole-etl-ttt-demo"). Finally, click on Test Connection.</p>
-<p>Note 2: The AWSGlueServiceRole-etl-ttt-demo has been created as part of CloudFormation template and has all the required permissions for all the labs in this workshop.</p>
+<p><strong>Note 1:</strong> As part of the <strong>CloudFormation template</strong>, this <strong>Security Group</strong> has been added to an <strong>Inboud Rule</strong> in the <strong>RDS Instance's Security Group</strong> which allows traffic on <strong>port 3306</strong> (MySQL's default port) of the <strong>RDS instance</strong>.</p>
+<p>Click on <strong>Connections</strong> again, then check <strong>rds-mysql-connection</strong> connections box and click on <strong>Test Connection</strong>.</p>
+<p>In the pop-up screen, choose the required <strong>IAM Role</strong> to perform the connection test (<strong>AWSGlueServiceRole-etl-ttt-demo</strong>). Finally, click on <strong>Test Connection</strong>.</p>
+<p><strong>Note 2:</strong> The <strong>AWSGlueServiceRole-etl-ttt-demo</strong> has been created as part of <strong>CloudFormation template</strong> and <strong>has all the required permissions</strong> for all the labs in this workshop.</p>
 <p>While the connection test is running, you will notice the following banner at the:</p>
 <p><img alt="BANNER" src="../images/glue-testing-connection.png" /></p>
-<p>You don't need to wait for it to finish, you can now click on Crawlers and start exploring the "mysql-rds-crawler" by click on its blue name.</p>
+<p>You don't need to wait for it to finish, you can now click on <strong>Crawlers</strong> and start exploring the <strong>mysql-rds-crawler</strong> by click on its blue name.</p>
 <p><img alt="CRAWLER DETAILS" src="../images/glue-rds-crawler-details.png" /></p>
-<p>As you can see, this crawler uses the aforementioned Glue Connection to crawl the path "tpcds/customer" which is the database/table that you created and loaded data earlier. From this screen, just click on Run Crawler at the top.</p>
-<p>By starting this crawler, you will notice its Status column progressing from Ready -&gt; Starting -&gt; Xmin elapsed -&gt; Stopping -&gt; Ready again. </p>
-<p>TIP: This crawler should take about 2-3 minutes to complete so move to the next lab then come back in 3 minutes to verify the results of running the crawler!</p>
-<p>At this point, the previous connection test should have already succeeded. You will see a green banner at top saying "rds-mysql-connection connected successfully to your instance.". At crawler's successfull completion, you should also see, in the Tables added column, that 1 table has been added. </p>
+<p>As you can see, this crawler uses the aforementioned <strong>Glue Connection</strong> to crawl the path <strong>"tpcds/customer"</strong> which is the <strong>database/table</strong> that you created and loaded data earlier. From this screen, just click on <strong>Run Crawler</strong> at the top.</p>
+<p>By starting this crawler, you will notice its <strong>Status</strong> column progressing from <strong>Ready -&gt; Starting -&gt; Xmin elapsed -&gt; Stopping -&gt; Ready</strong> again. </p>
+<p><strong>TIP:</strong> This crawler should take about<strong> 2-3 minutes</strong> to complete so move to the next lab then come back in <strong>3 minutes</strong> to verify the results of running the crawler!</p>
+<p>At this point, the previous connection test should have already succeeded. You will see a green banner at top saying <strong>"rds-mysql-connection connected successfully to your instance."</strong>. At the crawler's successfull completion, you should also see, in the <strong>Tables added</strong> column, that <strong>1 table has been added</strong>. </p>
 <p><img alt="TABLE ADDED" src="../images/glue-running-rds-crawler.png" /></p>
-<p>Go to Databases &gt; Tables on the left to check the 1 table created. You will see that, apart from the streaming table, there will be another table named "rds_crawled_tpcds_customer" created in the "glue_ttt_demo_db" in which Location says "tpcds.customers" and Classification says "mysql".</p>
+<p>Go to <strong>Databases &gt; Tables </strong> on the left menu to check the <strong>1 table created</strong>. You will see that, apart from the streaming table, there will be another table named <strong>rds_crawled_tpcds_customer</strong> created in the <strong>glue_ttt_demo_db</strong> in which <strong>Location</strong> says <strong>"tpcds.customers"</strong> and <strong>Classification</strong> says <strong>"mysql"</strong>.</p>
 <p><img alt="TABLE ADDED 2" src="../images/glue-rds-table-created.png" /></p>
 <p>Explore this table by clicking on its blue name.</p>
-<p><img alt="RDS CUST TABLE" src="images/mysql-csv-tables-uploaded.png" />  <!-- NEED A NEW PICTURE HERE --></p>
+<p><img alt="RDS CUST TABLE" src="../images/mysql-customer-table.png" /></p>
 <!-- NEED TO TALK A BIT ABOUT THIS TABLE GENERATED FROM RDS -->
 
 <h4 id="3-creating-new-glue-resources-new-crawler-classifier"><strong>3.</strong> Creating new Glue Resources (New Crawler &amp; Classifier)<a class="headerlink" href="#3-creating-new-glue-resources-new-crawler-classifier" title="Permanent link">&para;</a></h4>
-<p>While the above "mysql-rds-crawler" is running (if you followed the previous tip), it is time to create couple more resources in Glue. First is a Glue Custom CSV Classifier.</p>
+<p>While the above <strong>mysql-rds-crawler</strong> is running (if you followed the previous tip), it is time to create couple more resources in Glue. First is a <strong>Glue Custom CSV Classifier</strong>.</p>
 <p><strong>Create Classifier</strong></p>
-<p>To create a classifier, click on Classifiers in the far left menu, then click on Add Classifier. Fill out the details with the following details:</p>
-<p>Classifier name: My-Custom-CSV-Classifier<br />
-Classifier type: CSV
-Column delimiter: Comma (,)<br />
-Quote symbol: Double-quote (")<br />
-Column headings: Has headings<br />
-(headings list): c_full_name,c_email_address,total_clicks  </p>
-<p><img alt="CLASSIFIER" src="../images/glue-add-csv-classifier.png" /></p>
-<p>Click on the Create button at the bottom of pop-up page. A new classifier will be added to the list of classifiers.</p>
+<p>To create a classifier, click on <strong>Classifiers</strong> in the far left menu, then click on <strong>Add Classifier</strong>. Fill out the details with the following details:</p>
+<p><strong>Classifier name</strong>: <em>My-Custom-CSV-Classifier</em><br />
+<strong>Classifier type</strong>: <em>CSV</em><br />
+<strong>Column delimiter</strong>: <em>Comma (,)</em><br />
+<strong>Quote symbol</strong>: <em>Double-quote (")</em><br />
+<strong>Column headings</strong>: <em>Has headings</em><br />
+<strong>(headings list)</strong>: <em>c_full_name,c_email_address,total_clicks</em> </p>
+<p align="center">
+ <img src=images/glue-add-csv-classifier.png>
+</p>
+
+<p>Click on the <strong>Create</strong> button at the bottom of pop-up page. A <strong>new classifier</strong> will be added to the list of classifiers.</p>
 <p><strong>Create Crawler</strong></p>
-<p>Next, as an advanced step, you are going to create a new crawler to crawl the path of the future Glue Streaming job's output that you will still develop in Part 3 - Glue (Studio) Streaming.</p>
-<p>To create a crawler, click on Crawlers in the far left menu, then click on Add Crawler. Fill out the details on each screen as following details:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On Add information about your crawler page, provide a name for the new Crawler such as "crawl_streammed_data". Then, expand the option that says "Tags, description, security configuration, and classifiers (optional)" and scroll to the bottom to see the list of custom classifiers on the right. Click on Add in front of "My-Custom-CSV-Classifier". It will appear on the left side as well now. Click Next.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On Specify crawler source type page, simply click Next. </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> On Add a data store page, under Include path, pick "s3://\${BUCKET_NAME}/etl-ttt-demo/output/gluestreaming/total_clicks/" . Make sure you pick the csv folder rather than the file inside the folder, and then click Next.</p>
-<p>TIP: Switch back quickly to your Cloud9 enviroment in order to get the full path above by running the following command:</p>
+<p>Next, as an advanced step, you are going to <strong>create a new crawler to crawl the path of the future Glue Streaming job's output</strong> that you are going to develop in <strong>Part 3 - Glue (Studio) Streaming.</strong></p>
+<p>To create a crawler, click on <strong>Crawlers</strong> in the far left menu, then click on <strong>Add Crawler</strong>. Fill out the details on each screen as following details:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On <strong>Add information about your crawler</strong> page, provide a name for the new Crawler such as <strong>crawl_streammed_data</strong>. Then, expand the option that says <strong>"Tags, description, security configuration, and classifiers (optional)"</strong> and scroll to the bottom to see the list of custom classifiers on the right. Click on <strong>Add</strong> in front of <strong>My-Custom-CSV-Classifier</strong>. It will appear on the left side as well now. Click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On <strong>Specify crawler source type</strong> page, simply click <strong>Next</strong>. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> On <strong>Add a data store</strong> page, under <strong>Include path</strong>, write: <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/output/gluestreaming/total_clicks/</strong>. (Make sure you replace <strong>\${BUCKET_NAME}</strong>)</p>
+<p><strong>TIP:</strong> Switch back quickly to your <strong>Cloud9 enviroment</strong> tab and run the following command to get the full path you need. Copy it and paste it in the <strong>Include path</strong> field above:</p>
 <div class="codehilite"><pre><span></span><code>echo s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/etl-ttt-demo/output/gluestreaming/total_clicks/
 </code></pre></div>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Still on Add a data store page, under Sample Size (optional) choose 1. Then, expand where it says "Exclude patterns (optional)" and in the Exclude patterns field add: **00001</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Still on <strong>Add a data store</strong> page, under <strong>Sample Size (optional)</strong> choose <strong>1</strong>. Then, expand where it says <strong>"Exclude patterns (optional)"</strong> and in the <strong>Exclude patterns</strong> field add <strong>**00001</strong> and hit <strong>Next</strong>. (<em>Don't miss the 2 asterisks</em>)</p>
 <p><img alt="CLASSIFIER" src="../images/glue-stream-crawler-data-store.png" /></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> On Add another data store page, choose No and click Next.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> On Choose an IAM role page, click Choose an existing IAM role and pick the role "AWSGlueServiceRole-etl-ttt-demo", then click Next.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> On Create a schedule for this crawler page, click Next.</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>8.</strong> On Configure the crawler's output page, choose "glue_ttt_demo_db" from the Database dropdown list. Then, expand where it says "Grouping behavior for S3 data (optional)" and check the box "Create a single schema for each S3 path". Click Next.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> On <strong>Add another data store</strong> page, choose <strong>No</strong> and click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> On <strong>Choose an IAM role</strong> page, click <strong>Choose an existing IAM role</strong> and pick the role <strong>AWSGlueServiceRole-etl-ttt-demo</strong>, then click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> On <strong>Create a schedule for this crawler</strong> page, just click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>8.</strong> On <strong>Configure the crawler's output</strong> page, choose <strong>glue_ttt_demo_db</strong> from the <strong>Database</strong> dropdown list. Then, expand where it says <strong>"Grouping behavior for S3 data (optional)"</strong> and check the box <strong>"Create a single schema for each S3 path"</strong>. Click <strong>Next</strong>.</p>
 <p><img alt="CSV" src="../images/glue-crawler-output-config.png" /></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>9.</strong> Review everything in the last page and click Finish.</p>
-<h4 id="toc_0" align="center"> !!! DO NOT RUN THIS CRAWLER YET!!!! </h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>9.</strong> <strong>Review</strong> everything in the last page and click <strong>Finish</strong>.</p>
+<h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS CRAWLER YET !!! !!! </h4>
 
 <p><br/>
-You are finished populating reviewing and setting up new Glue Resources. Once you are ready you can move on to Part 3 - Glue (Studio) Streaming!</p>
+You are finished <strong>populating, reviewing and setting up new Glue Resources</strong>. Once you are ready you can move on to <strong>Part 3 - Glue (Studio) Streaming!</strong></p>
 
               
             </article>
