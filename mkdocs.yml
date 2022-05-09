@@ -29,7 +29,7 @@ nav:
   - Part 5:
     - MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS: '05-GlueStudioNotebookLab/05-gstudio-notebook-lab.md'
   - Part 6:
-    - WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS: '06-StepFunctionsLab/06-step-functions-lab.md'
+    - WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION: '06-StepFunctionsLab/06-step-functions-lab.md'
   - Part 7:
     - DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW: '07-DataBrewLab/07-databrew-lab.md'
 markdown_extensions:
