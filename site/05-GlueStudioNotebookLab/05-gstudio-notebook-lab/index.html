@@ -1,0 +1,1078 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS - Amazon ETL Train-The-Trainer Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#0-pre-steps-understading-setting-up-the-resources-for-ml-lab" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon ETL Train-The-Trainer Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Amazon ETL Train-The-Trainer Workshop
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../000-Intro/000-intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          How to Start?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How to Start?" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          How to Start?
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/001-intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          AWS Event
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AWS Event" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          AWS Event
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/002-ee-account-setup/" class="md-nav__link">
+        Account Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/003-cloud9-enviroment-setup/" class="md-nav__link">
+        Prepare the Enviroment
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 1" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Part 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-nav__link">
+        TPCDS & RDS MySQL Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Part 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-GlueComponentsLab/02-glue-components-lab/" class="md-nav__link">
+        GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Part 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 3" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Part 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-StreamingLab/03-streaming-lab/" class="md-nav__link">
+        GLUE (STUDIO) STREAMING
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Part 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 4" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Part 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-OrchestrationLab/04-orchestration-lab/" class="md-nav__link">
+        ORCHESTRATION & DATA ANALYSIS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Part 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 5" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Part 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-pre-steps-understading-setting-up-the-resources-for-ml-lab" class="md-nav__link">
+    0. (Pre Steps) - Understading &amp; Setting up the Resources for ML Lab
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-creating-and-training-the-glue-findmatches-ml-transform" class="md-nav__link">
+    1. Creating and Training the Glue FindMatches ML Transform
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-testing-findmatches-transform-with-glue-studio-notebook" class="md-nav__link">
+    2. Testing FindMatches Transform with Glue Studio Notebook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-validating-and-deploying-the-findmatches-glue-job" class="md-nav__link">
+    3. Validating and Deploying the FindMatches Glue Job
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Part 6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 6" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Part 6
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Part 7
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 7" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Part 7
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-pre-steps-understading-setting-up-the-resources-for-ml-lab" class="md-nav__link">
+    0. (Pre Steps) - Understading &amp; Setting up the Resources for ML Lab
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-creating-and-training-the-glue-findmatches-ml-transform" class="md-nav__link">
+    1. Creating and Training the Glue FindMatches ML Transform
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-testing-findmatches-transform-with-glue-studio-notebook" class="md-nav__link">
+    2. Testing FindMatches Transform with Glue Studio Notebook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-validating-and-deploying-the-findmatches-glue-job" class="md-nav__link">
+    3. Validating and Deploying the FindMatches Glue Job
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/05-GlueStudioNotebookLab/05-gstudio-notebook-lab.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="toc_0" align="center">
+MACHINE LEARNING WITH GLUE
+<br/> & <br/>GLUE STUDIO NOTEBOOKS
+</h1>
+
+<p>Welcome to Part 5!</p>
+<p>The <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks -</strong> of the <strong>ETL Train The Trainer Workshop</strong> is going to cover the steps required to work with the Glue ML Transforms, more specifically, it will teach you about how to <strong>create</strong>, <strong>train</strong> (with <strong>labeling files</strong>), and <strong>write Glue ETL code</strong> that leverages the <strong>Glue's FindMatches ML Transform</strong> using <strong>Glue Studio Notebooks</strong> that you can further operationalize it into <strong>Glue Jobs</strong>. </p>
+<h4 id="0-pre-steps-understading-setting-up-the-resources-for-ml-lab"><strong>0.</strong> (Pre Steps) - Understading &amp; Setting up the Resources for ML Lab<a class="headerlink" href="#0-pre-steps-understading-setting-up-the-resources-for-ml-lab" title="Permanent link">&para;</a></h4>
+<p>To begin, you must first run the following commands in your <strong>Cloud9 Terminal</strong> to download the the <strong>ML Lab files</strong> from the <strong>Workshop's default S3 Bucket</strong>.</p>
+<p>These commands will:</p>
+<ul>
+<li>Create the local directory structure for this lab in your Cloud9 Envirment</li>
+<li>Place each file in its respective folder.</li>
+<li>Re-upload all these files to your own S3 Bucket</li>
+<li>Building the required S3 Bucket Path structure for this lab:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/ml-lab/ml-customer-sampling /tmp/dsd/csv_tables/ml-lab/ml-customer-full /tmp/dsd/csv_tables/ml-lab/ml-labeling-file
+
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/sample-customer/sample-top-customer.csv /tmp/dsd/csv_tables/ml-lab/ml-customer-sampling/sample-top-customer.csv
+
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/top-customer/full-top-customer.csv /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-top-customer.csv
+
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/ml-customer/labeled-customer/top-customer-labeling-file.csv /tmp/dsd/csv_tables/ml-lab/ml-labeling-file/top-customer-labeling-file.csv
+
+aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/ml-lab/
+</code></pre></div>
+
+<p>For this part of the <strong>ETL Train the Trainer Workshop</strong>, two crawlers have been created for you as part of the <strong>CloudFormation Template</strong>:</p>
+<ul>
+<li>The <strong>ml-sample-cust-crawler</strong> will create the <strong>S3-based</strong> table named <strong>ml_sample-customer</strong> which has much less amount of data but enought to be used as <strong>sample source data</strong> to train and label the <strong>FindMatches ML Transform</strong> you are going to create next. </li>
+</ul>
+<p><img alt="TRAIL" src="../images/ml-sample-crawler.png" /></p>
+<ul>
+<li>The <strong>ml-bootstrap-crawler</strong> will create the <strong>S3-based</strong> table named <strong>ml_dedup_sample_customer</strong> which is the <strong>full dataset</strong> that the future <strong>Notebook Job</strong> will try to deduplicate using the <strong>FindMatch ML Transform</strong> that you trained using the smaller <strong>ml_sample-customer</strong> dataset.</li>
+</ul>
+<p><img alt="TRAIL" src="../images/ml-bootstrap-crawler.png" /></p>
+<h4 id="1-creating-and-training-the-glue-findmatches-ml-transform"><strong>1.</strong> Creating and Training the Glue FindMatches ML Transform<a class="headerlink" href="#1-creating-and-training-the-glue-findmatches-ml-transform" title="Permanent link">&para;</a></h4>
+<p>Run both crawler to create the aforementioned tables. <em>(Both tables' schema are exactly the same as the original</em> <strong>RDS customer</strong><em>. They both contain</em> <strong>14 columns</strong><em>)</em></p>
+<p>Once <strong>ml-bootstrap-crawler</strong> finish, click on <strong>ML Transforms</strong> menu, under the <strong>ETL</strong> section on the menu at the left. There, click on <strong>Add transform</strong> or the <strong>Create ML transform</strong> buttons.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On <strong>Configure transform properties</strong> page, name the Trasform as <code>FindMatches</code>. Also, set the <strong>IAM Role</strong> to <strong>AWSGlueServiceRole-etl-ttt-demo</strong>. Click <strong>Next</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On <strong>Choose a data source</strong> page, select the table <strong>ml_sample_customer</strong>. Click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> On <strong>Choose a primary key</strong> page, select the table <strong>c_customer_sk</strong>. Click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> On <strong>Tune transform</strong> page, under <strong>Recall vs. precision</strong> select the option <strong>Favor precision</strong> <em>(0.9)</em>. Keep the option <strong>Balanced</strong> <em>(0.5)</em> selected. Click <strong>Next</strong>. </p>
+<p><img alt="TRAIL" src="../images/ml-tune-transform-pg.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> Review everything on the <strong>Review</strong> page and Click <strong>Finish</strong> to create the FindMatches ML Transform.</p>
+<p><img alt="TRAIL" src="../images/ml-review-pg.png" /></p>
+<p>Now, it is time to teach your ML Transform. To do this, select the <strong>FindMatches</strong> Transform you just created, then click on the <strong>Action</strong> dropdown button and choose <strong>Teach Transform</strong>.</p>
+<p><img alt="TRAIL" src="../images/ml-teach-transform-1.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On <strong>Teach the transform using labels</strong> page, under <strong>Labeling file</strong> choose the option <strong>I don't have labels</strong>, then click on the <strong>Generate labeling file</strong> button. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On <strong>Generate labeling file</strong> pop-up window, choose to S3 Path where you want to store the generated label file. Navigate to <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/output</strong>, then add <code>/ml_gen_label_file/</code> and click <strong>Generate</strong>. </p>
+<p><img alt="TRAIL" src="../images/ml-gen-label-1.png" /></p>
+<p><strong>Note:</strong> You don't need to wait for this <em>generating labeling file</em> process to finish because you already downloaded a fully labeled file (during the first step of this lab) to be used here. <strong>Jump to step 3</strong> or, if you have enough time, you can wait for it to finish, then click on <strong>Download labeling file</strong> and perform the labeling process yourself.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Click <strong>Next</strong> and, On the <strong>Upload labels</strong>, under <strong>Labeling file</strong>, now choose <strong>I have labels</strong>. Then click on <strong>Upload labeling file from S3</strong> and navigate to the path: <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/ml-lab/ml-labeling-file/top-customer-labeling-file.csv</strong> and click <strong>Upload</strong>, then click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> On <strong>Estimate quality metrics (optional)</strong> just click <strong>Finish</strong>.</p>
+<p>You can see in the <strong>Task type</strong> column that the <strong>Label Uploading Process</strong> has succeeded.</p>
+<p><img alt="TRAIL" src="../images/ml-train-success.png" /></p>
+<h4 id="2-testing-findmatches-transform-with-glue-studio-notebook"><strong>2.</strong> Testing FindMatches Transform with Glue Studio Notebook<a class="headerlink" href="#2-testing-findmatches-transform-with-glue-studio-notebook" title="Permanent link">&para;</a></h4>
+<p>Now that the <strong>FindMatches Transform</strong> is trained, go to the <strong>AWS Glue Studio</strong> once again and click on <strong>Jobs</strong> in the left side menu. On the <strong>Jobs</strong> page, choose the <strong>Jupyter Notebook</strong> option and, under <strong>Options</strong>, choose the option <strong>Upload and edit an existing notebook</strong> and click on <strong>Choose File</strong>. Choose the file that has been shared with you by the Instructor. Click on <strong>Create</strong> afterwards.</p>
+<p><img alt="TRAIL" src="../images/ml-job-jupyter-nb.png" /></p>
+<p>On the <strong>Notebook setup</strong> page, give the name to the <em>Job</em> as <code>ml-lab-notebook-job</code> and set the <strong>IAM</strong> to <strong>AWSGlueServiceRole-etl-ttt-demo</strong>. Click on <strong>Start notebook job</strong> button to create a <strong>Jupyter Notebook</strong> from an unpload notebook file. </p>
+<p>Once the Notebook is fully ready, copy the following code and replace the <strong>Cell [1]</strong> with it. Afterwards, click on the <strong><em>Play</em></strong> button ( <strong>|&gt;</strong> ) at the top-center-left of the notebook interface: <strong>---DO NOT click on the orange run button on the far left---</strong></p>
+<p><strong>Cell [1]</strong> (<em>replace the existing Cell [*]</em> ):</p>
+<div class="codehilite"><pre><span></span><code><span class="o">%</span><span class="n">glue_version</span> <span class="mf">2.0</span>
+<span class="o">%</span><span class="n">idle_timeout</span> <span class="mi">60</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">awsglue.transforms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">awsglue.utils</span> <span class="kn">import</span> <span class="n">getResolvedOptions</span>
+<span class="kn">from</span> <span class="nn">pyspark.context</span> <span class="kn">import</span> <span class="n">SparkContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.context</span> <span class="kn">import</span> <span class="n">GlueContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.job</span> <span class="kn">import</span> <span class="n">Job</span>
+<span class="kn">from</span> <span class="nn">awsglueml.transforms</span> <span class="kn">import</span> <span class="n">FindMatches</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="n">glueContext</span> <span class="o">=</span> <span class="n">GlueContext</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">spark_session</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">glueContext</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="TRAIL" src="../images/ml-output-cell-1.png" /></p>
+<p>Once you see a message saying "Session XXXX-XXXX-XXXX has been created", run the <strong>Cell [2]</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-2.png" /></p>
+<p>You should see the <strong>ml_to_dedup_top_customer table's schema</strong> in the above output.</p>
+<p>Before you can run the <strong>Cell [3]</strong>, replace the <strong>\${YOUR_TRANSFORM_ID}</strong> placeholder for the <strong>Transform ID</strong> of the the <strong>FindMatches Transform</strong> that you created.</p>
+<p><img alt="TRAIL" src="../images/ml-transform-id.png" /></p>
+<p>Once <strong>Transform ID</strong> is correctly replaced, run the <strong>Cell [3]</strong>. <em>(This Cell should take about 6 minutes to finish!)</em></p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-3.png" /></p>
+<p>You should see the output displaying the message: <em>"Duplicate count of matching IDs : 530"</em></p>
+<h4 id="3-validating-and-deploying-the-findmatches-glue-job"><strong>3.</strong> Validating and Deploying the FindMatches Glue Job<a class="headerlink" href="#3-validating-and-deploying-the-findmatches-glue-job" title="Permanent link">&para;</a></h4>
+<p>Now, to validate the <strong>FindML Transform results</strong>, simply run the <strong>Cell [4]</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-4.png" /></p>
+<p>You should also see that the <strong>FindMatches Transform</strong> has added another column named <strong>match_id</strong> to identify matching records in the output. That means that rows with the same <strong>match_id</strong> are considered matching records. </p>
+<p>To confirm that the <strong>FindML Transform</strong> worked, you can actually see that from the <strong>10 rows</strong> returned in the output <strong>5 are duplicates</strong>. This proves that the <strong>FindMatches ML Transform is working!</strong>.</p>
+<p>Now, let's leverage the <strong>match_id</strong> column created by the <strong>FindMatches Transform</strong> to eliminate the duplicates from the dataset. Run the <strong>Cell 5</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-5.png" /></p>
+<p>Notice how the duplicates are now gone. That means that you were able to <strong>create a code that leverages the a ML Transform</strong> that you created to help you <strong>find and eliminate duplicates</strong> in your dataset.</p>
+<p>You can now operationalize this code into a Glue Studio Job, but first, you must run the last cell, the <strong>Cell 6</strong>, in order to <strong>sink the output data</strong> into the <strong>S3 Bucket</strong>.</p>
+<p>This <strong>Bucket</strong> will be used in the next lab <strong>(Part 5)</strong> to act as a shared data repository where the <strong>Data Analytics team</strong> uploads their files for further <strong>Preparation &amp; Analysis</strong>. </p>
+<p>Replace the <strong>\$BUCKET_NAME</strong> placeholder in the last cell with the following <strong>S3 Bucket path</strong>:</p>
+<p><code>s3://${BUCKET_NAME}/etl-ttt-demo/output/data_analytics_team_folder/top-customers/</code></p>
+<p><strong>TIP:</strong> Run the following command in your <strong>Cloud9 Terminal</strong> to build the full path you need:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;s3://</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">/etl-ttt-demo/output/data_analytics_team_folder/top-customers/&quot;</span>
+</code></pre></div>
+
+<p>Run the code to create your deduplicated version of the <strong>full top customer</strong> dataset. Once the code in the Cell 6 finish, check the S3 Bucket Path to confirm the file is there.</p>
+<p><strong>TIP:</strong> Optionally, you can also run <strong>S3 Select</strong> queries on the data generated to validate as seen in the picture below:</p>
+<p><img alt="TRAIL" src="../images/ml-s3-select-output.png" /></p>
+<p>Finally, <strong>Save</strong> your job and download the notebook by clicking on <strong>Download Notebook</strong> button at the top-right of the Glue Studio Notebook Page in order keep a copy of the notebook locally on your computer for safety.</p>
+<p></br>
+You have now concluded the <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>. Once you are ready move to the <strong>Part 6 - Workflow Orchestration with AWS Step Function</strong>.</p>
+<!-- 
+
+[IN CASE I DECIDE TO CHANGE TO CREATING A NEW NOTEBOOK IN THE FEATURE INSTEAD OF UPLOADING ONE]
+
+On the **Notebook setup** page, give the name to the *Job* as `ml-lab-notebook-job` and set the **IAM** to **AWSGlueServiceRole-etl-ttt-demo**. Click on **Start notebook job** button to create a **Jupyter Notebook**. 
+
+Once the Notebook is ready, copy the following code and replace the **first cell** with it. Click run (play **|>** icon) afterwards: **---DO NOT click on the orange run button on the far left---**
+
+**Cell 0** [*replace the existing Cell 0*]:
+
+
+<div class="codehilite"><pre><span></span><code><span class="o">%</span><span class="n">glue_version</span> <span class="mf">2.0</span>
+<span class="o">%</span><span class="n">idle_timeout</span> <span class="mi">60</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">awsglue.transforms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">awsglue.utils</span> <span class="kn">import</span> <span class="n">getResolvedOptions</span>
+<span class="kn">from</span> <span class="nn">pyspark.context</span> <span class="kn">import</span> <span class="n">SparkContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.context</span> <span class="kn">import</span> <span class="n">GlueContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.job</span> <span class="kn">import</span> <span class="n">Job</span>
+<span class="kn">from</span> <span class="nn">awsglueml.transforms</span> <span class="kn">import</span> <span class="n">FindMatches</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+<span class="n">glueContext</span> <span class="o">=</span> <span class="n">GlueContext</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">spark_session</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">glueContext</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+![TRAIL](images/ml-output-cell-1.png)
+
+Once you see a message saying "Session XXXX-XXXX-XXXX has been created", add a new cell by clicking on the plus sign (**+**) at the top of left of the notebook interface. Copy the following code and paste it into the **Cell 2** and **run** it:
+
+**Cell 2:**
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">datasource0</span> <span class="o">=</span>      <span class="n">glueContext</span><span class="o">.</span><span class="n">create_dynamic_frame</span><span class="o">.</span><span class="n">from_catalog</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s2">&quot;glue_ttt_demo_db&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;ml_to_dedup_top_customer&quot;</span><span class="p">,</span>  <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;datasource0&quot;</span><span class="p">)</span>      
+
+<span class="n">resolvechoice1</span> <span class="o">=</span> <span class="n">ResolveChoice</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">datasource0</span><span class="p">,</span> <span class="n">choice</span> <span class="o">=</span> <span class="s2">&quot;MATCH_CATALOG&quot;</span><span class="p">,</span> <span class="n">database</span> <span class="o">=</span> <span class="s2">&quot;glue-ttt-demo-db&quot;</span><span class="p">,</span>  <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&quot;ml_dedup_full_topcustomer_csv&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;resolvechoice1&quot;</span><span class="p">)</span>
+
+<span class="n">resolvechoice1</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+![TRAIL](images/ml-output-cell-2.png)
+
+Once you see the **ml\_to\_dedup\_top\_customer table's schema** in the output, copy the following code and paste it into the **Cell 3**. *Don't run it as is!*
+**Cell 3:**
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">findmatches2</span> <span class="o">=</span> <span class="n">FindMatches</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">resolvechoice1</span><span class="p">,</span> <span class="n">transformId</span> <span class="o">=</span> <span class="s2">&quot;$</span><span class="si">{YOUR_TRANSFORM_ID}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;findmatches2&quot;</span><span class="p">)</span>
+
+<span class="n">resolvechoice3</span> <span class="o">=</span> <span class="n">ResolveChoice</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">findmatches2</span><span class="p">,</span> <span class="n">choice</span> <span class="o">=</span> <span class="s2">&quot;make_struct&quot;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;resolvechoice3&quot;</span><span class="p">)</span>
+
+<span class="n">dropnullfield4</span> <span class="o">=</span> <span class="n">DropNullFields</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">resolvechoice3</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&quot;dropnullfield4&quot;</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">dropnullfield4</span><span class="o">.</span><span class="n">toDF</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duplicate count of matching IDs : &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">count</span><span class="p">()))</span>
+</code></pre></div>
+
+
+
+Before you run the **Cell 3**, replace the **\${YOUR\_TRANSFORM\_ID}** placeholder for the **Transform ID** of the the **FindMatches Transform** that you created.
+
+![TRAIL](images/ml-transform-id.png)
+
+Now you can run the **Cell 3:**. 
+
+Cell 4:
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">custidlist</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAAAAAAANDCFBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAAJLKGBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAAJLKGBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAAPLNDAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAANDCFBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAAPLNDAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAANDCFBAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAANKFAAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAANKFAAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;AAAAAAAADFHGAAAA&quot;</span><span class="p">,</span><span class="s2">&quot;BAAAAAAADFHGAAAA&quot;</span><span class="p">]</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;c_customer_id&#39;</span><span class="p">,</span><span class="s1">&#39;c_current_addr_sk&#39;</span><span class="p">,</span><span class="s1">&#39;c_salutation&#39;</span><span class="p">,</span><span class="s1">&#39;c_first_name&#39;</span><span class="p">,</span><span class="s1">&#39;c_last_name&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_day&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_month&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_year&#39;</span><span class="p">,</span><span class="s1">&#39;c_birth_country&#39;</span><span class="p">,</span><span class="s1">&#39;c_login&#39;</span><span class="p">,</span><span class="s1">&#39;c_email_address&#39;</span><span class="p">,</span><span class="s1">&#39;match_id&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duplicate count of matching IDs : &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">count</span><span class="p">()))</span>
+
+<span class="n">df1</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">c_customer_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">custidlist</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;match_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+Cell 5:
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;match_id&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distinct count of matching IDs : &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">count</span><span class="p">()))</span>
+
+<span class="n">df2</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">c_customer_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">custidlist</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;match_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+[DON'T RUN THIS CELL] Cell 6:
+
+
+<div class="codehilite"><pre><span></span><code><span class="n">new_df</span>  <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span><span class="o">.</span><span class="n">orderBy</span><span class="p">(</span><span class="s2">&quot;match_id&quot;</span><span class="p">)</span>
+
+<span class="n">new_df</span><span class="o">.</span><span class="n">coalesce</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;header&quot;</span><span class="p">,</span><span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s2">&quot;overwrite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="s2">&quot;s3://etl-ttt-demo-589541849248-us-east-2/etl-ttt-demo/output/ml-lab/topcustomers-dedup/&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+[DON'T RUN THIS CELL]
+
+<!--
+S3 Target Location: s3://etl-ttt-demo-589541849248-us-east-2/etl-ttt-demo/output/ml-lab/topcustomers-dedup/ 
+!-->
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../04-OrchestrationLab/04-orchestration-lab/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ORCHESTRATION &amp; DATA ANALYSIS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              ORCHESTRATION & DATA ANALYSIS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1045 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION - Amazon ETL Train-The-Trainer Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-creating-the-step-function-workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon ETL Train-The-Trainer Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Amazon ETL Train-The-Trainer Workshop
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../000-Intro/000-intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          How to Start?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How to Start?" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          How to Start?
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/001-intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          AWS Event
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AWS Event" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          AWS Event
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/002-ee-account-setup/" class="md-nav__link">
+        Account Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/003-cloud9-enviroment-setup/" class="md-nav__link">
+        Prepare the Enviroment
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 1" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Part 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-nav__link">
+        TPCDS & RDS MySQL Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Part 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-GlueComponentsLab/02-glue-components-lab/" class="md-nav__link">
+        GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Part 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 3" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Part 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-StreamingLab/03-streaming-lab/" class="md-nav__link">
+        GLUE (STUDIO) STREAMING
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Part 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 4" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Part 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-OrchestrationLab/04-orchestration-lab/" class="md-nav__link">
+        ORCHESTRATION & DATA ANALYSIS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Part 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 5" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Part 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-nav__link">
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Part 6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 6" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Part 6
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-creating-the-step-function-workflow" class="md-nav__link">
+    1. Creating the Step Function Workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-crawler" class="md-nav__link">
+    Final Crawler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-function-workflow" class="md-nav__link">
+    Step Function Workflow
+  </a>
+  
+    <nav class="md-nav" aria-label="Step Function Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" class="md-nav__link">
+    2. Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#following-the-flow" class="md-nav__link">
+    Following the flow
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Part 7
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 7" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Part 7
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-creating-the-step-function-workflow" class="md-nav__link">
+    1. Creating the Step Function Workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-crawler" class="md-nav__link">
+    Final Crawler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-function-workflow" class="md-nav__link">
+    Step Function Workflow
+  </a>
+  
+    <nav class="md-nav" aria-label="Step Function Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" class="md-nav__link">
+    2. Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#following-the-flow" class="md-nav__link">
+    Following the flow
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/06-StepFunctionsLab/06-step-functions-lab.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="toc_0" align="center">
+WORKFLOW ORCHESTRATION WITH
+<br/>AWS STEP FUNCTIONS
+</h1>
+
+<p>In the <strong>Part 6 - Workflow Orchestration with AwS Step Functions -</strong> of this training you will be implement similar orchestration as the one you did during the <strong>Part 4 - Orchestration &amp; Data Analysis -</strong>.</p>
+<p>This time, as soon as a file land in the <a href="https://console.aws.amazon.com/s3/"><strong>Amazon S3 Bucket</strong></a> an <strong>write event</strong> gets recorded in the <a href="https://console.aws.amazon.com/cloudtrail/"><strong>etl-ttt-demo-trail</strong></a> <strong>Cloud Trail</strong> that you explored earlier in <strong>Part 4</strong>.</p>
+<p>Note that this Trail monitors <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION} Bucket</strong>, as you can see in the following picture:</p>
+<p><img alt="TRAIL" src="../images/step-data-event-trail.png" /></p>
+<!--
+MAKE SURE THE TRAIL HAS THE FOLLOWING PATH CONFIGURED:
+    - Bucket name: etl-ttt-demo-171714944327-ca-central-1  
+    - Prefix:   /etl-ttt-demo/data_analytics_team_folder/
+-->
+
+<p>For this lab, you are interested in the <code>/etl-ttt-demo/data_analytics_team_folder/</code> path which <strong>simulates a shared repository</strong> where the <strong>Data Analytics team</strong> uploads their files for further <strong>Preparation &amp; Analysis</strong>. </p>
+<p>Furthermore, as previously explained, at every upload to this folder a <strong>write event</strong> gets generated. You will then create a new <strong>EventBridge Rule</strong> to listen to those events and automatically trigger a <strong>Step Function's State Machine Workfow</strong> that you will also create as part of this lab's steps. </p>
+<h4 id="1-creating-the-step-function-workflow"><strong>1.</strong> Creating the Step Function Workflow<a class="headerlink" href="#1-creating-the-step-function-workflow" title="Permanent link">&para;</a></h4>
+<p>Before creating the <strong>Step Function Workflow</strong>, let's first create one more <strong>Crawler</strong>. This cralwer is actualy <strong>part of the Step Function Workflow</strong> you are going to build and <strong>it is required!</strong></p>
+<h3 id="final-crawler">Final Crawler<a class="headerlink" href="#final-crawler" title="Permanent link">&para;</a></h3>
+<p>Run the following code on your Cloud9 Enviroment Terminal to create the <strong>ml-final-crawler</strong>:</p>
+<div class="codehilite"><pre><span></span><code>aws glue create-crawler \
+    --name ml-final-crawler \
+    --role AWSGlueServiceRole-etl-ttt-demo \
+    --database-name glue-ttt-demo-db \
+    --table-prefix ml_final_\
+    --targets &quot;{\&quot;S3Targets\&quot;: [{\&quot;Path\&quot;: \&quot;s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/etl-ttt-demo/output/data_analytics_team_folder/top-customers/\&quot;}]}&quot;
+</code></pre></div>
+
+<p><img alt="STATE" src="../images/step-final-crawler.png" /></p>
+<p>As you can see, the <strong>ml-final-crawler</strong> will crawl the <strong>shared Analytics Team Folder</strong> once the files land there.</p>
+<h3 id="step-function-workflow">Step Function Workflow<a class="headerlink" href="#step-function-workflow" title="Permanent link">&para;</a></h3>
+<p>Now, let's finally create the <strong>Step Function Workflow</strong>. </p>
+<p>For this, go to the <a href="https://console.aws.amazon.com/states/">AWS Step Function</a> console  <strong><em>(switch to your right region if needed!)</em></strong> and click on <strong>State machines</strong>, under <strong>Step Functions</strong> label on the far left menu of the AWS Step Function Console. Then, click on <strong>Create state machine</strong>.</p>
+<p><img alt="STATE" src="../images/step-state-machine.png" /></p>
+<p>On the <strong>Choose authoring method</strong>, select <strong>Write your workflow in code</strong> and under <strong>Type</strong> choose <strong>Standard</strong>.</p>
+<p><img alt="STANDARD" src="../images/step-define-standard-machine.png" /></p>
+<p>At the bottom of the same page, under <strong>Definition</strong> paste the following code:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A description of my state machine&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;StartAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Find Match Job&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;States&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;Find Match Job&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:states:::glue:startJobRun.sync&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;JobName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml-lab-notebook-job&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;To remove duplicates in the full customer dataset using FIndMatches ML Transform and output the results in another output bucket&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Crawl Dedup Data&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;Crawl Dedup Data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;End&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml_final_crawler&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:states:::aws-sdk:glue:startCrawler&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;To crawl the data after FindMatches dedup higiene process&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<!--
+
+Write down the steps to create the workflow...
+
+First is a Glue Job:
+
+StateName: FindMatch Job 
+JobName: ml-lab-notebook-job
+Wait for task to complete - optional  
+Next State: Add a next state
+Comment: "To remove duplicates in the dataset using FIndMatches ML Transform"
+
+Then the Glue Crawler:
+
+StateName: Crawl Dedup Data 
+JobName: ml_final_crawler
+Wait for task to complete - optional  
+Next State: Add a next state
+Comment: "To crawl the data once the FindMatches job conclude the dedup higiene process"
+
+-->
+
+<p><img alt="DEFINITION" src="../images/step-code-definition.png" /></p>
+<p>You should see the <strong>Step Function Workflow Studio Canvans</strong> getting updated with the graphical flow of the steps you set with the code.</p>
+<p>Click <strong>Next</strong> and, on the <strong>Specity details</strong> page, do the following:</p>
+<ul>
+<li>Under <strong>Name</strong> give your <strong>State Machine Name</strong> the name of <code>findmatches-ML-dedup-workflow</code>.</li>
+<li>Under <strong>Permissions</strong>, select the <strong>Choose an existing role</strong> option and set the <strong>IAM Role</strong> to <strong>AWSStepFunctionRole-etl-ttt-demo</strong>.</li>
+</ul>
+<p><img alt="DEFINITION" src="../images/step-details-1.png" /></p>
+<p><br/></p>
+<p>Scroll further down and click on the <strong>Create state machine</strong> button to create the <strong>Step Function State Machine Workflow</strong>.</p>
+<p><br/></p>
+<p><img alt="DEFINITION" src="../images/step-details-2.png" /></p>
+<h4 id="2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli"><strong>2.</strong> Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)<a class="headerlink" href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" title="Permanent link">&para;</a></h4>
+<p>[FIX THE FOLDERS - THEY SHOULD BE DIFFERENT FROM SOURCE TO TARGET!!!!]</p>
+<p>Now, to be able to trigger the Step Function Workflow, you also need to create a new <strong>EventBridge Rule &amp; Target</strong>. Run the following steps in your <strong>Cloud9 Enviroment Terminal</strong> in sequence:</p>
+<ul>
+<li>First the <strong>Event Rule</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>aws events put-rule \
+    --name &quot;find-matches-rule&quot; \
+    --event-pattern &quot;{ \
+                        \&quot;source\&quot;: [\&quot;aws.s3\&quot;], \
+                        \&quot;detail-type\&quot;: [\&quot;AWS API Call via CloudTrail\&quot;], \
+                        \&quot;detail\&quot;: { \
+                            \&quot;eventSource\&quot;: [\&quot;s3.amazonaws.com\&quot;], \
+                            \&quot;eventName\&quot;: [\&quot;PutObject\&quot;], \
+                            \&quot;requestParameters\&quot;: { \
+                                \&quot;bucketName\&quot;: [\&quot;<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>\&quot;], \
+                                \&quot;key\&quot;: [{\&quot;prefix\&quot;: \&quot;etl-ttt-demo/data_analytics_team_folder/\&quot;}]
+                            } \
+                        } \
+                    }&quot;
+</code></pre></div>
+
+<ul>
+<li>Then the <strong>Event Target</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>aws events put-targets \
+    --rule find-matches-rule \
+    --targets &quot;Id&quot;=&quot;findmatches-ML-dedup-workflow&quot;,&quot;Arn&quot;=&quot;arn:aws:states:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:stateMachine:findmatches-ML-dedup-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
+    --region <span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>
+</code></pre></div>
+
+<p><img alt="RULE TARGET CODE" src="../images/step-event-rule-target.png" /></p>
+<p>After running both commands, go to <a href="https://console.aws.amazon.com/events/">AWS EventBridge</a> console. <strong><em>(switch to your right region if needed!)</em></strong>.</p>
+<p>On the left side menu, click on <strong>Rules</strong>, then click on top of the rule <strong>find-matches-rule</strong> to open its details. You should see under the <strong>Event Pattern</strong> tab the following:</p>
+<p><img alt="PATTERN" src="../images/step-event-pattern.png" /></p>
+<p>This pattern is basically saying that this <strong>EventRule</strong> is watching for every <strong>PutObject</strong> event that occur in the <strong>bucket/prefix</strong> specified in there.</p>
+<p>Click on the <strong>Targets</strong> tab. Here, you can see that the <strong>Target Name</strong> points to the <strong>Step Functions Workflow</strong> you just created <strong>findmatches-ML-dedup-workflow</strong>. Also that it has a <strong>EventBridge Role</strong>, with all the required permissions, associated with it. This <strong>Role</strong> has also been created as part of the <strong>CloudFormation template</strong>.</p>
+<p><img alt="TARGET" src="../images/step-event-target-tab.png" /></p>
+<p>You are done creating the <strong>resources required for this Orchestration</strong> to work. Now, you need to simulate files being upladed into the central shared bucket repository of the Data Analytics Team, that means, the <strong>etl-ttt-demo/output/data_analytics_team_folder/top-customers/</strong>.</p>
+<p>To do that, go back to your <strong>Cloud9 Enviroment Terminal</strong> and run the following <strong>S3 command to upload a file that contains duplicated</strong> data into the <strong>Data Analytics Team's shared folder</strong>:</p>
+<div class="codehilite"><pre><span></span><code>aws s3 cp /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-top-customer.csv s3://$BUCKET_NAME/etl-ttt-demo/data_analytics_team_folder/
+</code></pre></div>
+
+<p>Once the above file is uploaded, it will then trigger the <strong>Step Function Workflow</strong> that you created which, consequently, will run the <strong>ml-lab-notebook-job</strong> that contains the <strong>FindMatches Transform</strong> and all the necessary code you wrote to transform the <strong>source duplicated data</strong> into a <strong>deduplicated version</strong> of the <strong>full top customers</strong> dataset. The validated and deduplicated version of the <strong>full top customers</strong> dataset will overwrite the originally uploaded version (which has duplicated data) allowing the fictitious <strong>Data Analytics Team</strong> to move forward with their <strong>Data Preparation work</strong>.</p>
+<h3 id="following-the-flow">Following the flow<a class="headerlink" href="#following-the-flow" title="Permanent link">&para;</a></h3>
+<p>You can follow the flow by going first to the <a href="https://console.aws.amazon.com/states/">Step Function Workflow</a> page and looking your <strong>findmatches-ML-dedup-workflow</strong> workflow. There, under Executions, you can click on the one that <strong>Status</strong> column says <strong>Running</strong> and click on <strong>View Details</strong>. You should see the graphical workflow changing its states.</p>
+<p><img alt="STATE CHANGE" src="../images/step-workflow-running.png" /></p>
+<p>From there, go to your <a href="https://console.aws.amazon.com/gluestudio/">Glue Studio Console</a> <strong><em>(switch to your right region if needed!)</em></strong> and look for your job <strong>ml-lab-notebook-job</strong> under the <strong>Monitoring</strong> page. Then, click on the big blue number under <strong>Running</strong> to scroll to the running Jobs, and confirm that your job is running.</p>
+<p><img alt="GS NB RUN" src="../images/step-flow-gs-nb-job-running.png" /></p>
+<p>Finally, go to the <a href="https://console.aws.amazon.com/glue/">Glue Console</a> <strong><em>(switch to your right region if needed!)</em></strong> and look for two things:</p>
+<ul>
+<li>The <strong>FindMatches ML Transform</strong>: This should take about 6-7 minutes to complete:</li>
+</ul>
+<p><img alt="GS NB RUN" src="../images/step-ml-transform-id-running.png" /></p>
+<ul>
+<li>The <strong>ml_final_crawler</strong>: This will start as soon as your <strong>ml-lab-notebook-job</strong> succeed and it will create 1 new table:</li>
+</ul>
+<p><img alt="GS NB RUN" src="../images/step-final-crawl-run.png" /></p>
+<p></br></p>
+<p>Once the Crawler finishes, it will create the new table based on the <strong>deduplicated version</strong> of the <strong>full top customers</strong> dataset. This <strong>deuplicated version</strong> will then be served as the <strong>source dataset</strong> for the fictitious <strong>Data Analytics Team</strong> to work with it the AWS Glue Databrew.</p>
+<p><img alt="GS NB RUN" src="../images/step-state-machines-completed.png" /></p>
+<p>Once you are ready move to the <strong>Part 7 - Data Quality &amp; Data Preparation with AWS Glue DataBrew</strong>.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MACHINE LEARNING WITH GLUE &amp; GLUE STUDIO NOTEBOOKS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1023 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS - Amazon ETL Train-The-Trainer Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon ETL Train-The-Trainer Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Amazon ETL Train-The-Trainer Workshop
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../000-Intro/000-intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          How to Start?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How to Start?" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          How to Start?
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/001-intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          AWS Event
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AWS Event" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          AWS Event
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/002-ee-account-setup/" class="md-nav__link">
+        Account Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/003-cloud9-enviroment-setup/" class="md-nav__link">
+        Prepare the Enviroment
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 1" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Part 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-nav__link">
+        TPCDS & RDS MySQL Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Part 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-nav__link">
+    1. Understanding the Glue Resources Provided (CloudFormation Resources)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databases" class="md-nav__link">
+    Databases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connections" class="md-nav__link">
+    Connections
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crawlers" class="md-nav__link">
+    Crawlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classifiers" class="md-nav__link">
+    Classifiers
+  </a>
+  
+    <nav class="md-nav" aria-label="Classifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
+    3. Creating new Glue Resources (New Crawler &amp; Classifier)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Part 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 3" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Part 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-StreamingLab/03-streaming-lab/" class="md-nav__link">
+        GLUE (STUDIO) STREAMING
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Part 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 4" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Part 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-OrchestrationLab/04-orchestration-lab/" class="md-nav__link">
+        ORCHESTRATION & DATA ANALYSIS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Part 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 5" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Part 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-nav__link">
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Part 6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 6" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Part 6
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Part 7
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 7" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Part 7
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-glue-resources-provided-cloudformation-resources" class="md-nav__link">
+    1. Understanding the Glue Resources Provided (CloudFormation Resources)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#databases" class="md-nav__link">
+    Databases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connections" class="md-nav__link">
+    Connections
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crawlers" class="md-nav__link">
+    Crawlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classifiers" class="md-nav__link">
+    Classifiers
+  </a>
+  
+    <nav class="md-nav" aria-label="Classifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" class="md-nav__link">
+    2. Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-creating-new-glue-resources-new-crawler-classifier" class="md-nav__link">
+    3. Creating new Glue Resources (New Crawler &amp; Classifier)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/02-GlueComponentsLab/02-glue-components-lab.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="toc_0" align="center">
+AWS GLUE DISCOVERY COMPONENTS
+<br/>
+(Databases, Tables, Connections, Crawlers And Classifiers)
+</H1>
+
+<p>Welcome to Part 2!</p>
+<p>In the <strong>Part 2 - AWS Glue Discovery Componets -</strong> of this <strong>ETL Train The Trainer workshop</strong>, you will understand the <strong>AWS Glue Data Catalog</strong> and all the <strong>Glue resources</strong> associated with it.</p>
+<p>At first, you will explore all the <strong>Glue resources</strong> created for you as part of the <strong>CloudFormation Template</strong>. Then, you will create and run couple more <strong>Glue Resources</strong> that will be required for the subsequent parts of the workshop.</p>
+<p>The <strong>Glue components</strong> that you work with during this lab include <strong>Glue Databases, Tables, Connection, Crawlers and Classifiers</strong>.</p>
+<h4 id="1-understanding-the-glue-resources-provided-cloudformation-resources"><strong>1.</strong> Understanding the Glue Resources Provided (CloudFormation Resources)<a class="headerlink" href="#1-understanding-the-glue-resources-provided-cloudformation-resources" title="Permanent link">&para;</a></h4>
+<p>To browse through all the Glue provided resources first go to the <strong>AWS Glue Console</strong> by searching for it in the <a href="http://console.aws.amazon.com/">AWS Management Console</a> (<strong>Make sure you are in the right region where you started the lab!</strong>).</p>
+<p>In the far left menu of the <strong>AWS Glue Console</strong> you can access all your resources like <strong>Database, Tables, Crawlers, Jobs, etc</strong>.</p>
+<h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A database is a set of associated table definitions, organized into a logical group.</p>
+<p>To see all your databases, click on <strong>Databases</strong>. There, you should see <strong>2 databases</strong>, the <strong>Default</strong> - which, as the name suggests, is the default database for Glue in this region - and the <strong>glue_ttt_demo_db</strong> which is the database where you will be creating and storing <strong>all the workshop's tables metadata</strong> for all the labs.</p>
+<p><img alt="DATABASE" src="../images/glue-databases.png" /></p>
+<h3 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A table is the metadata definition that represents your data, including its schema. A table can be used as a source or target in a job definition.</p>
+<p>To see all your databases, click on <strong>Tables</strong>, under <strong>Databases</strong>. There, you should see just one table named <strong>web-page-streaming-table</strong>. This table has been created as part of the <strong>CloudFormation template</strong> and you will explore this table in details in the subsequent <strong>Part 3 - Glue (Studio) Streaming -</strong> lab of this workshop.</p>
+<p><img alt="TABLES" src="../images/glue-tables.png" /></p>
+<h3 id="connections">Connections<a class="headerlink" href="#connections" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A connection contains the properties needed to connect to your data.</p>
+<p>To see all your connections, click on <strong>Connections</strong>, under <strong>Databases</strong>. There, you should see <strong>only one connection</strong> named <strong>rds-mysql-connection</strong> which we will explore and test in the next step of this lab.</p>
+<p><img alt="CONNECTIONS" src="../images/glue-connections.png" /></p>
+<h3 id="crawlers">Crawlers<a class="headerlink" href="#crawlers" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A crawler connects to a data store, progresses through a prioritized list of classifiers to determine the schema for your data, and then creates metadata tables in your data catalog.</p>
+<p>To see all your crawlers, click on <strong>Crawlers</strong>. There, you should see <strong>3 crawlers</strong> which were created as part of the <strong>CloudFormation template</strong>:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>- ml-bootstrap-crawler :</strong> This crawler is to <strong>bootstrap a table</strong> that is required for the <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>. You will explore it later.    </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>- mysql-rds-crawler :</strong> This crawler is to crawl <strong>RDS MySQL customer's table</strong>. It uses a the above <strong>Glue Connection reach the RDS MySQL database instance</strong>. You will explore it in the next step.</p>
+<p><img alt="CRAWLERS" src="../images/glue-crawlers.png" /></p>
+<h3 id="classifiers">Classifiers<a class="headerlink" href="#classifiers" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong> A classifier determines the schema of your data. You can use the AWS Glue built-in classifiers or write your own.</p>
+<p>To see all your classifiers, click on <strong>Classifiers</strong>, under <strong>Crawlers</strong>. There is <strong>no classifiers created yet</strong> but you will be creating one in the third step step of this lab.</p>
+<p><img alt="CLASSIFIERS" src="../images/glue-classifiers.png" /></p>
+<h4 id="2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds"><strong>2.</strong> Testing and running pre-created Glue Resources (Glue Connection &amp; Glue Crawler for MySQL RDS)<a class="headerlink" href="#2-testing-and-running-pre-created-glue-resources-glue-connection-glue-crawler-for-mysql-rds" title="Permanent link">&para;</a></h4>
+<p>Now, let's run a <strong>Crawler</strong> and verify the tables it will create. But first, let's confirm that the connection that the crawler is going to use is working properly.</p>
+<p>Click on <strong>Connections</strong>, then click on the blue name <strong>rds-mysql-connection</strong> to open the details of that connection.</p>
+<p>You can see that the connection has a <strong>JDBC URL</strong> that points to the <strong>tpcds database</strong> that you created earlier in the <strong>RDS MySQL</strong>. The <strong>JDBC URL uses the RDS instance's endpoint</strong>. The connection also has the <strong>right VPC and Subnet configured</strong> as well as a <strong>Security Group</strong>.</p>
+<p><img alt="CONNECTION DETAILS" src="../images/glue-rds-connection-details.png" /></p>
+<p><strong>Note 1:</strong> As part of the <strong>CloudFormation template</strong>, this <strong>Security Group</strong> has been added to an <strong>Inboud Rule</strong> in the <strong>RDS Instance's Security Group</strong> which allows traffic on <strong>port 3306</strong> (MySQL's default port) of the <strong>RDS instance</strong>.</p>
+<p>Click on <strong>Connections</strong> again, then check <strong>rds-mysql-connection</strong> connections box and click on <strong>Test Connection</strong>.</p>
+<p>In the pop-up screen, choose the required <strong>IAM Role</strong> to perform the connection test (<strong>AWSGlueServiceRole-etl-ttt-demo</strong>). Finally, click on <strong>Test Connection</strong>.</p>
+<p><strong>Note 2:</strong> The <strong>AWSGlueServiceRole-etl-ttt-demo</strong> has been created as part of <strong>CloudFormation template</strong> and <strong>has all the required permissions</strong> for all the labs in this workshop.</p>
+<p>While the connection test is running, you will notice the following banner at the:</p>
+<p><img alt="BANNER" src="../images/glue-testing-connection.png" /></p>
+<p>You don't need to wait for it to finish, you can now click on <strong>Crawlers</strong> and start exploring the <strong>mysql-rds-crawler</strong> by click on its blue name.</p>
+<p><img alt="CRAWLER DETAILS" src="../images/glue-rds-crawler-details.png" /></p>
+<p>As you can see, this crawler uses the aforementioned <strong>Glue Connection</strong> to crawl the path <strong>"tpcds/customer"</strong> which is the <strong>database/table</strong> that you created and loaded data earlier. From this screen, just click on <strong>Run Crawler</strong> at the top.</p>
+<p>By starting this crawler, you will notice its <strong>Status</strong> column progressing from <strong>Ready -&gt; Starting -&gt; Xmin elapsed -&gt; Stopping -&gt; Ready</strong> again. </p>
+<p><strong>TIP:</strong> This crawler should take about<strong> 2-3 minutes</strong> to complete so move to the next lab then come back in <strong>3 minutes</strong> to verify the results of running the crawler!</p>
+<p>At this point, the previous connection test should have already succeeded. You will see a green banner at top saying <strong>"rds-mysql-connection connected successfully to your instance."</strong>. At the crawler's successfull completion, you should also see, in the <strong>Tables added</strong> column, that <strong>1 table has been added</strong>. </p>
+<p><img alt="TABLE ADDED" src="../images/glue-running-rds-crawler.png" /></p>
+<p>Go to <strong>Databases &gt; Tables </strong> on the left menu to check the <strong>1 table created</strong>. You will see that, apart from the streaming table, there will be another table named <strong>rds_crawled_tpcds_customer</strong> created in the <strong>glue_ttt_demo_db</strong> in which <strong>Location</strong> says <strong>"tpcds.customers"</strong> and <strong>Classification</strong> says <strong>"mysql"</strong>.</p>
+<p><img alt="TABLE ADDED 2" src="../images/glue-rds-table-created.png" /></p>
+<p>Explore this table by clicking on its blue name.</p>
+<p><img alt="RDS CUST TABLE" src="../images/mysql-customer-table.png" /></p>
+<!-- NEED TO TALK A BIT ABOUT THIS TABLE GENERATED FROM RDS -->
+
+<h4 id="3-creating-new-glue-resources-new-crawler-classifier"><strong>3.</strong> Creating new Glue Resources (New Crawler &amp; Classifier)<a class="headerlink" href="#3-creating-new-glue-resources-new-crawler-classifier" title="Permanent link">&para;</a></h4>
+<p>While the above <strong>mysql-rds-crawler</strong> is running (if you followed the previous tip), it is time to create couple more resources in Glue. First is a <strong>Glue Custom CSV Classifier</strong>.</p>
+<p><strong>Create Classifier</strong></p>
+<p>To create a classifier, click on <strong>Classifiers</strong> in the far left menu, then click on <strong>Add Classifier</strong>. Fill out the details with the following details:</p>
+<p><strong>Classifier name</strong>: <em>My-Custom-CSV-Classifier</em><br />
+<strong>Classifier type</strong>: <em>CSV</em><br />
+<strong>Column delimiter</strong>: <em>Comma (,)</em><br />
+<strong>Quote symbol</strong>: <em>Double-quote (")</em><br />
+<strong>Column headings</strong>: <em>Has headings</em><br />
+<strong>(headings list)</strong>: <em>c_full_name,c_email_address,total_clicks</em> </p>
+<p align="center">
+ <img src=images/glue-add-csv-classifier.png>
+</p>
+
+<p>Click on the <strong>Create</strong> button at the bottom of pop-up page. A <strong>new classifier</strong> will be added to the list of classifiers.</p>
+<p><strong>Create Crawler</strong></p>
+<p>Next, as an advanced step, you are going to <strong>create a new crawler to crawl the path of the future Glue Streaming job's output</strong> that you are going to develop in <strong>Part 3 - Glue (Studio) Streaming.</strong></p>
+<p>To create a crawler, click on <strong>Crawlers</strong> in the far left menu, then click on <strong>Add Crawler</strong>. Fill out the details on each screen as following details:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> On <strong>Add information about your crawler</strong> page, provide a name for the new Crawler such as <code>crawl-streammed-data</code>. Then, expand the option that says <strong>"Tags, description, security configuration, and classifiers (optional)"</strong> and scroll to the bottom to see the list of custom classifiers on the right. Click on <strong>Add</strong> in front of <strong>My-Custom-CSV-Classifier</strong>. It will appear on the left side as well now. Click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> On <strong>Specify crawler source type</strong> page, simply click <strong>Next</strong>. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> On <strong>Add a data store</strong> page, under <strong>Include path</strong>, write: <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/output/gluestreaming/total_clicks/</strong>. (Make sure you replace <strong>\${BUCKET_NAME}</strong>)</p>
+<p><strong>TIP:</strong> Switch back quickly to your <strong>Cloud9 enviroment</strong> tab and run the following command to get the full path you need. Copy it and paste it in the <strong>Include path</strong> field above:</p>
+<div class="codehilite"><pre><span></span><code>echo s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/etl-ttt-demo/output/gluestreaming/total_clicks/
+</code></pre></div>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Still on <strong>Add a data store</strong> page, under <strong>Sample Size (optional)</strong> choose <strong>1</strong>. Then, expand where it says <strong>"Exclude patterns (optional)"</strong> and in the <strong>Exclude patterns</strong> field add <strong>**00001</strong> and hit <strong>Next</strong>. (<em>Don't miss the 2 asterisks</em>)</p>
+<p><img alt="CLASSIFIER" src="../images/glue-stream-crawler-data-store.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> On <strong>Add another data store</strong> page, choose <strong>No</strong> and click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> On <strong>Choose an IAM role</strong> page, click <strong>Choose an existing IAM role</strong> and pick the role <strong>AWSGlueServiceRole-etl-ttt-demo</strong>, then click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> On <strong>Create a schedule for this crawler</strong> page, just click <strong>Next</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>8.</strong> On <strong>Configure the crawler's output</strong> page, choose <strong>glue_ttt_demo_db</strong> from the <strong>Database</strong> dropdown list. Then, expand where it says <strong>"Grouping behavior for S3 data (optional)"</strong> and check the box <strong>"Create a single schema for each S3 path"</strong>. Click <strong>Next</strong>.</p>
+<p><img alt="CSV" src="../images/glue-crawler-output-config.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>9.</strong> <strong>Review</strong> everything in the last page and click <strong>Finish</strong>.</p>
+<h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS CRAWLER YET !!! !!! </h4>
+
+<p><br/>
+You are finished <strong>populating, reviewing and setting up new Glue Resources</strong>. Once you are ready you can move on to <strong>Part 3 - Glue (Studio) Streaming!</strong></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-footer__link md-footer__link--prev" aria-label="Previous: TPCDS &amp; RDS MySQL Lab" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              TPCDS & RDS MySQL Lab
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../03-StreamingLab/03-streaming-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: GLUE (STUDIO) STREAMING" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              GLUE (STUDIO) STREAMING
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+    
+  </body>
+</html>

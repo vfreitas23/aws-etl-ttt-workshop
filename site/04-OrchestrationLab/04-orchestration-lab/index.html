@@ -1,0 +1,1015 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>ORCHESTRATION & DATA ANALYSIS - Amazon ETL Train-The-Trainer Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-understanding-the-orchestration-flow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon ETL Train-The-Trainer Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ORCHESTRATION & DATA ANALYSIS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Amazon ETL Train-The-Trainer Workshop
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../000-Intro/000-intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          How to Start?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How to Start?" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          How to Start?
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/001-intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          AWS Event
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AWS Event" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          AWS Event
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/002-ee-account-setup/" class="md-nav__link">
+        Account Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/003-cloud9-enviroment-setup/" class="md-nav__link">
+        Prepare the Enviroment
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 1" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Part 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-nav__link">
+        TPCDS & RDS MySQL Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Part 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-GlueComponentsLab/02-glue-components-lab/" class="md-nav__link">
+        GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Part 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 3" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Part 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-StreamingLab/03-streaming-lab/" class="md-nav__link">
+        GLUE (STUDIO) STREAMING
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Part 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 4" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Part 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          ORCHESTRATION & DATA ANALYSIS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        ORCHESTRATION & DATA ANALYSIS
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-orchestration-flow" class="md-nav__link">
+    1. Understanding the Orchestration Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-creating-glue-workflow-and-glue-event-based-trigger-via-cli" class="md-nav__link">
+    2. Creating Glue Workflow and Glue Event Based Trigger (via CLI)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-event-bridge-rule-and-target-via-cli" class="md-nav__link">
+    3. Creating Event Bridge Rule and Target (via CLI)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-triggering-orchestration-following-the-flow" class="md-nav__link">
+    4. Triggering Orchestration &amp; Following The Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exploring-and-analyzing-tables-data-cataloged-in-glue-data-catalog" class="md-nav__link">
+    5. Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Part 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 5" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Part 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-nav__link">
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Part 6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 6" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Part 6
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Part 7
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 7" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Part 7
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-understanding-the-orchestration-flow" class="md-nav__link">
+    1. Understanding the Orchestration Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-creating-glue-workflow-and-glue-event-based-trigger-via-cli" class="md-nav__link">
+    2. Creating Glue Workflow and Glue Event Based Trigger (via CLI)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-creating-event-bridge-rule-and-target-via-cli" class="md-nav__link">
+    3. Creating Event Bridge Rule and Target (via CLI)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-triggering-orchestration-following-the-flow" class="md-nav__link">
+    4. Triggering Orchestration &amp; Following The Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exploring-and-analyzing-tables-data-cataloged-in-glue-data-catalog" class="md-nav__link">
+    5. Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/04-OrchestrationLab/04-orchestration-lab.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="toc_0" align="center">
+ORCHESTRATION & DATA ANALYSIS</h1>
+
+<p>In the <strong>Part 4 - Orchestration &amp; Data Analysis -</strong> of this workshop you will combine the forces of <strong>AWS CloudTrail, Amazon EventBridge, AWS Glue Workflows and Amazon Athena</strong> to orchestrate the entire data pipeline - from the streaming of <strong>JSON data</strong> until the <strong>query analysis in Amazon Athena</strong>.</p>
+<h4 id="1-understanding-the-orchestration-flow"><strong>1.</strong> Understanding the Orchestration Flow<a class="headerlink" href="#1-understanding-the-orchestration-flow" title="Permanent link">&para;</a></h4>
+<p>To understand the Orchestration flow, first you need to take a look at the pre-created resources you havefrom the CloudFormation Template for this lab.</p>
+<p>Go to <a href="https://console.aws.amazon.com/cloudtrail/">AWS CloudTrail</a> console <strong><em>(switch to your right region if needed!)</em></strong> to explore the Trail created for your named <strong>etl-ttt-demo-trail</strong></p>
+<p><img alt="TRAIL" src="../images/orch-trail.png" /></p>
+<p>Note that this Trail is monitoring for <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong> Bucket as you can see in the following picture:</p>
+<p>[ADD UPDATED PICTURE HERE WITH THE TWO DATA EVENTS - NEW CFN TEMPLATE!!!0</p>
+<p><img alt="TRAIL" src="../images/orch-data-event-trail.png" /></p>
+<p>By having such <strong>Trail configuration</strong>, you will be able to leverage <strong>AWS Event Bridge</strong> during this lab to trigger <strong>(Step Function and Glue) Workflows</strong> as soon as streaming data lands in the <strong>trail-enabled S3 Bucket</strong>.</p>
+<p>That is possible because once a file lands in this bucket it records a <strong>write event</strong> in the <strong>Trail</strong>. This <strong>write event</strong> further triggers an <strong>EventBridge Rule</strong> which, consequently, cat fire <strong>(Step Functionn and Glue) Workflows</strong>.</p>
+<h4 id="2-creating-glue-workflow-and-glue-event-based-trigger-via-cli"><strong>2.</strong> Creating Glue Workflow and Glue Event Based Trigger (via CLI)<a class="headerlink" href="#2-creating-glue-workflow-and-glue-event-based-trigger-via-cli" title="Permanent link">&para;</a></h4>
+<p>In this lab, we will create a <strong>Glue Workflow</strong> that will get triggered upon a <strong>write event notification</strong> received by <strong>EventBridge</strong>. This workflow will then initiate a <strong>Crawler</strong> to immediatelly crawl the file that just landed in the <strong>S3 bucket</strong></p>
+<p>So, let's create the <strong>Glue Workflow</strong> followed by a <strong>Glue Trigger</strong>. To do this, run the following <strong>AWS CLI commands</strong> in sequence.</p>
+<ul>
+<li>First the <strong>Glue Workflow</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>aws glue create-workflow --name etl-ttt-event-driven-workflow
+</code></pre></div>
+
+<ul>
+<li>Then the <strong>Glue Trigger</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>aws glue create-trigger \
+    --workflow-name etl-ttt-event-driven-workflow \
+    --type EVENT \
+    --name s3-object-trigger \
+    --actions CrawlerName=crawl_streammed_data \
+    --event-batching-condition &quot;{\&quot;BatchSize\&quot;: 2,
+    \&quot;BatchWindow\&quot;: 900}&quot;
+</code></pre></div>
+
+<p><img alt="TRAIL" src="../images/orch-workflow-trigger.png" /></p>
+<p>After running both commands, go to the <strong>Glue Console</strong> and click on <strong>Workflows</strong> under the <strong>ETL</strong> section of the <strong>Glue Console's left menu</strong>. You will see a new <strong>Glue Workflow</strong> created there. Click on the <strong>radio button</strong> close to its name to see the workflow in the <strong>Graph Canvans</strong> as bellow:</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-canvas.png" /></p>
+<p><strong>Note:</strong> You can also see the <strong>Glue Trigger</strong> in the <strong>Trigger</strong> menu under the <strong>ETL</strong> section.</p>
+<h4 id="3-creating-event-bridge-rule-and-target-via-cli"><strong>3.</strong> Creating Event Bridge Rule and Target (via CLI)<a class="headerlink" href="#3-creating-event-bridge-rule-and-target-via-cli" title="Permanent link">&para;</a></h4>
+<p>Now, let's create the <strong>EventBridge Event Rule</strong> followed by an <strong>EventBridge Event Target</strong> which is, of course, the <strong>Glue Trigger</strong> created in the previous step. Run the following <strong>AWS CLI commands</strong> in sequence to create everything.</p>
+<ul>
+<li>First the <strong>Event Rule</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>aws events put-rule \
+    --name &quot;total-clicks-rule&quot; \
+    --event-pattern &quot;{ \
+                        \&quot;source\&quot;: [\&quot;aws.s3\&quot;], \
+                        \&quot;detail-type\&quot;: [\&quot;AWS API Call via CloudTrail\&quot;], \
+                        \&quot;detail\&quot;: { \
+                            \&quot;eventSource\&quot;: [\&quot;s3.amazonaws.com\&quot;], \
+                            \&quot;eventName\&quot;: [\&quot;PutObject\&quot;], \
+                            \&quot;requestParameters\&quot;: { \
+                                \&quot;bucketName\&quot;: [\&quot;<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>\&quot;], \
+                                \&quot;key\&quot;: [{\&quot;prefix\&quot;: \&quot;etl-ttt-demo/output/gluestreaming/total_clicks/\&quot;}]
+                            } \
+                        } \
+                    }&quot;
+</code></pre></div>
+
+<ul>
+<li>Then the <strong>Event Target</strong>:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>aws events put-targets \
+    --rule total-clicks-rule \
+    --targets &quot;Id&quot;=&quot;glueworkflow-totalclicks&quot;,&quot;Arn&quot;=&quot;arn:aws:glue:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:workflow/etl-ttt-event-driven-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
+    --region <span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>
+</code></pre></div>
+
+<p><img alt="TRAIL" src="../images/orch-event-rule-target.png" /></p>
+<p>After running both commands, go to <a href="https://console.aws.amazon.com/events/">AWS EventBridge</a> console. <strong><em>(switch to your right region if needed!)</em></strong>.</p>
+<p>On the left side menu, click on <strong>Rules</strong>, then click on top of the rule <strong>total-clicks-rule</strong> to open its details. You should see under the <strong>Event Pattern</strong> tab the following:</p>
+<p><img alt="TRAIL" src="../images/orch-event-pattern.png" /></p>
+<p>This pattern is basically saying that this <strong>EventRule</strong> is watching for every <strong>PutObject</strong> event that occur in the <strong>bucket/prefix</strong> specified in there.</p>
+<p>Click on the <strong>Targets</strong> tab. Here, you can see that the <strong>Target Name</strong> points to the <strong>Glue Workflow</strong> you just created <strong>etl-ttt-event-driven-workflow</strong>. Also that it has a <strong>EventBridge Role</strong>, with all the required permissions, associated with it. This <strong>Role</strong> has also been created as part of the <strong>CloudFormation template</strong>.</p>
+<p><img alt="TRAIL" src="../images/orch-event-target-tab.png" /></p>
+<h4 id="4-triggering-orchestration-following-the-flow"><strong>4.</strong> Triggering Orchestration &amp; Following The Flow<a class="headerlink" href="#4-triggering-orchestration-following-the-flow" title="Permanent link">&para;</a></h4>
+<p>Now, it is time to push data into the <strong>Kinesis Data Stream</strong>. You will run the <strong>Kinesis Ingestion Python Script</strong> you saw in the previous lab: <strong>Part 3 - Glue (Studio) Streaming -</strong> to push data into the stream. </p>
+<p>To start the script, run the following in the <strong>Cloud9 Enviroment</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/
+python PutRecord_Kinesis.py 
+</code></pre></div>
+
+<p>You will start to see data flowing on your <strong>Cloud9 Terminal</strong>, wait for few seconds for this to complete. In the meantime, go back to the <strong>Glue Studio Console</strong> and verify that the <strong>Glue Streaming Job</strong> is still running.</p>
+<p>Once the script finishes and you have verified that the <strong>Glue Streaming Job is running</strong>. Go back to the <strong>AWS Glue Console</strong> and look for your workflow. Refresh the <strong>Workflows</strong> screen and select your <strong>etl-ttt-event-driven-workflow</strong>.</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-runing.png" /></p>
+<p>Then click on the <strong>History</strong> tab at the bottom of the page, select the <strong>Run ID</strong> you see there and click on <strong>View run details</strong> button to see the workflow <em>flowing</em>:</p>
+<p><img alt="TRAIL" src="../images/orch-workflow-view-details.png" /></p>
+<p>While the workflow is running, you can check the <strong>Glue Crawler</strong> that the workflow is triggering. You can also go to you <strong>S3 Bucket</strong> and see the files that were generated there by the <strong>AWS Glue Streaming Job</strong> which was fed by the Kinesis Data Stream (after running the Kinesis Ingestion Script):</p>
+<p><strong>Running Crawler's name</strong>: <strong><code>crawl_streammed_data</code></strong><br />
+<strong>Streaming Job's target path</strong>: <strong><code>s3://etl-ttt-demo-${AWS\_ACCOUNT\_ID}-${AWS_REGION}/etl-ttt-demo/output/gluestreaming/total_clicks/</code></strong></p>
+<p><strong>NOTE:</strong> To keep this workflow from getting trigger multiple times, <strong>delete it now as you don't need it anymore!</strong></p>
+<p><img alt="TRAIL" src="../images/orch-delete-workflow.png" /></p>
+<!--  maybe try cli to EDIT THE TRIGGER TO 100 SO IT STOP RUNNING AT EVERY BATCH OF STREAMING DATA] -->
+
+<h4 id="5-exploring-and-analyzing-tables-data-cataloged-in-glue-data-catalog"><strong>5.</strong> Exploring and Analyzing Table's Data Cataloged in Glue Data Catalog<a class="headerlink" href="#5-exploring-and-analyzing-tables-data-cataloged-in-glue-data-catalog" title="Permanent link">&para;</a></h4>
+<p>Once the workflow completes, you will noticed that the <strong>Crawler</strong> triggered by the workflow actually produced <strong>1 new table</strong>. In the <strong>Glue Console</strong>, go to <strong>Tables</strong> to see a new table named <strong>total_clicks</strong>. <em>(Feel free to explore this table's details as much as you want!)</em></p>
+<p><img alt="TRAIL" src="../images/orch-total-clicks.png" /></p>
+<p>In the <strong>Glue Console's Table</strong> page, click on the checkbox near the <strong>total_clicks</strong> table, then click on the <strong>Action</strong> dropdown button to launch the table in the <strong>Amazon Athena Console</strong>. <em>(Hit the</em> <strong><em>Preview Button</em></strong> <em>if a pop-up is prompted)</em></p>
+<p align="center">
+ <img src=images/orch-view-data.png>
+</p>
+
+<p>In the <strong>Athena Query Editor Console</strong>, you may see a blue banner at the top that says <em>"Before you run your first query, you need to set up a query result location in Amazon S3."</em>. Just click on the <strong>View settings</strong> button you see there, then click on the <strong>Manage</strong> button in the far top right of the page, then click on <strong>Browse S3</strong>. Search for a bucket that starts with <strong>aws-glue-assets-</strong> and select it. Complement this bucket with <strong><code>/athena-output/</code></strong> and hit <strong>Save</strong></p>
+<p><img alt="TRAIL" src="../images/orch-athena-settings.png" /></p>
+<p>Click on <strong>Editor</strong> to start running your queries. In the <strong>Query 1</strong> tab, erase everything there, paste and <em>Run</em> the following query:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;AwsDataCatalog&quot;</span><span class="p">.</span><span class="ss">&quot;glue_ttt_demo_db&quot;</span><span class="p">.</span><span class="ss">&quot;total_clicks&quot;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">desc</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p>You should see the query results at the bottom:</p>
+<p><img alt="TRAIL" src="../images/orch-athena-query1-results.png" /></p>
+<p>Now, you are going to create a <strong>View</strong> on top of this table to allow for <strong>aggregation</strong> of the underlying files that compose this table's data.</p>
+<p>Run the following command to create a view that is meant to select the <strong>Top 5 customers aggregated by their number of clicks</strong> in a particular website: <em>(That's the</em> <strong><em>web_page</em></strong> <em>streaming data you have captured!)</em></p>
+<div class="codehilite"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span>
+<span class="k">SELECT</span><span class="w"></span>
+<span class="w">  </span><span class="ss">&quot;c_full_name&quot;</span><span class="w"></span>
+<span class="p">,</span><span class="w"> </span><span class="ss">&quot;c_email_address&quot;</span><span class="w"></span>
+<span class="p">,</span><span class="w"> </span><span class="ss">&quot;sum&quot;</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="ss">&quot;total_clicks&quot;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">integer</span><span class="p">))</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"></span>
+<span class="w">  </span><span class="ss">&quot;total_clicks&quot;</span><span class="w"> </span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
+</code></pre></div>
+
+<p><img alt="TRAIL" src="../images/orch-athena-view1.png" /></p>
+<p>In a new <strong>Query Tab</strong>, run below query to query the view now:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p>Note down the results you see:</p>
+<p><img alt="TRAIL" src="../images/orch-results-1.png" /></p>
+<p>Now, go back to your Cloud9 Enviroment and run the <strong>Kinesis Ingestion Python Script</strong> again: </p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> ~/environment/ttt-demo/
+python PutRecord_Kinesis.py 
+</code></pre></div>
+
+<p>Allow for it to complete and wait for about 30-60 seconds and re-run the last Athena query.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="ss">&quot;glue-ttt-demo-db&quot;</span><span class="p">.</span><span class="ss">&quot;tpc_customer_inter&quot;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p><img alt="TRAIL" src="../images/orch-athena-query2-results.png" /></p>
+<p><strong>Note:</strong> If you noticed that above results hasn't changed. It might be that your calendar <strong>Year, Month, Day, or Hour</strong> has changed (most probably the <strong>Hour</strong>). Run the <strong>crawl_streammed_data</strong> crawler again to <strong>update partitions</strong> or try the <strong>MSCK REPAIR TABLE `total_clicks`;</strong> command from within <strong>Athena</strong> itself.</p>
+<p>You have reached to the end of this lab. If you want, you can keep pushing more data into your Kinesis Data Stream by running the <strong>Kinesis Ingestion Python Script</strong> multiple times and allowing few seconds each time for the <strong>Glue Streaming Job</strong> to process it. Once you are ready, manually stop the <strong>glue-streaming-job</strong> and move to <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../03-StreamingLab/03-streaming-lab/" class="md-footer__link md-footer__link--prev" aria-label="Previous: GLUE (STUDIO) STREAMING" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              GLUE (STUDIO) STREAMING
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: MACHINE LEARNING WITH GLUE &amp; GLUE STUDIO NOTEBOOKS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+    
+  </body>
+</html>

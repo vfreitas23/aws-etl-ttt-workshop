@@ -1,0 +1,923 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>Prepare the Enviroment - Amazon ETL Train-The-Trainer Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-setting-up-cloud9-environment-variables" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon ETL Train-The-Trainer Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Prepare the Enviroment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Amazon ETL Train-The-Trainer Workshop
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../000-Intro/000-intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          How to Start?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How to Start?" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          How to Start?
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../001-intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          AWS Event
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AWS Event" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          AWS Event
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../002-ee-account-setup/" class="md-nav__link">
+        Account Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Prepare the Enviroment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Prepare the Enviroment
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-setting-up-cloud9-environment-variables" class="md-nav__link">
+    1. Setting up Cloud9 Environment Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-switching-cloud9-role-credentials" class="md-nav__link">
+    2. Switching Cloud9 Role Credentials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-setting-up-security-required-groups-inbound-rules" class="md-nav__link">
+    3. Setting up Security Required Groups Inbound Rules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-installing-required-libraries-boto3" class="md-nav__link">
+    4. Installing Required Libraries (Boto3)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 1" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Part 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-nav__link">
+        TPCDS & RDS MySQL Lab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Part 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-GlueComponentsLab/02-glue-components-lab/" class="md-nav__link">
+        GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Part 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 3" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Part 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-StreamingLab/03-streaming-lab/" class="md-nav__link">
+        GLUE (STUDIO) STREAMING
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Part 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 4" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Part 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-OrchestrationLab/04-orchestration-lab/" class="md-nav__link">
+        ORCHESTRATION & DATA ANALYSIS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Part 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 5" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Part 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-nav__link">
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Part 6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 6" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Part 6
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Part 7
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 7" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Part 7
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-setting-up-cloud9-environment-variables" class="md-nav__link">
+    1. Setting up Cloud9 Environment Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-switching-cloud9-role-credentials" class="md-nav__link">
+    2. Switching Cloud9 Role Credentials
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-setting-up-security-required-groups-inbound-rules" class="md-nav__link">
+    3. Setting up Security Required Groups Inbound Rules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-installing-required-libraries-boto3" class="md-nav__link">
+    4. Installing Required Libraries (Boto3)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/00-PreSteps/AWSEvent/003-cloud9-enviroment-setup.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="toc_0" align="center">
+PREPARING THE CLOUD9 ENVIROMENT
+</h1>
+
+<p>We will use <strong>AWS Cloud9</strong> to run shell commands, edit and run Python scripts for the labs. <strong>Cloud9</strong> is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser. It combines the rich code editing features of an IDE such as code completion, hinting, and step-through debugging, with access to a full Linux server for running and storing code.</p>
+<p>Go to the <a href="https://us-east-2.console.aws.amazon.com/cloud9">AWS Cloud9 Console</a> in your environment and you should see a <strong>Cloud9 Environment</strong> named <strong>etl-ttt-demo</strong>. Select this enviroment and click on the <strong>View details</strong>In th button.</p>
+<p><img alt="C91" src="../images/cloud9-console-details-IDE.png" /></p>
+<p>In the details page, under <strong>EC2 Instance</strong>, click on <strong>Go To Instance</strong> link. This will open a new tab on your browser and take you to the <strong>AWS EC2 Console</strong>. <strong>TIP:</strong> Leave the <strong>AWS Cloud9 Console</strong> tab open for now!</p>
+<p><img alt="C92" src="../images/cloud9-go-to-instance.png" /></p>
+<p>In the <strong>AWS EC2 Console</strong>, select the <strong>Cloud9 EC2 Instance</strong> that starts with <strong>aws-cloud9-</strong>. Click on the <strong>Actions</strong> dropdown button, followed by <strong>Security</strong>, then click on <strong>Modify IAM Role</strong>. </p>
+<p><img alt="IAM1" src="../images/ec2-modify-IAM-role.png" /></p>
+<p>In the next screen's dropdown box select the role that contains <strong>-AWSEC2InstanceProfileTTT-</strong> and click <strong>Save</strong>. <strong>TIP:</strong> You can close the <strong>AWS EC2 Console</strong> tab now!</p>
+<p><img alt="IAM2" src="images/ec2-modify-IAM-role-popup.png" /> <!-- need another picture with the TTT in the name --></p>
+<p>Go back to the <strong>AWS Cloud9 Console</strong> tab and, while still on the <strong>Enviroment Details</strong> page, click on the <strong>Open IDE button</strong> to launch your <strong>AWS Cloud9 IDE environment</strong> tab. <strong>Tip:</strong> Now, you can close the <strong>AWS Cloud9 Console</strong> tab.</p>
+<p>Allow for the launched <strong>AWS Cloud9 Enviroment's</strong> setup to finish, then close the <strong>Welcome</strong> tab and click on the green plus icon <strong>(+)</strong> to add a <strong>New Terminal</strong> tab. This will create a new terminal tab and load a <strong>command-line terminal</strong>.</p>
+<p><img alt="NEW TERMINAL" src="../images/cloud9-new-terminal.png" /></p>
+<p>From now on, you will use this terminal window throughout this workshop lab to execute all the <strong>AWS CLI</strong> commands and scripts. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>TIP: Keep this tab open for the entire workshop if you can!</strong></p>
+<h4 id="1-setting-up-cloud9-environment-variables"><strong>1.</strong> Setting up Cloud9 Environment Variables<a class="headerlink" href="#1-setting-up-cloud9-environment-variables" title="Permanent link">&para;</a></h4>
+<p>During the workshop environment setup, a <strong>S3 Bucket</strong> is created for storing the <strong>Lab Paths, Lab Files and CloudTrail Logs</strong>. A <strong>RDS MySQL Instance</strong> also got created for you.</p>
+<p>Run the following set of commands to setup and print out the required <strong>Enviroment Variables</strong> such as the <strong>\${BUCKET_NAME}</strong> for your <strong>S3 Bucket</strong> and <strong>\$mysqlendpoint</strong> for the <strong>RDS MySQL Instance endpoint</strong>:</p>
+<div class="codehilite"><pre><span></span><code> <span class="nv">AWS_ACCOUNT_ID</span><span class="o">=</span><span class="sb">`</span>aws sts get-caller-identity --query Account --output text<span class="sb">`</span>
+ <span class="nv">AWS_REGION</span><span class="o">=</span><span class="sb">`</span>aws configure get region<span class="sb">`</span>
+ <span class="nv">BUCKET_NAME</span><span class="o">=</span>etl-ttt-demo-<span class="si">${</span><span class="nv">AWS_ACCOUNT_ID</span><span class="si">}</span>-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>
+ <span class="nv">mysqlendpoint</span><span class="o">=</span><span class="k">$(</span>aws cloudformation describe-stacks --query <span class="s1">&#39;Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]&#39;</span> --output text<span class="k">)</span>
+ <span class="nb">echo</span> <span class="s2">&quot;export BUCKET_NAME=\&quot;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">\&quot;&quot;</span> &gt;&gt; /home/ec2-user/.bashrc
+ <span class="nb">echo</span> <span class="s2">&quot;export AWS_REGION=\&quot;</span><span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span><span class="s2">\&quot;&quot;</span> &gt;&gt; /home/ec2-user/.bashrc
+ <span class="nb">echo</span> <span class="s2">&quot;export AWS_ACCOUNT_ID=\&quot;</span><span class="si">${</span><span class="nv">AWS_ACCOUNT_ID</span><span class="si">}</span><span class="s2">\&quot;&quot;</span> &gt;&gt; /home/ec2-user/.bashrc
+ <span class="nb">echo</span> <span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span>
+ <span class="nb">echo</span> <span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>
+ <span class="nb">echo</span> <span class="si">${</span><span class="nv">AWS_ACCOUNT_ID</span><span class="si">}</span>
+ <span class="nb">echo</span> <span class="nv">$mysqlendpoint</span>  
+</code></pre></div>
+
+<p>Note: You can save the output values elsewhere for easy reference if you want or always re-run the <strong>echo</strong> commands to print them out again.</p>
+<h4 id="2-switching-cloud9-role-credentials"><strong>2.</strong> Switching Cloud9 Role Credentials<a class="headerlink" href="#2-switching-cloud9-role-credentials" title="Permanent link">&para;</a></h4>
+<p>After running the first set of commands, you need to disable the <strong>auto management of AWS Temporary Credentials</strong> which is controlled by Cloud9 by default. In your <strong>Cloud9 Enviroment</strong> click on the <strong>Preferences</strong> (Gear Icon on the far upper right), the <strong>Preferences</strong> tab will open. There, scroll to <strong>AWS Settings</strong> and disable the option <strong>AWS managed temporary credentials</strong>. </p>
+<p><img alt="CREDS" src="../images/cloud9-env-disable-creds.png" /></p>
+<p>Once done, close the <strong>Preferences</strong> tab and in your <strong>Cloud9 terminal</strong> tab run the following commands to validate that Cloud9 is now using the <strong>AWSEC2ServiceRole-etl-ttt-demo</strong> role which belongs to the <strong>AWSEC2InstanceProfileTTT</strong> you setup earlier in for the <strong>Cloud9 EC2 instance</strong>. </p>
+<div class="codehilite"><pre><span></span><code><span class="n">aws</span><span class="w"> </span><span class="n">configure</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">$AWS_REGION</span><span class="w"></span>
+<span class="n">aws</span><span class="w"> </span><span class="n">sts</span><span class="w"> </span><span class="n">get</span><span class="o">-</span><span class="n">caller</span><span class="o">-</span><span class="n">identity</span><span class="w"> </span><span class="o">--</span><span class="n">query</span><span class="w"> </span><span class="n">Arn</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="n">AWSEC2ServiceRole</span><span class="o">-</span><span class="n">etl</span><span class="o">-</span><span class="n">ttt</span><span class="o">-</span><span class="n">demo</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;IAM role valid&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;IAM role NOT valid&quot;</span><span class="w"></span>
+</code></pre></div>
+
+<p>You should see your <strong>current region</strong> and a message <strong>"IAM role valid"</strong> in the output.</p>
+<h4 id="3-setting-up-security-required-groups-inbound-rules"><strong>3.</strong> Setting up Security Required Groups Inbound Rules<a class="headerlink" href="#3-setting-up-security-required-groups-inbound-rules" title="Permanent link">&para;</a></h4>
+<p>Next, a new <strong>Inbound Rule</strong> will be added to the <strong>Default Security Group</strong> of this workshop which is tagged with the name <strong>etl-ttt-demo</strong>. This new <strong>Inboud Rule</strong> is to allow traffic from the <strong>AWS Cloud9 Instance's Security Group</strong> to the resources in the <strong>etl-ttt-demo's Security Group</strong>. Run the following commands to do that:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">ref_sg</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-security-groups --query <span class="s1">&#39;SecurityGroups[?contains(GroupName, `aws-cloud9-etl-ttt-demo`) == `true`].GroupId&#39;</span> --output text<span class="k">)</span>
+<span class="nv">target_sg</span><span class="o">=</span><span class="k">$(</span>aws ec2 describe-security-groups --query <span class="s1">&#39;SecurityGroups[?contains(GroupName, `DefaultVPCSecurityGroup`) == `true`].GroupId&#39;</span> --output text<span class="k">)</span>
+aws ec2 authorize-security-group-ingress --group-id <span class="nv">$target_sg</span> --protocol -1 --source-group <span class="nv">$ref_sg</span>
+<span class="nb">echo</span> <span class="s2">&quot;Source SG:&quot;</span> <span class="nv">$ref_sg</span> <span class="s2">&quot;has been added to Target SG:&quot;</span> <span class="nv">$target_sg</span>
+</code></pre></div>
+
+<p>You should see a message <strong>" Source SG: sg-XXXXX has been added to Target SG: sg-XXXXX "</strong> where <strong>XXXXX</strong> is the ID of each Security Group, the <strong>EC2's</strong> and the <strong>DefaultVPC's</strong> Security Group.</p>
+<p><strong>[Optional]:</strong> You can go to your <a href="https://us-east-2.console.aws.amazon.com/vpc">AWS VPC Console</a> to verify that a new <strong>Inbound Rule</strong> has been added to the <strong>etl-ttt-demo</strong>, it should have <strong>two Inbound Rules</strong> now.</p>
+<p><img alt="SG" src="../images/mysql-security-groups.png" /></p>
+<h4 id="4-installing-required-libraries-boto3"><strong>4.</strong> Installing Required Libraries (Boto3)<a class="headerlink" href="#4-installing-required-libraries-boto3" title="Permanent link">&para;</a></h4>
+<p>In this next step, <strong>BOTO3 Library</strong> will be installed to your <strong>Cloud9 enviroment</strong>. That step is required in order to support running the <strong>Kinesis Streaming Python script</strong> during the <strong>Part 4 - Orchestration &amp; Data Analysis -</strong> of this workshop. Run the following command to do so:</p>
+<div class="codehilite"><pre><span></span><code>sudo pip3 install boto3
+</code></pre></div>
+
+<p>Wait untill you see a message that says: <strong>"Successfully installed boto3-1.22.9 botocore-1.25.9 s3transfer-0.5.2"</strong></p>
+<p><br/>
+You are finished with the initial setup of the workshop environment. Take some time the explore the commands you ran here and to check the resources (such as the <a href="https://s3.console.aws.amazon.com/s3">Amazon S3</a> workshop's bucket: <strong>etl-ttt-demo-\${AWS_ACCOUNT_ID}-\${AWS_REGION}</strong> - that have been created for you as part of the <strong>CloudFormation Template</strong> execution. Once you are ready you can move on to <strong>Part 1 - Working with TPC-DS Data &amp; RDS MySQL Database!</strong></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../002-ee-account-setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Account Setup" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Account Setup
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-footer__link md-footer__link--next" aria-label="Next: TPCDS &amp; RDS MySQL Lab" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              TPCDS & RDS MySQL Lab
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["tabs"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+    
+  </body>
+</html>

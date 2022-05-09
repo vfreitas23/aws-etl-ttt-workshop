@@ -1,13 +1,13 @@
 <h1 id="toc_0" align="center">
 GLUE (STUDIO) STREAMING</h1>
 
-The Part 3 - Glue (Studio) Streaming of the ETL Train the Trainer workshop is where you are going to use AWS Glue Studio Graphical Interface for the first time.
+The **Part 3 - Glue (Studio) Streaming -** of the **ETL Train the Trainer workshop** is where you are going to use **AWS Glue Studio Graphical Interface** for the first time.
 
-You are going to use Glue Studio do build 2 jobs here. The first job is a *dummy* Glue Streaming Job that will validate the JOIN between the **customer** RDS table and a **web_page** CSV data that you uploaded earlier to S3. 
+You are going to use **Glue Studio** do build 2 jobs here. The first job is a *dummy* Glue Streaming Job that will validate the JOIN between the **customer** RDS table and a **web_page** CSV data that you uploaded earlier to S3. 
 
-Note: This CSV data is basically a representation of the actual **web-page-streaming-table** (with the different of that one being in JSON format) that you will use in real Glue Streaming Job
+**Note:** This CSV data is basically a representation of the actual **web-page-streaming-table** (with the different of that one being in JSON format) that you will use in real Glue Streaming Job
 
-Apart from validate the JOIN between datasets, this *dummy* job will also validate the SQL code used in the SQL Transform node of this lab. If validation succeeds, you will then be able to Preview the Data before outputting it or, in this case, before building the real Glue Streaming Job.
+Apart from validate the **JOIN** between datasets, this *dummy* job will also validate the SQL code used in the **SQL Transform node** of this lab. If validation succeeds, you will then be able to **Preview the Data** before outputting it or, in this case, before building the real **Glue Streaming Job**.
 
 #### **1.** Understanding the Streaming Resources Provided (CloudFormation & Scripts)
 
@@ -16,13 +16,14 @@ For this lab to work, the CloudFormation template provided few resources for you
 
 **Kinesis Data Stream**
 
-A Kinesis Data Stream named **etl-ttt-demo-stream** has been added already which will receive the stream of data from a script you will run later on this lab. Click here <add link> to explore the Kinesis Data Stream if you want.
+A Kinesis Data Stream named **etl-ttt-demo-stream** has been added already which will receive the stream of data from a script you will run later on this lab. Click [here](http://console.aws.amazon.com/) to search for **Amazon Kinesis** and explore the **Kinesis Data Stream** if you want.
+
 
 ![KINESIS STREAM](images/studio-kinises-data-stream.png)
 
 **Cataloged Streaming Table**
 
-As you already saw it, a table named **etl-ttt-demo-stream** has been created for you with a proper schema definition and all the necessary settings. You can see the details of this table in the AWS Glue Console <link>.
+As you already saw it, a table named **web-page-streaming-table** has been created for you with a proper schema definition and all the necessary settings. You can see the details of this table in the **AWS Glue Console** <link>.
 
 Here's a snapshot of that table's schema.
 
@@ -43,24 +44,35 @@ aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38
 cat PutRecord_Kinesis.py
 ~~~
 
+**RDS MySQL Customer Table**
+
+For the **Part 3 only of this workshop**, you need to delete multiple rows from the **RDS MySQL's customer table**. That's because the **customer** is too big originally so **previewing** such amount of data with **Glue Studio Data Preview** feature is **inneficient and may fail**.
+
+Run the following **SQL Delete Statement** to reduce the table to only **1000 rows**:
+
+~~~shell
+mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds -e "delete from customer where c_customer_sk > 1000";
+mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds -e "commit"; 
+~~~
+
 </br>
 #### **2.** Validating Streaming Job Logic and Data (Glue Studio Dummy Job)
 
 
 Let's start building the **dummy** job to validate our Glue Streaming Job logic.
 
-From the AWS Glue Console, click on AWS Glue Studio under the ETL section in the far left menu.
+From the **AWS Glue Console**, click on **AWS Glue Studio** under the **ETL** section in the far left menu.
 
 <p align="center">
  <img src=images/studio-job-menu.png>
 </p>
 
-This will take you to the AWS Glue Studio Console where you will be authoring the jobs graphically. For that, click on Jobs on the far left menu, select **Visual with a blank** canvas option and click on **Create**.
+This will take you to the AWS Glue Studio Console where you will be authoring the jobs graphically. For that, click on **Jobs** on the far left menu, select **Visual with a blank** canvas option and click on **Create**.
 
 ![DUMMY JOB](images/studio-create-dummy-job.png)
 
-You will be presented with a blank canva. The first thing you must do there is to rename you job. Just click where it says **"Untitled job"**
-, type **dummy-streaming-job** and click out the Job name box.
+You will be presented with a blank canvas. The first thing you must do there is to rename you job. Just click where it says **"Untitled job"**
+, type `dummy-streaming-job` and click out the **Job's** name box.
 
 ![BLANK CANVAS](images/studio-blank-canvas.png)
 
@@ -82,10 +94,10 @@ Click the **Visual** tab again to go back to visual editor. You should see 3 dro
 For the **Web Page CSV** source, click on the **Source** dropdown icon and choose **Amazon S3** in dropdown list. Click on the node that has been automatically added to the canvas to highlight it. Make the following changes to it:
 
 - Click **Node properties** tab
- - Set **Name** to **Web Page S3**
+ - Set **Name** to `Web Page S3`
 - Click **Data source properties - S3** tab
  - Under **S3 source type** select **S3 location**
- - Set **S3 URL** to: *s3://${BUCKET\_NAME}/etl-ttt-demo/csv\_tables/web\_page.csv* - (use the **Browse S3** bucket to navigate.)
+ - To set the **S3 URL**, use the **Browse S3** button to navigate to: ***s3://${BUCKET\_NAME}/etl-ttt-demo/csv\_tables/web\_page.csv***
  - Uncheck the **Recursive** option
  - Click **Infer schema** button at the bottom
  - Click on **Output schema** tab to see schema infered, then click **Save**
@@ -96,10 +108,10 @@ For the **Web Page CSV** source, click on the **Source** dropdown icon and choos
 For the **Customer RDS** source, click on the **Source** dropdown icon and choose **AWS Glue Data Catalog** in the dropdown list.
 
 - Click **Node properties** tab
- - Change Name to **Customer RDS**
+ - Change Name to `Customer RDS`
 - Click **Data source properties - Data Catalog** tab
- - Under **Database** select **glue\_ttt\_demo\_db**
- - Under **Table** select **rds\_crawled\_tpcds\_customer**
+	- Under **Database** select **glue\_ttt\_demo\_db**
+	- Under **Table** select **rds\_crawled\_tpcds\_customer**
  - Click on **Output schema** tab to see schema, then click **Save**
 
 ![SOURCES ADDED](images/studio-canvas-sources-added.png)
@@ -116,45 +128,42 @@ In the list of transforms that appears, scroll to the bottom and choose **SQL**.
 - Click **Node properties** tab
  - Under **Node parents**, select **Customer RDS** by clicking the checkbox next to it
 - Click **Transform tab**
-	- Set Input sources **Web Page S3** with **Spark SQL aliases** value to **webpage**
-	- Set Input sources **Customer RDS** with **Spark SQL aliases** value to **cust**
+	- Set Input sources **Web Page S3** with **Spark SQL aliases** value to `wp`
+	- Set Input sources **Customer RDS** with **Spark SQL aliases** value to `cust`
 	- Copy the following code to SQL query and click **Save**
 
 ~~~sql
 select CONCAT(cust.c_first_name, ' ', cust.c_last_name) as full_name,
 cust.c_email_address,
-count(webpage.wp_char_count) as total_clicks
+count(wp.wp_char_count) as total_clicks
 from cust
-left join webpage
-on cust.c_customer_sk = webpage.wp_customer_sk where 1=2 --remove the where clause after preview!!
+left join wp
+on cust.c_customer_sk = wp.wp_customer_sk where 1=2 --remove the where clause after preview!!
 group by 1,2
 order by total_clicks desc
 ~~~
 
 - Click on **Data Preview** tab
- - Click on the **Start data preview session** button there.
- - In the pop-up window that will open, choose the IAM role **AWSGlueServiceRole-etl-ttt-demo**
-  - Wait for **Data Preview** to finish (it takes about 5 minutes to complete)
+	- Click on the **Start data preview session** button there.
+	- In the pop-up window that will open, choose the IAM role **AWSGlueServiceRole-etl-ttt-demo**
+	- Wait for **Data Preview** to finish (it takes about 5 minutes to preview)
 
-Note: Preview the query with **where 1=2** first to make previewing faster and to avoid issues. If issues happen, close this job and clone it into a new one (clone steps is following).
+Note: It will return zero rows because you are previewing the query with **where 1=2** first. This is to make previewing faster and to avoid issues. If issues happen (or previewing is taking more than 5 minutes), **Save** this job, go back to **Jobs** in the **Glue Studio** left menu and, under **Your jobs** select the *dummy* job you created and clone it into a new one. Rename it **dummy-streaming-job-2**. **TIP:** You can delete the first job **dummy-streaming-job** later too.
 
-- Once preview is completed, remove the **where 1=2** clause.
-- Click on the **Data Preview** tab again to see the data there.
-
-Note that that only relevant columns were brought from the SQL query.
-
-- Click on **Output schema** tab to see schema,
+- Once preview is completed, Click on **Output schema** tab to see the schemas(s)
 
 Note that you have 2 outputs: **Output 1** and **Output 2**.
 
 - Click on the **Use datapreview schema** button that you see right there in the **Output schema** tab.
 
-Note that the schema now matches only the relevant columns of the query. Click **Save**.
+Note that the schema now matches only the relevant columns of the query. 
 
+- Click on **Transform** tab again and remove the **where 1=2** clause.
+- Click on the **Data Preview** tab one last time to see the data appearing there.
+
+Note that that only relevant columns were brought from the SQL query. Click **Save**.
 
 ![PREVIEW OUTPUT](images/studio-preview-output.png)
-
-
 
 Now, add an **Apply Mapping** transform by clickinng on the **SQL** node first to highlight it, then click on **Transform** dropdown icon and choose **Apply Mapping** from the list.
 
@@ -174,7 +183,7 @@ Click on this new **Amazon S3** node to highligt it and do the following:
 
 - Click on **Data target properties - S3** tab
  - Set **Format** to **CSV**
- - Set **S3 Target Location** to *s3://$BUCKET\_NAME/etl-ttt-demo/output/gluestreaming/total\_clicks/* 
+ - Set **S3 Target Location** to *s3://$BUCKET\_NAME/etl-ttt-demo/output/gluestreaming/total\_clicks/*
 
 TIP: Switch back quickly to your Cloud9 enviroment and use the following command to build the entire path you need for the **S3 Target Location** above.
 
@@ -182,23 +191,69 @@ TIP: Switch back quickly to your Cloud9 enviroment and use the following command
 echo "s3://$BUCKET_NAME/etl-ttt-demo/output/gluestreaming/total_clicks/"
 ~~~
 
+ - Click **Save**. 
+
+![DUMMY](images/studio-dummy-job-done.png)
+
 
 <h4 id="toc_0" align="center"> !!! You can now save this job for the last time but DO NOT RUN IT!!!! </h4>
 
 
 #### **3.** Creating the Glue Streaming Job (Cloning Jobs!)
 
-<<<<< write the right stuff
+Go back to **Jobs** in the **Glue Studio** left menu and, under **Your jobs** select the *dummy-streaming-job*  (or any clone of it). Click on the **Actions** dropdown button and choose **Clone Job**.
+
+![CLONE](images/studio-your-jobs-clone.png)
+
+The visual canvas will open and you will notice that the cloned job contains the exact same nodes with the exact same definitions you choose for the *dummy* job. Rename this new job to **glue-streaming-job** and **Save** it.
+
+Now, all you have to do is:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **1.** Remove the **Web Page S3** by clicking on it to highlight it first, then clicking on **Remove** (trash icon)   
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **2.** click on the **Source** dropdown icon and choose **Amazon Kinesis** in dropdown list. A new and isolated **Amazon Kinesis** node will appear.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **3.** Click on the new **Amazon Kinesis** node to highlight it, go to **Node Properties** tab and name it `Web Page Stream` .  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **4.** Click on **Data source properties - Kinesis Stream** tab and under **Amazon Kinesis Source** choose **Data Catalog table**. Then, under **Database** choose **glue\_ttt\_demo\_db** and under **Table** choose **web-page-streaming-table**.  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **5.**  Uncheck **Detect Schema**, set **Starting position** to **Latest** and set **Window size** to **60**. Click **Save**
+
+![CLONE](images/studio-isolated-kinesis-node.png)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **6.** Now, click on the **SQL** joint node at the center of the canvans to highlight it. Go to **Node Properties** tab and under **Node parents** check the **Web Page Stream** node to complete the **Join**.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **7.** Click on the **Transform** tab and fix the **SQL aliases** for the **Amazon Kinesis Input Source** by typing **wp** there to match the alias in the **SQL query**. Click **Save**.
+
+![CLONE](images/studio-streaming-job-done.png)
+
+<h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS JOB YET !!! !!! </h4>
+
+Before running this job, go back to your **Cloud9 Enviroment** tab and run the following commands to repopulate the **RDS MySQL's customer table**:
+
+~~~shell
+cd /tmp/dsd/
+file=customer_1_2.dat
+mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd --local-infile -Dtpcds -e "truncate table tpcds.customer"
+
+mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd --local-infile -Dtpcds -e \
+"load data local infile '$file' replace into table tpcds.customer character set latin1 fields terminated by '|'"
+
+mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd --local-infile -Dtpcds -e "select count(*) from tpcds.customer"
+~~~
+
+You should have **100.000** rows in the **customer** table now.
+
+Now, you are free to run the **Glue Streaming Job**. Go back to the **Glue Studio** tab and click **Run**. A green banner will appear at the top with a message **"Successfully started job glue-streaming-job. Navigate to Run Details for more details."**. Click on **Run Details** to confirm that the job is indeed **Running**. 
+
+![CLONE](images/studio-job-running.png)
 
 
+**TIP:** You can delete all the *dummy* jobs now (Once you validate the data previewed previously).
 
+<br/>
 
-[CLONE THE DUMMY JOB AND REPLACE THE CSV WEB_PAGE SOURCE BY THE KINESIS WEB_PAGE STREAMING TABLE]  
-!!!! RUN THE JOB BUT DON'T SEND ANY STREAMING DATA YET!!!!  
-(SETUP EVENT BRIDGE LAB FIRST !!!!!!
-
-
-<<<<< write the right stuff
+You have finshed **creating & running a Glue Streaming Job**. At this point, there's no data being pushed into the **Kinesis Data Stream source** of this job. Once you are ready move to the **Part 4 - Orchestration & Data Analytsis** where you will start to push data into the **Kinesis Stream**.
 
 
 

@@ -1,0 +1,925 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>TPCDS & RDS MySQL Lab - Amazon ETL Train-The-Trainer Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-preparing-generating-tpcds-dataset" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-header__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Amazon ETL Train-The-Trainer Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TPCDS & RDS MySQL Lab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Amazon ETL Train-The-Trainer Workshop" class="md-nav__button md-logo" aria-label="Amazon ETL Train-The-Trainer Workshop" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Amazon ETL Train-The-Trainer Workshop
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vfreitas23/aws-etl-ttt-workshop
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../000-Intro/000-intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          How to Start?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="How to Start?" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          How to Start?
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/001-intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          AWS Event
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AWS Event" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          AWS Event
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/002-ee-account-setup/" class="md-nav__link">
+        Account Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-PreSteps/AWSEvent/003-cloud9-enviroment-setup/" class="md-nav__link">
+        Prepare the Enviroment
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Part 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 1" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Part 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          TPCDS & RDS MySQL Lab
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        TPCDS & RDS MySQL Lab
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
+    1. Preparing &amp; Generating TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
+    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
+    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Part 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Part 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-GlueComponentsLab/02-glue-components-lab/" class="md-nav__link">
+        GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Part 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 3" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Part 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-StreamingLab/03-streaming-lab/" class="md-nav__link">
+        GLUE (STUDIO) STREAMING
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Part 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 4" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Part 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-OrchestrationLab/04-orchestration-lab/" class="md-nav__link">
+        ORCHESTRATION & DATA ANALYSIS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Part 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 5" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Part 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-GlueStudioNotebookLab/05-gstudio-notebook-lab/" class="md-nav__link">
+        MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Part 6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 6" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Part 6
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-nav__link">
+        WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Part 7
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Part 7" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Part 7
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
+    1. Preparing &amp; Generating TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
+    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
+    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/01-MySQL-TPCDS/01-mysql-tpcds.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="toc_0" align="center">
+WORKING WITH TPC-DS DATA & RDS MYSQL DATABASE
+</h1>
+
+<p>Welcome to Part 1!</p>
+<p>In the <strong>Part 1 - Working with TPC-DS Data &amp; RDS MySQL Database -</strong> you will be installing and configuring everything that is required to prepare and load <strong>TPC-DS*</strong> data into a <strong>RDS MySQL Database Instance</strong> in order to supply the necessary dataset samples for each piece of the <strong>ETL Train The Trainer Workshop</strong>.</p>
+<h4 id="1-preparing-generating-tpcds-dataset"><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<a class="headerlink" href="#1-preparing-generating-tpcds-dataset" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>TPC-DS</strong> - TPC data is used for a decision support benchmark. When you load this data the schema tpcds is updated with sample data. For more information about the tpcds data, see <a href="https://www.tpc.org/tpcds/">TPC-DS</a>.</li>
+</ul>
+<p>Before you can install and generate <strong>TPC-Data</strong>, you need to build the necessary folders and download the necessary files. </p>
+<p>Run the following command to create the base level directory for the <strong>ETL Train the Trainer Workshop</strong> and to download the <strong>TCP-DS tool</strong> to your local <strong>AWS Cloud9 Enviroment</strong>:</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p ~/environment/ttt-demo
+<span class="nb">cd</span> ~//environment/ttt-demo//
+aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/16d7423c-23d3-4185-8ab4-5b002ec51153-tpc-ds-tool.zip tpc-ds-tool.zip
+</code></pre></div>
+
+<p>Next, run the following commands to <strong>unzip the previous downloaded (.zip)</strong> file and get into the <strong>DSGen software's directory</strong> to install the tool.</p>
+<div class="codehilite"><pre><span></span><code>unzip tpc-ds-tool.zip 
+<span class="nb">cd</span> DSGen-software-code-3.2.0rc1/tools/
+make
+head -200 tpcds.sql 
+</code></pre></div>
+
+<p>The last command (<strong>head</strong>) prints out the <strong>TPC-DS sql script for the tables' schemas</strong> to validate the instalation of the tool.</p>
+<p>Now, let's run the <strong>DSGen software</strong> to generate the sample data for all the <strong>TPC-DS tables</strong> and store the sample datasets in a <strong>temporary directory</strong>. <strong>TIP:</strong> This should take about <strong>3 minutes</strong> to complete!</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/
+./dsdgen -scale <span class="m">1</span> -dir /tmp/dsd -parallel <span class="m">2</span> -child <span class="m">1</span>
+<span class="nb">cd</span> /tmp/dsd/
+ls -lrt
+</code></pre></div>
+
+<p><img alt="SHOW ALL" src="../images/mysql-dsgen.png" /></p>
+<p><strong>[Optional]:</strong> (Performing this optional step should allow for enough time for the previous step to complete!)</p>
+<p>While the above command is running, you can proactively test the <strong>reacheability of your RDS MySQL Database Instance for access coming from your AWS Cloud9 Enviroment</strong>. To do that, run the following command in a <strong>NEW</strong> terminal tab (<strong>+</strong> icon):</p>
+<div class="codehilite"><pre><span></span><code>sudo yum -y install telnet
+<span class="nv">mysqlendpoint</span><span class="o">=</span><span class="k">$(</span>aws cloudformation describe-stacks --query <span class="s1">&#39;Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]&#39;</span> --output text<span class="k">)</span>
+telnet <span class="nv">$mysqlendpoint</span> <span class="m">3306</span>
+</code></pre></div>
+
+<p><strong>TIP:</strong> Close this <strong>additional Terminal</strong> tab once <strong>Telnet</strong> command succeed and go back to the <strong>original one</strong>!</p>
+<h4 id="2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset"><strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset<a class="headerlink" href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" title="Permanent link">&para;</a></h4>
+<p>Once the dataset samples get generated, it is time to load the data into the <strong>RDS MySQL Database</strong>. But first, run the following commands to create the <strong>TPC-DS tables' schemas in the MySQL database</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">tpcds_script_path</span><span class="o">=</span>~/environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds &lt; <span class="nv">$tpcds_script_path</span>
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;show tables&quot;</span>
+</code></pre></div>
+
+<p>The last output should be a list of all the tables that have been created in the database.</p>
+<p><img alt="SHOW ALL" src="../images/mysql-show-all-tables.png" /></p>
+<p>Now, it is time to load the data into the tables. To easily do that, you can run the following commands to download and run the a <strong>Shell Script</strong> that does all the loading process into the <strong>RDS MySQL Database</strong>! <strong>TIP:</strong> This should take about <strong>3 minutes</strong> to complete!</p>
+<div class="codehilite"><pre><span></span><code>aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/load_TPC-DS_MySQL.sh .
+. load_TPC-DS_MySQL.sh <span class="nv">$mysqlendpoint</span>
+</code></pre></div>
+
+<p>You can see all the tables getting loaded one by one...</p>
+<p><img alt="LOAD" src="../images/mysql-load-output.png" /></p>
+<p>And here's a snippet of the <strong>Shell Script</strong> code.</p>
+<p><img alt="SCRIPT" src="../images/mysql-load-script.png" /></p>
+<p><strong>NOTE:</strong> You don't have to create it but if you want just to have a look at the script, simply run the following commands:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> /tmp/dsd/ 
+cat load_TPC-DS_MySQL.sh
+</code></pre></div>
+
+<h4 id="3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3"><strong>3.</strong> Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3<a class="headerlink" href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" title="Permanent link">&para;</a></h4>
+<p>Finally, running the following commands will:</p>
+<ul>
+<li>Extract the <strong>3 required tables</strong> (<strong>web_page, customers and income_band</strong>) from the <strong>MySQL database</strong>;</li>
+<li>Save these tables in the <strong>local temporary directory</strong> (in <strong>CSV format</strong>);</li>
+<li>And, subsequently, upload these <strong>CSV files</strong> into the <strong>Workshop's S3 Bucket's path</strong>: <em>" .../etl-ttt-demo/csv_tables/"</em></li>
+</ul>
+<div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from web_page&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/web_page.csv
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from customer&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/customer.csv
+mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from income_band&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/income_band.csv
+aws s3 cp --recursive /tmp/dsd/csv_tables/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/csv_tables/
+</code></pre></div>
+
+<p><img alt="CSV" src="../images/mysql-csv-tables-uploaded.png" /></p>
+<p><br/>
+You are finished populating the <strong>RDS MySQL Database with TPC-DS sample data</strong>. Now, feel free to explore the  <a href="https://s3.console.aws.amazon.com/s3">Amazon S3</a> workshop's bucket again (<strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong>) and check the path and files inside the <strong>etl-ttt-demo/csv_tables/</strong> path. Once you are ready you can move on to <strong>Part 2 - AWS GLUE COMPONENTS!</strong></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../00-PreSteps/AWSEvent/003-cloud9-enviroment-setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Prepare the Enviroment" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Prepare the Enviroment
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../02-GlueComponentsLab/02-glue-components-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+    
+  </body>
+</html>
