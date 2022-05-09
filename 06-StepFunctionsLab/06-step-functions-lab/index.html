@@ -720,8 +720,35 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#final-crawler" class="md-nav__link">
+    Final Crawler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-function-workflow" class="md-nav__link">
+    Step Function Workflow
+  </a>
+  
+    <nav class="md-nav" aria-label="Step Function Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" class="md-nav__link">
     2. Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#following-the-flow" class="md-nav__link">
+    Following the flow
   </a>
   
 </li>
@@ -821,8 +848,35 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#final-crawler" class="md-nav__link">
+    Final Crawler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-function-workflow" class="md-nav__link">
+    Step Function Workflow
+  </a>
+  
+    <nav class="md-nav" aria-label="Step Function Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" class="md-nav__link">
     2. Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#following-the-flow" class="md-nav__link">
+    Following the flow
   </a>
   
 </li>
@@ -850,35 +904,39 @@ WORKFLOW ORCHESTRATION WITH
 <br/>AWS STEP FUNCTIONS
 </h1>
 
-<p>Go to <a href="https://console.aws.amazon.com/states/">AWS Step Function</a> console to explore the Trail </p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>[NEED TO CREATE A FOLDER NAMED (Cloud9): .../etl-ttt-demo/data_analytics_team_folder/</p>
+<p>In the <strong>Part 6 - Workflow Orchestration with AwS Step Functions -</strong> of this training you will be implement similar orchestration as the one you did during the <strong>Part 4 - Orchestration &amp; Data Analysis -</strong>.</p>
+<p>This time, as soon as a file land in the <a href="https://console.aws.amazon.com/s3/"><strong>Amazon S3 Bucket</strong></a> an <strong>write event</strong> gets recorded in the <a href="https://console.aws.amazon.com/cloudtrail/"><strong>etl-ttt-demo-trail</strong></a> <strong>Cloud Trail</strong> that you explored earlier in <strong>Part 4</strong>.</p>
+<p>Note that this Trail monitors <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION} Bucket</strong>, as you can see in the following picture:</p>
+<p><img alt="TRAIL" src="../images/step-data-event-trail.png" /></p>
 <!--
 MAKE SURE THE TRAIL HAS THE FOLLOWING PATH CONFIGURED:
     - Bucket name: etl-ttt-demo-171714944327-ca-central-1  
     - Prefix:   /etl-ttt-demo/data_analytics_team_folder/
 -->
 
-<p>[SIMULATE A FILE BEING SHARED FROM THE ANALYTICS TEAM]</p>
-<p>[THIS FILE WILL TRIGGER THE STEP FUNCTION WORKFLOW WHICH CONSEQUENTLY WILL RUN THE FINDMATCHES ML VALIDATION JOB TO CLEAN UP THE DUPLICAIONS. AFTER THAT, STEP FUNCTION WORKFLOW WILL START THE CRAWLER TO CATALOG THE VALIDATED DATA WHICH WILL THEN BE SERVED AS THE SOURCE DATASET FOR THE ANALYTICS TEAM TO USE IN THE DATABREW LAB]</p>
-<p>[NEED TO CREATE A CRAWLER TO CRAWL THE GENERATED FILE - STEP FUNCTION WILL TRIGER IT - ADD THIS CRAWLER TO THE CFN TOO]</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p>For this lab, you are interested in the <code>/etl-ttt-demo/data_analytics_team_folder/</code> path which <strong>simulates a shared repository</strong> where the <strong>Data Analytics team</strong> uploads their files for further <strong>Preparation &amp; Analysis</strong>. </p>
+<p>Furthermore, as previously explained, at every upload to this folder a <strong>write event</strong> gets generated. You will then create a new <strong>EventBridge Rule</strong> to listen to those events and automatically trigger a <strong>Step Function's State Machine Workfow</strong> that you will also create as part of this lab's steps. </p>
 <h4 id="1-creating-the-step-function-workflow"><strong>1.</strong> Creating the Step Function Workflow<a class="headerlink" href="#1-creating-the-step-function-workflow" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>Write down the steps to create the workflow...</p>
-<p>First is a Glue Job:</p>
-<p>StateName: FindMatch Job 
-JobName: ml-lab-notebook-job
-Wait for task to complete - optional<br />
-Next State: Add a next state
-Comment: "To remove duplicates in the dataset using FIndMatches ML Transform"</p>
-<p>Then the Glue Crawler:</p>
-<p>StateName: Crawl Dedup Data 
-JobName: ml-lab-notebook-job
-Wait for task to complete - optional<br />
-Next State: Add a next state
-Comment: "To crawl the data once the FindMatches job conclude the dedup higiene process"</p>
-<p>STEP FUNCTION WORKFLOW - JSON GENERATED CODE SNIPPET</p>
+<p>Before creating the <strong>Step Function Workflow</strong>, let's first create one more <strong>Crawler</strong>. This cralwer is actualy <strong>part of the Step Function Workflow</strong> you are going to build and <strong>it is required!</strong></p>
+<h3 id="final-crawler">Final Crawler<a class="headerlink" href="#final-crawler" title="Permanent link">&para;</a></h3>
+<p>Run the following code on your Cloud9 Enviroment Terminal to create the <strong>ml-final-crawler</strong>:</p>
+<div class="codehilite"><pre><span></span><code>aws glue create-crawler \
+    --name ml-final-crawler \
+    --role AWSGlueServiceRole-etl-ttt-demo \
+    --database-name glue-ttt-demo-db \
+    --table-prefix ml_final_\
+    --targets &quot;{\&quot;S3Targets\&quot;: [{\&quot;Path\&quot;: \&quot;s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/etl-ttt-demo/output/data_analytics_team_folder/top-customers/\&quot;}]}&quot;
+</code></pre></div>
+
+<p><img alt="STATE" src="../images/step-final-crawler.png" /></p>
+<p>As you can see, the <strong>ml-final-crawler</strong> will crawl the <strong>shared Analytics Team Folder</strong> once the files land there.</p>
+<h3 id="step-function-workflow">Step Function Workflow<a class="headerlink" href="#step-function-workflow" title="Permanent link">&para;</a></h3>
+<p>Now, let's finally create the <strong>Step Function Workflow</strong>. </p>
+<p>For this, go to the <a href="https://console.aws.amazon.com/states/">AWS Step Function</a> console  <strong><em>(switch to your right region if needed!)</em></strong> and click on <strong>State machines</strong>, under <strong>Step Functions</strong> label on the far left menu of the AWS Step Function Console. Then, click on <strong>Create state machine</strong>.</p>
+<p><img alt="STATE" src="../images/step-state-machine.png" /></p>
+<p>On the <strong>Choose authoring method</strong>, select <strong>Write your workflow in code</strong> and under <strong>Type</strong> choose <strong>Standard</strong>.</p>
+<p><img alt="STANDARD" src="../images/step-define-standard-machine.png" /></p>
+<p>At the bottom of the same page, under <strong>Definition</strong> paste the following code:</p>
 <div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A description of my state machine&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;StartAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Find Match Job&quot;</span><span class="p">,</span><span class="w"></span>
@@ -889,7 +947,7 @@ Comment: "To crawl the data once the FindMatches job conclude the dedup higiene 
 <span class="w">      </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="nt">&quot;JobName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml-lab-notebook-job&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="p">},</span><span class="w"></span>
-<span class="w">      </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;To remove duplicates in the dataset using FIndMatches ML Transform&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;To remove duplicates in the full customer dataset using FIndMatches ML Transform and output the results in another output bucket&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">      </span><span class="nt">&quot;Next&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Crawl Dedup Data&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="p">},</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;Crawl Dedup Data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -905,12 +963,46 @@ Comment: "To crawl the data once the FindMatches job conclude the dedup higiene 
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
-<p>State Machine Name: findmatches-ML-dedup-workflow
-Existing Role: AWSStepFunctionRole-etl-ttt-demo</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<!--
+
+Write down the steps to create the workflow...
+
+First is a Glue Job:
+
+StateName: FindMatch Job 
+JobName: ml-lab-notebook-job
+Wait for task to complete - optional  
+Next State: Add a next state
+Comment: "To remove duplicates in the dataset using FIndMatches ML Transform"
+
+Then the Glue Crawler:
+
+StateName: Crawl Dedup Data 
+JobName: ml_final_crawler
+Wait for task to complete - optional  
+Next State: Add a next state
+Comment: "To crawl the data once the FindMatches job conclude the dedup higiene process"
+
+-->
+
+<p><img alt="DEFINITION" src="../images/step-code-definition.png" /></p>
+<p>You should see the <strong>Step Function Workflow Studio Canvans</strong> getting updated with the graphical flow of the steps you set with the code.</p>
+<p>Click <strong>Next</strong> and, on the <strong>Specity details</strong> page, do the following:</p>
+<ul>
+<li>Under <strong>Name</strong> give your <strong>State Machine Name</strong> the name of <code>findmatches-ML-dedup-workflow</code>.</li>
+<li>Under <strong>Permissions</strong>, select the <strong>Choose an existing role</strong> option and set the <strong>IAM Role</strong> to <strong>AWSStepFunctionRole-etl-ttt-demo</strong>.</li>
+</ul>
+<p><img alt="DEFINITION" src="../images/step-details-1.png" /></p>
+<p><br/></p>
+<p>Scroll further down and click on the <strong>Create state machine</strong> button to create the <strong>Step Function State Machine Workflow</strong>.</p>
+<p><br/></p>
+<p><img alt="DEFINITION" src="../images/step-details-2.png" /></p>
 <h4 id="2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli"><strong>2.</strong> Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)<a class="headerlink" href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" title="Permanent link">&para;</a></h4>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
-<p>--- first the event rule  ----</p>
+<p>[FIX THE FOLDERS - THEY SHOULD BE DIFFERENT FROM SOURCE TO TARGET!!!!]</p>
+<p>Now, to be able to trigger the Step Function Workflow, you also need to create a new <strong>EventBridge Rule &amp; Target</strong>. Run the following steps in your <strong>Cloud9 Enviroment Terminal</strong> in sequence:</p>
+<ul>
+<li>First the <strong>Event Rule</strong>:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>aws events put-rule \
     --name &quot;find-matches-rule&quot; \
     --event-pattern &quot;{ \
@@ -927,16 +1019,46 @@ Existing Role: AWSStepFunctionRole-etl-ttt-demo</p>
                     }&quot;
 </code></pre></div>
 
-<p>--- then the event rule target  ----</p>
+<ul>
+<li>Then the <strong>Event Target</strong>:</li>
+</ul>
 <div class="codehilite"><pre><span></span><code>aws events put-targets \
     --rule find-matches-rule \
-    --targets &quot;Id&quot;=&quot;stepfunction-workflow&quot;,&quot;Arn&quot;=&quot;arn:aws:states:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:stateMachine:findmatches-ML-dedup-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
+    --targets &quot;Id&quot;=&quot;findmatches-ML-dedup-workflow&quot;,&quot;Arn&quot;=&quot;arn:aws:states:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:stateMachine:findmatches-ML-dedup-workflow&quot;,&quot;RoleArn&quot;=&quot;arn:aws:iam::<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:role/AWSEventBridgeInvokeRole-etl-ttt-demo&quot; \
     --region <span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>
 </code></pre></div>
 
-<p>[SIMMULATE THE FILE BEING UPLOADED BY A DIFFERENT TEAM TO CENTRAL BUCKET FOR FURTHER PROCESSING]</p>
-<p>aws s3 cp /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-topcustomer.csv s3://$BUCKET_NAME/etl-ttt-demo/data_analytics_team_folder/</p>
-<p>&lt;&lt;&lt;&lt;&lt; write the right stuff</p>
+<p><img alt="RULE TARGET CODE" src="../images/step-event-rule-target.png" /></p>
+<p>After running both commands, go to <a href="https://console.aws.amazon.com/events/">AWS EventBridge</a> console. <strong><em>(switch to your right region if needed!)</em></strong>.</p>
+<p>On the left side menu, click on <strong>Rules</strong>, then click on top of the rule <strong>find-matches-rule</strong> to open its details. You should see under the <strong>Event Pattern</strong> tab the following:</p>
+<p><img alt="PATTERN" src="../images/step-event-pattern.png" /></p>
+<p>This pattern is basically saying that this <strong>EventRule</strong> is watching for every <strong>PutObject</strong> event that occur in the <strong>bucket/prefix</strong> specified in there.</p>
+<p>Click on the <strong>Targets</strong> tab. Here, you can see that the <strong>Target Name</strong> points to the <strong>Step Functions Workflow</strong> you just created <strong>findmatches-ML-dedup-workflow</strong>. Also that it has a <strong>EventBridge Role</strong>, with all the required permissions, associated with it. This <strong>Role</strong> has also been created as part of the <strong>CloudFormation template</strong>.</p>
+<p><img alt="TARGET" src="../images/step-event-target-tab.png" /></p>
+<p>You are done creating the <strong>resources required for this Orchestration</strong> to work. Now, you need to simulate files being upladed into the central shared bucket repository of the Data Analytics Team, that means, the <strong>etl-ttt-demo/output/data_analytics_team_folder/top-customers/</strong>.</p>
+<p>To do that, go back to your <strong>Cloud9 Enviroment Terminal</strong> and run the following <strong>S3 command to upload a file that contains duplicated</strong> data into the <strong>Data Analytics Team's shared folder</strong>:</p>
+<div class="codehilite"><pre><span></span><code>aws s3 cp /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-top-customer.csv s3://$BUCKET_NAME/etl-ttt-demo/data_analytics_team_folder/
+</code></pre></div>
+
+<p>Once the above file is uploaded, it will then trigger the <strong>Step Function Workflow</strong> that you created which, consequently, will run the <strong>ml-lab-notebook-job</strong> that contains the <strong>FindMatches Transform</strong> and all the necessary code you wrote to transform the <strong>source duplicated data</strong> into a <strong>deduplicated version</strong> of the <strong>full top customers</strong> dataset. The validated and deduplicated version of the <strong>full top customers</strong> dataset will overwrite the originally uploaded version (which has duplicated data) allowing the fictitious <strong>Data Analytics Team</strong> to move forward with their <strong>Data Preparation work</strong>.</p>
+<h3 id="following-the-flow">Following the flow<a class="headerlink" href="#following-the-flow" title="Permanent link">&para;</a></h3>
+<p>You can follow the flow by going first to the <a href="https://console.aws.amazon.com/states/">Step Function Workflow</a> page and looking your <strong>findmatches-ML-dedup-workflow</strong> workflow. There, under Executions, you can click on the one that <strong>Status</strong> column says <strong>Running</strong> and click on <strong>View Details</strong>. You should see the graphical workflow changing its states.</p>
+<p><img alt="STATE CHANGE" src="../images/step-workflow-running.png" /></p>
+<p>From there, go to your <a href="https://console.aws.amazon.com/gluestudio/">Glue Studio Console</a> <strong><em>(switch to your right region if needed!)</em></strong> and look for your job <strong>ml-lab-notebook-job</strong> under the <strong>Monitoring</strong> page. Then, click on the big blue number under <strong>Running</strong> to scroll to the running Jobs, and confirm that your job is running.</p>
+<p><img alt="GS NB RUN" src="../images/step-flow-gs-nb-job-running.png" /></p>
+<p>Finally, go to the <a href="https://console.aws.amazon.com/glue/">Glue Console</a> <strong><em>(switch to your right region if needed!)</em></strong> and look for two things:</p>
+<ul>
+<li>The <strong>FindMatches ML Transform</strong>: This should take about 6-7 minutes to complete:</li>
+</ul>
+<p><img alt="GS NB RUN" src="../images/step-ml-transform-id-running.png" /></p>
+<ul>
+<li>The <strong>ml_final_crawler</strong>: This will start as soon as your <strong>ml-lab-notebook-job</strong> succeed and it will create 1 new table:</li>
+</ul>
+<p><img alt="GS NB RUN" src="../images/step-final-crawl-run.png" /></p>
+<p></br></p>
+<p>Once the Crawler finishes, it will create the new table based on the <strong>deduplicated version</strong> of the <strong>full top customers</strong> dataset. This <strong>deuplicated version</strong> will then be served as the <strong>source dataset</strong> for the fictitious <strong>Data Analytics Team</strong> to work with it the AWS Glue Databrew.</p>
+<p><img alt="GS NB RUN" src="../images/step-state-machines-completed.png" /></p>
+<p>Once you are ready move to the <strong>Part 7 - Data Quality &amp; Data Preparation with AWS Glue DataBrew</strong>.</p>
 
               
             </article>

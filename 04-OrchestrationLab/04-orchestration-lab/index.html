@@ -897,10 +897,7 @@ ORCHESTRATION & DATA ANALYSIS</h1>
 <p><img alt="TRAIL" src="../images/orch-trail.png" /></p>
 <p>Note that this Trail is monitoring for <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong> Bucket as you can see in the following picture:</p>
 <p>[ADD UPDATED PICTURE HERE WITH THE TWO DATA EVENTS - NEW CFN TEMPLATE!!!0</p>
-<!-- Bucket name: etl-ttt-demo-171714944327-ca-central-1
-Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/
--->
-
+<p><img alt="TRAIL" src="../images/orch-data-event-trail.png" /></p>
 <p>By having such <strong>Trail configuration</strong>, you will be able to leverage <strong>AWS Event Bridge</strong> during this lab to trigger <strong>(Step Function and Glue) Workflows</strong> as soon as streaming data lands in the <strong>trail-enabled S3 Bucket</strong>.</p>
 <p>That is possible because once a file lands in this bucket it records a <strong>write event</strong> in the <strong>Trail</strong>. This <strong>write event</strong> further triggers an <strong>EventBridge Rule</strong> which, consequently, cat fire <strong>(Step Functionn and Glue) Workflows</strong>.</p>
 <h4 id="2-creating-glue-workflow-and-glue-event-based-trigger-via-cli"><strong>2.</strong> Creating Glue Workflow and Glue Event Based Trigger (via CLI)<a class="headerlink" href="#2-creating-glue-workflow-and-glue-event-based-trigger-via-cli" title="Permanent link">&para;</a></h4>
@@ -960,7 +957,7 @@ Prefix: /etl-ttt-demo/output/gluestreaming/total_clicks/
 
 <p><img alt="TRAIL" src="../images/orch-event-rule-target.png" /></p>
 <p>After running both commands, go to <a href="https://console.aws.amazon.com/events/">AWS EventBridge</a> console. <strong><em>(switch to your right region if needed!)</em></strong>.</p>
-<p>On the left side menu, click on <strong>Rules</strong>, then click on top of the rule <strong>total-clicks_rule</strong> to open its details. You should see under the <strong>Event Pattern</strong> tab the following:</p>
+<p>On the left side menu, click on <strong>Rules</strong>, then click on top of the rule <strong>total-clicks-rule</strong> to open its details. You should see under the <strong>Event Pattern</strong> tab the following:</p>
 <p><img alt="TRAIL" src="../images/orch-event-pattern.png" /></p>
 <p>This pattern is basically saying that this <strong>EventRule</strong> is watching for every <strong>PutObject</strong> event that occur in the <strong>bucket/prefix</strong> specified in there.</p>
 <p>Click on the <strong>Targets</strong> tab. Here, you can see that the <strong>Target Name</strong> points to the <strong>Glue Workflow</strong> you just created <strong>etl-ttt-event-driven-workflow</strong>. Also that it has a <strong>EventBridge Role</strong>, with all the required permissions, associated with it. This <strong>Role</strong> has also been created as part of the <strong>CloudFormation template</strong>.</p>
@@ -1031,7 +1028,7 @@ python PutRecord_Kinesis.py
 
 <p><img alt="TRAIL" src="../images/orch-athena-query2-results.png" /></p>
 <p><strong>Note:</strong> If you noticed that above results hasn't changed. It might be that your calendar <strong>Year, Month, Day, or Hour</strong> has changed (most probably the <strong>Hour</strong>). Run the <strong>crawl_streammed_data</strong> crawler again to <strong>update partitions</strong> or try the <strong>MSCK REPAIR TABLE `total_clicks`;</strong> command from within <strong>Athena</strong> itself.</p>
-<p>You have reached to the end of this lab. If you want, you can keep pushing more data into your Kinesis Data Stream by running the <strong>Kinesis Ingestion Python Script</strong> multiple times and allowing few seconds each time for the <strong>Glue Streaming Job</strong> to process it. Once you are ready move to <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>.</p>
+<p>You have reached to the end of this lab. If you want, you can keep pushing more data into your Kinesis Data Stream by running the <strong>Kinesis Ingestion Python Script</strong> multiple times and allowing few seconds each time for the <strong>Glue Streaming Job</strong> to process it. Once you are ready, manually stop the <strong>glue-streaming-job</strong> and move to <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>.</p>
 
               
             </article>

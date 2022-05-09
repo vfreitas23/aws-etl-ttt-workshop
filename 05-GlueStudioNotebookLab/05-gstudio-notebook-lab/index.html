@@ -878,6 +878,7 @@ MACHINE LEARNING WITH GLUE
 <br/> & <br/>GLUE STUDIO NOTEBOOKS
 </h1>
 
+<p>Welcome to Part 5!</p>
 <p>The <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks -</strong> of the <strong>ETL Train The Trainer Workshop</strong> is going to cover the steps required to work with the Glue ML Transforms, more specifically, it will teach you about how to <strong>create</strong>, <strong>train</strong> (with <strong>labeling files</strong>), and <strong>write Glue ETL code</strong> that leverages the <strong>Glue's FindMatches ML Transform</strong> using <strong>Glue Studio Notebooks</strong> that you can further operationalize it into <strong>Glue Jobs</strong>. </p>
 <h4 id="0-pre-steps-understading-setting-up-the-resources-for-ml-lab"><strong>0.</strong> (Pre Steps) - Understading &amp; Setting up the Resources for ML Lab<a class="headerlink" href="#0-pre-steps-understading-setting-up-the-resources-for-ml-lab" title="Permanent link">&para;</a></h4>
 <p>To begin, you must first run the following commands in your <strong>Cloud9 Terminal</strong> to download the the <strong>ML Lab files</strong> from the <strong>Workshop's default S3 Bucket</strong>.</p>
@@ -960,6 +961,28 @@ aws s3 cp --recursive /tmp/dsd/csv_tables/ml-lab/ s3://<span class="nv">$BUCKET_
 <p>Once <strong>Transform ID</strong> is correctly replaced, run the <strong>Cell [3]</strong>. <em>(This Cell should take about 6 minutes to finish!)</em></p>
 <p><img alt="TRAIL" src="../images/ml-output-cell-3.png" /></p>
 <p>You should see the output displaying the message: <em>"Duplicate count of matching IDs : 530"</em></p>
+<h4 id="3-validating-and-deploying-the-findmatches-glue-job"><strong>3.</strong> Validating and Deploying the FindMatches Glue Job<a class="headerlink" href="#3-validating-and-deploying-the-findmatches-glue-job" title="Permanent link">&para;</a></h4>
+<p>Now, to validate the <strong>FindML Transform results</strong>, simply run the <strong>Cell [4]</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-4.png" /></p>
+<p>You should also see that the <strong>FindMatches Transform</strong> has added another column named <strong>match_id</strong> to identify matching records in the output. That means that rows with the same <strong>match_id</strong> are considered matching records. </p>
+<p>To confirm that the <strong>FindML Transform</strong> worked, you can actually see that from the <strong>10 rows</strong> returned in the output <strong>5 are duplicates</strong>. This proves that the <strong>FindMatches ML Transform is working!</strong>.</p>
+<p>Now, let's leverage the <strong>match_id</strong> column created by the <strong>FindMatches Transform</strong> to eliminate the duplicates from the dataset. Run the <strong>Cell 5</strong>:</p>
+<p><img alt="TRAIL" src="../images/ml-output-cell-5.png" /></p>
+<p>Notice how the duplicates are now gone. That means that you were able to <strong>create a code that leverages the a ML Transform</strong> that you created to help you <strong>find and eliminate duplicates</strong> in your dataset.</p>
+<p>You can now operationalize this code into a Glue Studio Job, but first, you must run the last cell, the <strong>Cell 6</strong>, in order to <strong>sink the output data</strong> into the <strong>S3 Bucket</strong>.</p>
+<p>This <strong>Bucket</strong> will be used in the next lab <strong>(Part 5)</strong> to act as a shared data repository where the <strong>Data Analytics team</strong> uploads their files for further <strong>Preparation &amp; Analysis</strong>. </p>
+<p>Replace the <strong>\$BUCKET_NAME</strong> placeholder in the last cell with the following <strong>S3 Bucket path</strong>:</p>
+<p><code>s3://${BUCKET_NAME}/etl-ttt-demo/output/data_analytics_team_folder/top-customers/</code></p>
+<p><strong>TIP:</strong> Run the following command in your <strong>Cloud9 Terminal</strong> to build the full path you need:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;s3://</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">/etl-ttt-demo/output/data_analytics_team_folder/top-customers/&quot;</span>
+</code></pre></div>
+
+<p>Run the code to create your deduplicated version of the <strong>full top customer</strong> dataset. Once the code in the Cell 6 finish, check the S3 Bucket Path to confirm the file is there.</p>
+<p><strong>TIP:</strong> Optionally, you can also run <strong>S3 Select</strong> queries on the data generated to validate as seen in the picture below:</p>
+<p><img alt="TRAIL" src="../images/ml-s3-select-output.png" /></p>
+<p>Finally, <strong>Save</strong> your job and download the notebook by clicking on <strong>Download Notebook</strong> button at the top-right of the Glue Studio Notebook Page in order keep a copy of the notebook locally on your computer for safety.</p>
+<p></br>
+You have now concluded the <strong>Part 5 - Machine Learning with Glue &amp; Glue Studio Notebooks</strong>. Once you are ready move to the <strong>Part 6 - Workflow Orchestration with AWS Step Function</strong>.</p>
 <!-- 
 
 [IN CASE I DECIDE TO CHANGE TO CREATING A NEW NOTEBOOK IN THE FEATURE INSTEAD OF UPLOADING ONE]
@@ -1069,28 +1092,6 @@ Cell 5:
 <!--
 S3 Target Location: s3://etl-ttt-demo-589541849248-us-east-2/etl-ttt-demo/output/ml-lab/topcustomers-dedup/ 
 !-->
-
-<p>--&gt;</p>
-<h4 id="3-validating-and-deploying-the-findmatches-glue-job"><strong>3.</strong> Validating and Deploying the FindMatches Glue Job<a class="headerlink" href="#3-validating-and-deploying-the-findmatches-glue-job" title="Permanent link">&para;</a></h4>
-<p>Now, to validate the <strong>FindML Transform results</strong>, simply run the <strong>Cell [4]</strong>:</p>
-<p><img alt="TRAIL" src="../images/ml-output-cell-4.png" /></p>
-<p>You should also see that the <strong>FindMatches Transform</strong> has added another column named <strong>match_id</strong> to identify matching records in the output. That means that rows with the same <strong>match_id</strong> are considered matching records. </p>
-<p>To confirm that the <strong>FindML Transform</strong> worked, you can actually see that from the <strong>10 rows</strong> returned in the output <strong>5 are duplicates</strong>. This proves that the <strong>FindMatches ML Transform is working!</strong>.</p>
-<p>Now, let's leverage the <strong>match_id</strong> column created by the <strong>FindMatches Transform</strong> to eliminate the duplicates from the dataset. Run the <strong>Cell 5</strong>:</p>
-<p><img alt="TRAIL" src="../images/ml-output-cell-5.png" /></p>
-<p>Notice how the duplicates are now gone. That means that you were able to <strong>create a code that leverages the a ML Transform</strong> that you created to help you <strong>find and eliminate duplicates</strong> in your dataset.</p>
-<p>You can now operationalize this code into a Glue Studio Job, but first, you must run the last cell, the <strong>Cell 6</strong>, in order to <strong>sink the output data into an S3 Bucket</strong> of your choice. For this lab, you can use the <strong>S3 path</strong>:  </p>
-<p><code>"s3://${BUCKET_NAME}/etl-ttt-demo/output/ml-lab/topcustomers-dedup/</code></p>
-<p><strong>TIP:</strong> Run the following command in your <strong>Cloud9 Terminal</strong> to build the full path you need:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span> <span class="s2">&quot;s3://</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">/etl-ttt-demo/output/ml-lab/topcustomers-dedup/&quot;</span>
-</code></pre></div>
-
-<p>Replace the <strong>\$BUCKET_NAME</strong> placeholder in the last cell for the above <strong>S3 path</strong> and run the <strong>Cell 6</strong> to output the data to <strong>S3</strong>.</p>
-<p>Once the code ran, check the S3 Bucket Path you just set as a target. Optionally, you can also run <strong>S3 Select</strong> queries on the data generated to validate.</p>
-<p><img alt="TRAIL" src="../images/ml-s3-select-output.png" /></p>
-<p></br>
-Finally, you can now <strong>Save</strong> the job and download the notebook file to keep it locally on your computer. Once you are ready move to the P<strong>art 6 - Workflow Orchestration with
-AWS Step Function</strong>.</p>
 
               
             </article>
