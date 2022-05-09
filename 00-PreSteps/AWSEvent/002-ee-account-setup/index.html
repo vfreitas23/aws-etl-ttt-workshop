@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#now-you-should-be-on-the-aws-console-page-of-your-workshop-environment" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -289,9 +294,38 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Account Setup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Account Setup
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#now-you-should-be-on-the-aws-console-page-of-your-workshop-environment" class="md-nav__link">
+    Now, you should be on the AWS Console page of your workshop environment.
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -305,95 +339,6 @@
   
     <li class="md-nav__item">
       <a href="../003-cloud9-enviroment-setup/" class="md-nav__link">
-        Prepare the Enviroment
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_3">
-          Self Paced
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Self Paced" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_3">
-          <span class="md-nav__icon md-icon"></span>
-          Self Paced
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../SelfPaced/004-signup-aws/" class="md-nav__link">
-        Sign Up for AWS
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../SelfPaced/005-create-iam-user/" class="md-nav__link">
-        Create IAM User
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../SelfPaced/006-deploy-cfn/" class="md-nav__link">
-        Deploy CloudFormation
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../SelfPaced/007-cloud9-enviroment-setup/" class="md-nav__link">
         Prepare the Enviroment
       </a>
     </li>
@@ -768,6 +713,21 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#now-you-should-be-on-the-aws-console-page-of-your-workshop-environment" class="md-nav__link">
+    Now, you should be on the AWS Console page of your workshop environment.
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -784,37 +744,48 @@
 
 
 
-  <h1>Account Setup</h1>
+<h1 id="toc_0" align="center">
+PREPARING THE CLOUD9 ENVIROMENT
+</h1>
 
 <p>You will be provided with an AWS account to run this workshop. The temporary account is being created using Event Engine. You will be provided a participant hash key to login to your temporary account.</p>
 <p>Follow these steps to start using your account:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">Go</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">AWS</span><span class="w"> </span><span class="n">Event</span><span class="w"> </span><span class="n">Engine</span><span class="w"> </span><span class="n">Portal</span><span class="w"></span>
-</code></pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>1.</strong> Go to <a href="https://dashboard.eventengine.run/">AWS Event Engine Portal</a></p>
+<p align="center">
+ <img src=images/acc-setup-01.png>
+</p>
 
-<p>Event engine</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">Enter</span> <span class="nv">the</span> <span class="nv">provided</span> <span class="nv">hash</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">text</span> <span class="nv">box</span>. <span class="nv">The</span> <span class="nv">button</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">bottom</span> <span class="nv">right</span> <span class="nv">corner</span> <span class="nv">changes</span> <span class="nv">to</span> <span class="nv">Accept</span> <span class="nv">Terms</span> <span class="o">&amp;</span> <span class="nv">Login</span>. <span class="nv">Click</span> <span class="nv">on</span> <span class="nv">that</span> <span class="nv">button</span> <span class="nv">to</span> <span class="k">continue</span>.
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>2.</strong> Enter the provided hash in the text box. The button on the bottom right corner changes to Accept Terms &amp; Login. Click on that button to continue.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>3.</strong> Click on Email One-Time Password (OTP); You also have option to use your personal Amazon.com uid and password (Note - Not your AWS account credentials)</p>
+<p align="center">
+ <img src=images/acc-setup-02.png>
+</p>
 
-<span class="nv">Click</span> <span class="nv">on</span> <span class="nv">Email</span> <span class="nv">One</span><span class="o">-</span><span class="nv">Time</span> <span class="nv">Password</span> <span class="ss">(</span><span class="nv">OTP</span><span class="ss">)</span><span class="c1">; You also have option to use your personal Amazon.com uid and password (Note - Not your AWS account credentials)</span>
-</code></pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>4.</strong> Provide your email address.</p>
+<p align="center">
+ <img src=images/acc-setup-03.png>
+</p>
 
-<p>Event engine</p>
-<div class="codehilite"><pre><span></span><code>Provide your email address.
-</code></pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>5.</strong> Provide the OTP you have received in your email.</p>
+<p align="center">
+ <img src=images/acc-setup-04.png>
+</p>
 
-<p>Event engine</p>
-<div class="codehilite"><pre><span></span><code>Provide the OTP you have received in your email.
-</code></pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>6.</strong> Click AWS Console on the dashboard.</p>
+<p align="center">
+ <img src=images/acc-setup-05.png>
+</p>
 
-<p>!Event engine</p>
-<div class="codehilite"><pre><span></span><code>Click AWS Console on the dashboard.
-</code></pre></div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>7.</strong> Take the defaults and click on Open AWS Console. This will open AWS Console in a new browser tab.</p>
+<p align="center">
+ <img src=images/acc-setup-06.png>
+</p>
 
-<p>Event engine</p>
-<div class="codehilite"><pre><span></span><code>Take the defaults and click on Open AWS Console. This will open AWS Console in a new browser tab.
-</code></pre></div>
-
-<p>Event engine
-Now, you should be on the AWS Console page of your workshop environment.</p>
+<h3 id="now-you-should-be-on-the-aws-console-page-of-your-workshop-environment">Now, you should be on the AWS Console page of your workshop environment.<a class="headerlink" href="#now-you-should-be-on-the-aws-console-page-of-your-workshop-environment" title="Permanent link">&para;</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Note:</strong> If your event hasn’t start yet you will get a message stating so, wait for around the time of the event and try again:</p>
+<p align="center">
+ <img src=images/acc-setup-07.png>
+</p>
 
               
             </article>
