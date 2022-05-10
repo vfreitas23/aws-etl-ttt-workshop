@@ -783,6 +783,8 @@
 
 
 <h1 id="toc_0" align="center">
+< THIS LAB IS STILL UNDER CONSTRUCTION >
+<br/>
 DATA QUALITY & DATA PREPARATION
 <br/>
 WITH AWS GLUE DATABREW
@@ -852,7 +854,12 @@ Choose: Join
 </ul>
 <p>Ask people to download from here:</p>
 <p>[fix the command - that is an upload command!!]</p>
-<p>aws s3 cp TopCustomers-PerBand-recipe.json s3://ee-assets-prod-${AWS_DEFAULT_REGION}/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json</p>
+<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/databrew-recipe/
+aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json  /tmp/dsd/databrew-recipe/TopCustomers-PerBand-recipe.json
+
+aws s3 cp --recursive /tmp/dsd/databrew-recipe/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/databrew-recipe/ 
+</code></pre></div>
+
 <ul>
 <li>
 <p>To add the steps:</p>
@@ -862,10 +869,10 @@ Choose: Join
 <li>Publish the recipe</li>
 <li>Go back to the Project:    <br />
             - Import the Recipe into the project (Append!!)
-            - Explain step validation (append/overwrite)
-            - Reorder the Rename steps (17,18 and 19)
-            - Create an Age field using DATE_DIFF only. (between date_of_birth and todays date )
-            - Drop the c_birth_month column, c_login and match_id
+            - Explain step validation (append/overwrite)<br />
+            - Reorder the Rename steps (17,18 and 19)<br />
+            - Create an Age field using DATE_DIFF only. (between date_of_birth and todays date )<br />
+            - Drop the c_birth__month, date_of_birth, c_login and match_id columns<br />
             - Save and Publish this as a new recipe.</li>
 </ul>
 </li>
