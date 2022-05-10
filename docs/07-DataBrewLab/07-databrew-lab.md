@@ -77,7 +77,14 @@ Ask people to download from here:
 
 [fix the command - that is an upload command!!]
 
-aws s3 cp TopCustomers-PerBand-recipe.json s3://ee-assets-prod-${AWS_DEFAULT_REGION}/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json
+
+~~~shell
+mkdir -p /tmp/dsd/databrew-recipe/
+aws s3 cp s3://ee-assets-prod-${AWS_REGION}/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json  /tmp/dsd/databrew-recipe/TopCustomers-PerBand-recipe.json
+
+aws s3 cp --recursive /tmp/dsd/databrew-recipe/ s3://$BUCKET_NAME/etl-ttt-demo/databrew-recipe/ 
+~~~
+
 
 - To add the steps:
 	-  Go to Recipes and import the recipe received from data analytics team
@@ -85,10 +92,10 @@ aws s3 cp TopCustomers-PerBand-recipe.json s3://ee-assets-prod-${AWS_DEFAULT_REG
 	-  Publish the recipe
 	-  Go back to the Project:		
 				- Import the Recipe into the project (Append!!)
-				- Explain step validation (append/overwrite)
-				- Reorder the Rename steps (17,18 and 19)
-				- Create an Age field using DATE_DIFF only. (between date_of_birth and todays date )
-				- Drop the c_birth_month column, c_login and match_id
+				- Explain step validation (append/overwrite)  
+				- Reorder the Rename steps (17,18 and 19)  
+				- Create an Age field using DATE_DIFF only. (between date_of_birth and todays date )  
+				- Drop the c\_birth_\_month, date\_of\_birth, c\_login and match\_id columns  
 				- Save and Publish this as a new recipe.
 				
 - Run the Job and share the results.
