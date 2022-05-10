@@ -816,7 +816,7 @@ WORKFLOW ORCHESTRATION WITH
 </h1>
 
 <p>In the <strong>Part 6 - Workflow Orchestration with AwS Step Functions -</strong> of this training you will be implement similar orchestration as the one you did during the <strong>Part 4 - Orchestration &amp; Data Analysis -</strong>.</p>
-<p>This time, as soon as a file land in the <a href="https://console.aws.amazon.com/s3/"><strong>Amazon S3 Bucket</strong></a> an <strong>write event</strong> gets recorded in the <a href="https://console.aws.amazon.com/cloudtrail/"><strong>etl-ttt-demo-trail</strong></a> <strong>Cloud Trail</strong> that you explored earlier in <strong>Part 4</strong>.</p>
+<p>This time, as soon as a file land in the <a href="https://console.aws.amazon.com/s3/"><strong>Amazon S3 Bucket</strong></a> a <strong>write event</strong> gets recorded in the <a href="https://console.aws.amazon.com/cloudtrail/"><strong>etl-ttt-demo-trail</strong></a> <strong>Cloud Trail</strong> that you explored earlier in <strong>Part 4</strong>.</p>
 <p>Note that this Trail monitors <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION} Bucket</strong>, as you can see in the following picture:</p>
 <p><img alt="TRAIL" src="../images/step-data-event-trail.png" /></p>
 <!--
@@ -834,7 +834,7 @@ MAKE SURE THE TRAIL HAS THE FOLLOWING PATH CONFIGURED:
 <div class="codehilite"><pre><span></span><code>aws glue create-crawler \
     --name ml-final-crawler \
     --role AWSGlueServiceRole-etl-ttt-demo \
-    --database-name glue-ttt-demo-db \
+    --database-name glue_ttt_demo_db \
     --table-prefix ml_final_\
     --targets &quot;{\&quot;S3Targets\&quot;: [{\&quot;Path\&quot;: \&quot;s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/etl-ttt-demo/output/data_analytics_team_folder/top-customers/\&quot;}]}&quot;
 </code></pre></div>
@@ -865,7 +865,7 @@ MAKE SURE THE TRAIL HAS THE FOLLOWING PATH CONFIGURED:
 <span class="w">      </span><span class="nt">&quot;Type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">      </span><span class="nt">&quot;End&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
 <span class="w">      </span><span class="nt">&quot;Parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml_final_crawler&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml-final-crawler&quot;</span><span class="w"></span>
 <span class="w">      </span><span class="p">},</span><span class="w"></span>
 <span class="w">      </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:states:::aws-sdk:glue:startCrawler&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">      </span><span class="nt">&quot;Comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;To crawl the data after FindMatches dedup higiene process&quot;</span><span class="w"></span>
@@ -909,8 +909,7 @@ Comment: "To crawl the data once the FindMatches job conclude the dedup higiene 
 <p><br/></p>
 <p><img alt="DEFINITION" src="../images/step-details-2.png" /></p>
 <h4 id="2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli"><strong>2.</strong> Creating an EventBridge Rule &amp; Target for the Step Function Workflow (via CLI)<a class="headerlink" href="#2-creating-an-eventbridge-rule-target-for-the-step-function-workflow-via-cli" title="Permanent link">&para;</a></h4>
-<p>[FIX THE FOLDERS - THEY SHOULD BE DIFFERENT FROM SOURCE TO TARGET!!!!]</p>
-<p>Now, to be able to trigger the Step Function Workflow, you also need to create a new <strong>EventBridge Rule &amp; Target</strong>. Run the following steps in your <strong>Cloud9 Enviroment Terminal</strong> in sequence:</p>
+<p>Now, to be able to trigger the <strong>Step Function Workflow</strong>, you also need to create a new <strong>EventBridge Rule &amp; Target</strong>. Run the following steps in your <strong>Cloud9 Enviroment Terminal</strong> in sequence:</p>
 <ul>
 <li>First the <strong>Event Rule</strong>:</li>
 </ul>
@@ -951,9 +950,9 @@ Comment: "To crawl the data once the FindMatches job conclude the dedup higiene 
 <div class="codehilite"><pre><span></span><code>aws s3 cp /tmp/dsd/csv_tables/ml-lab/ml-customer-full/full-top-customer.csv s3://$BUCKET_NAME/etl-ttt-demo/data_analytics_team_folder/
 </code></pre></div>
 
-<p>Once the above file is uploaded, it will then trigger the <strong>Step Function Workflow</strong> that you created which, consequently, will run the <strong>ml-lab-notebook-job</strong> that contains the <strong>FindMatches Transform</strong> and all the necessary code you wrote to transform the <strong>source duplicated data</strong> into a <strong>deduplicated version</strong> of the <strong>full top customers</strong> dataset. The validated and deduplicated version of the <strong>full top customers</strong> dataset will overwrite the originally uploaded version (which has duplicated data) allowing the fictitious <strong>Data Analytics Team</strong> to move forward with their <strong>Data Preparation work</strong>.</p>
+<p>Once the above file is uploaded, it will then trigger the <strong>Step Function Workflow</strong> that you created which, consequently, will run the <strong>ml-lab-notebook-job</strong> that contains the <strong>FindMatches Transform</strong> and all the necessary code you wrote to transform the <strong>source duplicated data</strong> into a <strong>deduplicated version</strong> of the <strong>full top customers</strong> dataset that the fictitious <strong>Data Analytics Team</strong> will use in order to proceed with their <strong>Data Preparation work</strong>.</p>
 <h3 id="following-the-flow">Following the flow<a class="headerlink" href="#following-the-flow" title="Permanent link">&para;</a></h3>
-<p>You can follow the flow by going first to the <a href="https://console.aws.amazon.com/states/">Step Function Workflow</a> page and looking your <strong>findmatches-ML-dedup-workflow</strong> workflow. There, under Executions, you can click on the one that <strong>Status</strong> column says <strong>Running</strong> and click on <strong>View Details</strong>. You should see the graphical workflow changing its states.</p>
+<p>You can follow the flow by going first to the <a href="https://console.aws.amazon.com/states/">Step Function Workflow</a> page and looking your <strong>findmatches-ML-dedup-workflow</strong> workflow. There, under <strong>Executions</strong>, you can click on the one that <strong>Status</strong> column says <strong>Running</strong> and click on <strong>View Details</strong>. You should see the graphical workflow changing its states.</p>
 <p><img alt="STATE CHANGE" src="../images/step-workflow-running.png" /></p>
 <p>From there, go to your <a href="https://console.aws.amazon.com/gluestudio/">Glue Studio Console</a> <strong><em>(switch to your right region if needed!)</em></strong> and look for your job <strong>ml-lab-notebook-job</strong> under the <strong>Monitoring</strong> page. Then, click on the big blue number under <strong>Running</strong> to scroll to the running Jobs, and confirm that your job is running.</p>
 <p><img alt="GS NB RUN" src="../images/step-flow-gs-nb-job-running.png" /></p>
@@ -963,7 +962,7 @@ Comment: "To crawl the data once the FindMatches job conclude the dedup higiene 
 </ul>
 <p><img alt="GS NB RUN" src="../images/step-ml-transform-id-running.png" /></p>
 <ul>
-<li>The <strong>ml_final_crawler</strong>: This will start as soon as your <strong>ml-lab-notebook-job</strong> succeed and it will create 1 new table:</li>
+<li>The <strong>ml_final_crawler</strong>: This will start as soon as your <strong>ml-lab-notebook-job</strong> succeed and it will create <strong>1 new table</strong>:</li>
 </ul>
 <p><img alt="GS NB RUN" src="../images/step-final-crawl-run.png" /></p>
 <p></br></p>
