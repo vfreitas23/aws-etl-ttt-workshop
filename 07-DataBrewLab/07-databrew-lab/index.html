@@ -956,14 +956,14 @@ Choose: Join
                 -Join by Income_Band Sk and Birthday_day (income band goes from 1-20 only)
                 -Remove ib_income_band_sk</li>
 </ul>
-<p>Ask people to download from here:</p>
-<p>[fix the command - that is an upload command!!]</p>
+<p>Ask people to download the recipe to APPEND steps by doing the following in Cloud9 Terminal:</p>
 <div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/databrew-recipe/
 aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json  /tmp/dsd/databrew-recipe/TopCustomers-PerBand-recipe.json
 
 aws s3 cp --recursive /tmp/dsd/databrew-recipe/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/databrew-recipe/ 
 </code></pre></div>
 
+<p>After running these commands, go to the bucket and download the recipe <strong>TopCuustomers-PerBand-recipe.json</strong></p>
 <ul>
 <li>
 <p>To add the steps:</p>
