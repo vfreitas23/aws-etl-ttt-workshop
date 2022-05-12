@@ -13,7 +13,7 @@
     
     
       
-        <title>TPCDS & RDS MySQL Lab - Amazon ETL Train-The-Trainer Workshop</title>
+        <title>Clean Up - Amazon ETL Train-The-Trainer Workshop</title>
       
     
     
@@ -58,11 +58,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#1-preparing-generating-tpcds-dataset" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -92,7 +87,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              TPCDS & RDS MySQL Lab
+              Clean Up
             
           </span>
         </div>
@@ -413,14 +408,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -441,62 +434,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          TPCDS & RDS MySQL Lab
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../01-MySQL-TPCDS/01-mysql-tpcds/" class="md-nav__link">
         TPCDS & RDS MySQL Lab
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
-    1. Preparing &amp; Generating TPCDS Dataset
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
-    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
-    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -802,11 +744,19 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../08-CleanUp/08-clean-up/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Clean Up
       </a>
+      
     </li>
   
 
@@ -829,35 +779,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-preparing-generating-tpcds-dataset" class="md-nav__link">
-    1. Preparing &amp; Generating TPCDS Dataset
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" class="md-nav__link">
-    2. Populating the Amazon RDS-MySQL Database with TPCDS Dataset
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" class="md-nav__link">
-    3. Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -868,92 +789,98 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/01-MySQL-TPCDS/01-mysql-tpcds.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/08-CleanUp/08-clean-up.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
 <h1 id="toc_0" align="center">
-WORKING WITH TPC-DS DATA & RDS MYSQL DATABASE
+CLEAN UP
 </h1>
 
-<p>Welcome to Part 1!</p>
-<p>In the <strong>Part 1 - Working with TPC-DS Data &amp; RDS MySQL Database -</strong> you will be installing and configuring everything that is required to prepare and load <strong>TPC-DS*</strong> data into a <strong>RDS MySQL Database Instance</strong> in order to supply the necessary dataset samples for each piece of the <strong>ETL Train The Trainer Workshop</strong>.</p>
-<h4 id="1-preparing-generating-tpcds-dataset"><strong>1.</strong> Preparing &amp; Generating TPCDS Dataset<a class="headerlink" href="#1-preparing-generating-tpcds-dataset" title="Permanent link">&para;</a></h4>
-<ul>
-<li><strong>TPC-DS</strong> - TPC data is used for a decision support benchmark. When you load this data the schema tpcds is updated with sample data. For more information about the tpcds data, see <a href="https://www.tpc.org/tpcds/">TPC-DS</a>.</li>
-</ul>
-<p>Before you can install and generate <strong>TPC-Data</strong>, you need to build the necessary folders and download the necessary files. </p>
-<p>Run the following command to create the base level directory for the <strong>ETL Train the Trainer Workshop</strong> and to download the <strong>TCP-DS tool</strong> to your local <strong>AWS Cloud9 Enviroment</strong>:</p>
-<div class="codehilite"><pre><span></span><code>mkdir -p ~/environment/ttt-demo
-<span class="nb">cd</span> ~//environment/ttt-demo//
-aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/16d7423c-23d3-4185-8ab4-5b002ec51153-tpc-ds-tool.zip tpc-ds-tool.zip
+<p>If you are at an <strong>AWS hosted event</strong> and used <strong>Event Engine</strong> for your labs, you can skip the following clean up steps.</p>
+<p>If you are using your <strong>own AWS account</strong> for the labs, we strongly recommend you to perform the <strong>clean up steps</strong> as soon as you finish the labs to <strong>avoid extra charges</strong>.</p>
+<p>Execute the commands below in <strong>Cloud9 terminal</strong> to delete the <strong>AWS resources created</strong> during labs.</p>
+<blockquote>
+<p>If you choose to use names that are different than the default names provided in the lab instructions, please modify the names to match your own resources in the commands below.</p>
+</blockquote>
+<p><strong>1.</strong> Delete the <strong>DataBrew project</strong>, <strong>jobs</strong>, and <strong>dataset</strong>.</p>
+<div class="codehilite"><pre><span></span><code>aws databrew delete-job --name covid-testing-recipe-job
+aws databrew delete-job --name covid-testing-profile-job
+aws databrew delete-project --name covid-testing
+aws databrew delete-dataset --name covid-testing
 </code></pre></div>
 
-<p>Next, run the following commands to <strong>unzip the previous downloaded (.zip)</strong> file and get into the <strong>DSGen software's directory</strong> to install the tool.</p>
-<div class="codehilite"><pre><span></span><code>unzip tpc-ds-tool.zip 
-<span class="nb">cd</span> DSGen-software-code-3.2.0rc1/tools/
-make
-head -200 tpcds.sql 
+<p><strong>2.</strong> Find the <strong>recipe versions</strong> in the <strong>recipe store</strong> and delete the versions list by below cli command.</p>
+<div class="codehilite"><pre><span></span><code>aws databrew list-recipe-versions --name covid-testing-recipe
 </code></pre></div>
 
-<p>The last command (<strong>head</strong>) prints out the <strong>TPC-DS sql script for the tables' schemas</strong> to validate the instalation of the tool.</p>
-<p>Now, let's run the <strong>DSGen software</strong> to generate the sample data for all the <strong>TPC-DS tables</strong> and store the sample datasets in a <strong>temporary directory</strong>. <strong>TIP:</strong> This should take about <strong>3 minutes</strong> to complete!</p>
-<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/csv_tables/
-./dsdgen -scale <span class="m">1</span> -dir /tmp/dsd -parallel <span class="m">2</span> -child <span class="m">1</span>
-<span class="nb">cd</span> /tmp/dsd/
-ls -lrt
+<blockquote>
+<p>Replace the recipe version number with what you find from command above.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>aws databrew batch-delete-recipe-version --name covid-testing-recipe --recipe-version &quot;1.0&quot;
 </code></pre></div>
 
-<p><img alt="SHOW ALL" src="../images/mysql-dsgen.png" /></p>
-<p><strong>[Optional]:</strong> (Performing this optional step should allow for enough time for the previous step to complete!)</p>
-<p>While the above command is running, you can proactively test the <strong>reacheability of your RDS MySQL Database Instance for access coming from your AWS Cloud9 Enviroment</strong>. To do that, run the following command in a <strong>NEW</strong> terminal tab (<strong>+</strong> icon):</p>
-<div class="codehilite"><pre><span></span><code>sudo yum -y install telnet
-<span class="nv">mysqlendpoint</span><span class="o">=</span><span class="k">$(</span>aws cloudformation describe-stacks --query <span class="s1">&#39;Stacks[*].Outputs[?OutputKey==`MySQLEndpoint`].OutputValue | [0] | [0]&#39;</span> --output text<span class="k">)</span>
-telnet <span class="nv">$mysqlendpoint</span> <span class="m">3306</span>
+<p><strong>3.</strong> Delete <strong>Glue jobs</strong> created during the labs.</p>
+<div class="codehilite"><pre><span></span><code>aws glue delete-job --job-name glueworkshop-lab3-etl-job 
+aws glue delete-job --job-name glueworkshop-lab3-etl-ddb-job 
+aws glue delete-job --job-name glueworkshop_lab4_glue_streaming 
+aws glue delete-job --job-name glueworkshop-lab6-basic-job
+aws glue delete-job --job-name glueworkshop-lab6-advance-job
+aws glue delete-job --job-name glueworkshop-lab6-streaming-job
 </code></pre></div>
 
-<p><strong>TIP:</strong> Close this <strong>additional Terminal</strong> tab once <strong>Telnet</strong> command succeed and go back to the <strong>original one</strong>!</p>
-<h4 id="2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset"><strong>2.</strong> Populating the Amazon RDS-MySQL Database with TPCDS Dataset<a class="headerlink" href="#2-populating-the-amazon-rds-mysql-database-with-tpcds-dataset" title="Permanent link">&para;</a></h4>
-<p>Once the dataset samples get generated, it is time to load the data into the <strong>RDS MySQL Database</strong>. But first, run the following commands to create the <strong>TPC-DS tables' schemas in the MySQL database</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">tpcds_script_path</span><span class="o">=</span>~/environment/ttt-demo//DSGen-software-code-3.2.0rc1/tools/tpcds.sql 
-mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds &lt; <span class="nv">$tpcds_script_path</span>
-mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;show tables&quot;</span>
+<p><strong>4.</strong> Delete database and crawlers created in Part XXX.</p>
+<div class="codehilite"><pre><span></span><code>aws glue delete-crawler --name console-lab1
+aws glue delete-crawler --name cli-lab1
+aws glue delete-crawler --name event-notification-lab1
+aws glue delete-database --name console-glueworkshop
+aws glue delete-database --name cli-glueworkshop
+aws glue delete-database --name covid19_gluedemocicdtest
+aws glue delete-database --name covid19parquet_gluedemocicdtest
 </code></pre></div>
 
-<p>The last output should be a list of all the tables that have been created in the database.</p>
-<p><img alt="SHOW ALL" src="../images/mysql-show-all-tables.png" /></p>
-<p>Now, it is time to load the data into the tables. To easily do that, you can run the following commands to download and run the a <strong>Shell Script</strong> that does all the loading process into the <strong>RDS MySQL Database</strong>! <strong>TIP:</strong> This should take about <strong>3 minutes</strong> to complete!</p>
-<div class="codehilite"><pre><span></span><code>aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/load_TPC-DS_MySQL.sh .
-. load_TPC-DS_MySQL.sh <span class="nv">$mysqlendpoint</span>
+<blockquote>
+<p>Depends on which optional section you finished in Lab 01, you may need to perform additional cleanup with the commands below.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>aws glue delete-crawler --name python-lab1
+aws glue delete-crawler --name lab1-without-partition-index
+aws glue delete-crawler --name lab1-with-partition-index
+aws glue delete-database --name athena_glueworkshop
+aws glue delete-database --name python-glueworkshop
+aws glue delete-database --name spark_glueworkshop
+aws glue delete-database --name partition_index_glueworkshop
 </code></pre></div>
 
-<p>You can see all the tables getting loaded one by one...</p>
-<p><img alt="LOAD" src="../images/mysql-load-output.png" /></p>
-<p>And here's a snippet of the <strong>Shell Script</strong> code.</p>
-<p><img alt="SCRIPT" src="../images/mysql-load-script.png" /></p>
-<p><strong>NOTE:</strong> You don't have to create it but if you want just to have a look at the script, simply run the following commands:</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span> /tmp/dsd/ 
-cat load_TPC-DS_MySQL.sh
+<p><strong>5.</strong> Delete Lab 8 objects</p>
+<div class="codehilite"><pre><span></span><code>aws glue delete-workflow --name glueworkshop-event-driven
+aws glue delete-workflow --name COVID-19-workflow
+aws glue delete-trigger --name s3-object-trigger
+aws events list-targets-by-rule --rule glueworkshop-rule
+aws events remove-targets --rule glueworkshop-rule --ids &quot;glueworkflow&quot;
+aws events remove-targets --rule glueworkshop-rule --ids &quot;stepfunction&quot;
+aws events delete-rule --name glueworkshop-rule
+aws stepfunctions delete-state-machine --state-machine-arn arn:aws:states:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:stateMachine:COVID-19-workflow
 </code></pre></div>
 
-<h4 id="3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3"><strong>3.</strong> Unloading Tables (in CSV) from RDS MySQL Database and Uploading to S3<a class="headerlink" href="#3-unloading-tables-in-csv-from-rds-mysql-database-and-uploading-to-s3" title="Permanent link">&para;</a></h4>
-<p>Finally, running the following commands will:</p>
-<ul>
-<li>Extract the <strong>3 required tables</strong> (<strong>web_page, customers and income_band</strong>) from the <strong>MySQL database</strong>;</li>
-<li>Save these tables in the <strong>local temporary directory</strong> (in <strong>CSV format</strong>);</li>
-<li>And, subsequently, upload these <strong>CSV files</strong> into the <strong>Workshop's S3 Bucket's path</strong>: <em>" .../etl-ttt-demo/csv_tables/"</em></li>
-</ul>
-<div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from web_page&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/web_page.csv
-mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from customer&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/customer.csv
-mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds --batch -e <span class="s2">&quot;select * from income_band&quot;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\t/&quot;,&quot;/g;s/^/&quot;/;s/$/&quot;/;s/\n//g&#39;</span> &gt; /tmp/dsd/csv_tables/income_band.csv
-aws s3 cp --recursive /tmp/dsd/csv_tables/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/csv_tables/
+<p><strong>6.</strong> Delete the lab S3 bucket content.</p>
+<div class="codehilite"><pre><span></span><code>aws s3 rm s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span> --recursive
 </code></pre></div>
 
-<p><img alt="CSV" src="../images/mysql-csv-tables-uploaded.png" /></p>
-<p><br/>
-You are finished populating the <strong>RDS MySQL Database with TPC-DS sample data</strong>. Now, feel free to explore the  <a href="https://s3.console.aws.amazon.com/s3">Amazon S3</a> workshop's bucket again (<strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong>) and check the path and files inside the <strong>etl-ttt-demo/csv_tables/</strong> path. Once you are ready you can move on to <strong>Part 2 - AWS GLUE COMPONENTS!</strong></p>
+<p><strong>7.</strong> Delete the lab Cloudformation stacks.</p>
+<div class="codehilite"><pre><span></span><code>aws cloudformation delete-stack --stack-name glueworkshop
+aws cloudformation delete-stack --stack-name glueworkshop-cicd
+</code></pre></div>
+
+<blockquote>
+<p>If you used cloudformation option in Lab 01, you need to cleanup the Cloudforamtion stack for the Glue Data Catalog as well.</p>
+</blockquote>
+<p>~~~cli
+aws cloudformation delete-stack --stack-name demo-covid-lake
+~~~cli</p>
+<p><strong>8.</strong> Close the browser tab of Cloud9 IDE.</p>
+<p>Now you have cleaned up all the resources created during the workshop.</p>
 
               
             </article>
@@ -967,7 +894,7 @@ You are finished populating the <strong>RDS MySQL Database with TPC-DS sample da
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../00-PreSteps/SelfPaced/007-cloud9-enviroment-setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Prepare the Enviroment" rel="prev">
+        <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DATA QUALITY &amp; PREPARATION WITH AWS GLUE DATABREW" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -976,26 +903,11 @@ You are finished populating the <strong>RDS MySQL Database with TPC-DS sample da
               <span class="md-footer__direction">
                 Previous
               </span>
-              Prepare the Enviroment
+              DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
             </div>
           </div>
         </a>
       
-      
-        
-        <a href="../../02-GlueComponentsLab/02-glue-components-lab/" class="md-footer__link md-footer__link--next" aria-label="Next: GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              GLUE DATABASE, TABLES, CONNECTIONS, CRAWLERS, CLASSIFIERS
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
       
     </nav>
   
