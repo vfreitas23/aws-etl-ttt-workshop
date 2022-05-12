@@ -58,6 +58,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#note-under-construction-make-sure" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -753,9 +758,38 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Clean Up
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Clean Up
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note-under-construction-make-sure" class="md-nav__link">
+    NOTE: UNDER CONSTRUCTION - MAKE SURE
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -779,6 +813,21 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#note-under-construction-make-sure" class="md-nav__link">
+    NOTE: UNDER CONSTRUCTION - MAKE SURE
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -799,6 +848,7 @@
 CLEAN UP
 </h1>
 
+<h4 id="note-under-construction-make-sure">NOTE: UNDER CONSTRUCTION - MAKE SURE<a class="headerlink" href="#note-under-construction-make-sure" title="Permanent link">&para;</a></h4>
 <p>If you are at an <strong>AWS hosted event</strong> and used <strong>Event Engine</strong> for your labs, you can skip the following clean up steps.</p>
 <p>If you are using your <strong>own AWS account</strong> for the labs, we strongly recommend you to perform the <strong>clean up steps</strong> as soon as you finish the labs to <strong>avoid extra charges</strong>.</p>
 <p>Execute the commands below in <strong>Cloud9 terminal</strong> to delete the <strong>AWS resources created</strong> during labs.</p>
@@ -806,77 +856,52 @@ CLEAN UP
 <p>If you choose to use names that are different than the default names provided in the lab instructions, please modify the names to match your own resources in the commands below.</p>
 </blockquote>
 <p><strong>1.</strong> Delete the <strong>DataBrew project</strong>, <strong>jobs</strong>, and <strong>dataset</strong>.</p>
-<div class="codehilite"><pre><span></span><code>aws databrew delete-job --name covid-testing-recipe-job
-aws databrew delete-job --name covid-testing-profile-job
-aws databrew delete-project --name covid-testing
-aws databrew delete-dataset --name covid-testing
+<div class="codehilite"><pre><span></span><code>aws databrew delete-job --name &lt;your jobs names&gt;
+aws databrew delete-job --name &lt;your profile jobs names&gt;
+aws databrew delete-project --name &lt;your projects names&gt;
+aws databrew delete-dataset --name &lt;your datasets names&gt;
 </code></pre></div>
 
 <p><strong>2.</strong> Find the <strong>recipe versions</strong> in the <strong>recipe store</strong> and delete the versions list by below cli command.</p>
-<div class="codehilite"><pre><span></span><code>aws databrew list-recipe-versions --name covid-testing-recipe
+<div class="codehilite"><pre><span></span><code>aws databrew list-recipe-versions --name &lt;you recipes names&gt;
 </code></pre></div>
 
 <blockquote>
 <p>Replace the recipe version number with what you find from command above.</p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>aws databrew batch-delete-recipe-version --name covid-testing-recipe --recipe-version &quot;1.0&quot;
+<div class="codehilite"><pre><span></span><code>aws databrew batch-delete-recipe-version --name &lt;your repices names&gt; --recipe-version &quot;1.0&quot;
 </code></pre></div>
 
-<p><strong>3.</strong> Delete <strong>Glue jobs</strong> created during the labs.</p>
-<div class="codehilite"><pre><span></span><code>aws glue delete-job --job-name glueworkshop-lab3-etl-job 
-aws glue delete-job --job-name glueworkshop-lab3-etl-ddb-job 
-aws glue delete-job --job-name glueworkshop_lab4_glue_streaming 
-aws glue delete-job --job-name glueworkshop-lab6-basic-job
-aws glue delete-job --job-name glueworkshop-lab6-advance-job
-aws glue delete-job --job-name glueworkshop-lab6-streaming-job
+<p><strong>3.</strong> Delete all the <strong>Glue jobs</strong> created during the labs.</p>
+<div class="codehilite"><pre><span></span><code>aws glue delete-job --job-name dummy-streaming-job
+aws glue delete-job --job-name glue-streaming-job 
+aws glue delete-job --job-name ml-notebook-job
 </code></pre></div>
 
-<p><strong>4.</strong> Delete database and crawlers created in Part XXX.</p>
-<div class="codehilite"><pre><span></span><code>aws glue delete-crawler --name console-lab1
-aws glue delete-crawler --name cli-lab1
-aws glue delete-crawler --name event-notification-lab1
-aws glue delete-database --name console-glueworkshop
-aws glue delete-database --name cli-glueworkshop
-aws glue delete-database --name covid19_gluedemocicdtest
-aws glue delete-database --name covid19parquet_gluedemocicdtest
+<p><strong>4.</strong> Delete crawlers created.</p>
+<div class="codehilite"><pre><span></span><code>aws glue delete-crawler --name &lt;crawler names&gt;
 </code></pre></div>
 
-<blockquote>
-<p>Depends on which optional section you finished in Lab 01, you may need to perform additional cleanup with the commands below.</p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code>aws glue delete-crawler --name python-lab1
-aws glue delete-crawler --name lab1-without-partition-index
-aws glue delete-crawler --name lab1-with-partition-index
-aws glue delete-database --name athena_glueworkshop
-aws glue delete-database --name python-glueworkshop
-aws glue delete-database --name spark_glueworkshop
-aws glue delete-database --name partition_index_glueworkshop
+<p><strong>5.</strong> Delete Triggers and Workflows</p>
+<div class="codehilite"><pre><span></span><code>aws glue delete-workflow --name <span class="nt">&lt;your</span> <span class="err">workflow</span> <span class="err">name</span><span class="nt">&gt;</span>
+aws glue delete-trigger --name <span class="nt">&lt;your</span> <span class="err">trigger</span> <span class="err">name</span><span class="nt">&gt;</span>
+
+aws events list-targets-by-rule --rule <span class="nt">&lt;your</span> <span class="err">rule</span> <span class="err">name</span><span class="nt">&gt;</span>
+aws events remove-targets --rule <span class="nt">&lt;your</span> <span class="err">rule</span> <span class="err">name</span><span class="nt">&gt;</span> --ids &quot;<span class="nt">&lt;your</span> <span class="err">target</span> <span class="err">name</span> <span class="err">1</span><span class="nt">&gt;</span>&quot;
+aws events remove-targets --rule <span class="nt">&lt;your</span> <span class="err">rule</span> <span class="err">name</span><span class="nt">&gt;</span> --ids &quot;<span class="nt">&lt;your</span> <span class="err">target</span> <span class="err">name</span> <span class="err">2</span><span class="nt">&gt;</span>&quot;
+
+aws events delete-rule --name <span class="nt">&lt;your</span> <span class="err">rule</span> <span class="err">name</span><span class="nt">&gt;</span>
+
+aws stepfunctions delete-state-machine --state-machine-arn arn:aws:states:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:stateMachine:<span class="nt">&lt;your</span> <span class="err">state</span> <span class="err">machine</span> <span class="err">name</span><span class="nt">&gt;</span>
 </code></pre></div>
 
-<p><strong>5.</strong> Delete Lab 8 objects</p>
-<div class="codehilite"><pre><span></span><code>aws glue delete-workflow --name glueworkshop-event-driven
-aws glue delete-workflow --name COVID-19-workflow
-aws glue delete-trigger --name s3-object-trigger
-aws events list-targets-by-rule --rule glueworkshop-rule
-aws events remove-targets --rule glueworkshop-rule --ids &quot;glueworkflow&quot;
-aws events remove-targets --rule glueworkshop-rule --ids &quot;stepfunction&quot;
-aws events delete-rule --name glueworkshop-rule
-aws stepfunctions delete-state-machine --state-machine-arn arn:aws:states:<span class="cp">${</span><span class="n">AWS_REGION</span><span class="cp">}</span>:<span class="cp">${</span><span class="n">AWS_ACCOUNT_ID</span><span class="cp">}</span>:stateMachine:COVID-19-workflow
-</code></pre></div>
-
-<p><strong>6.</strong> Delete the lab S3 bucket content.</p>
+<p>--&gt;</p>
+<p><strong>6.</strong> Delete the CloudTrail and the Workshop bucket.</p>
 <div class="codehilite"><pre><span></span><code>aws s3 rm s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span> --recursive
 </code></pre></div>
 
 <p><strong>7.</strong> Delete the lab Cloudformation stacks.</p>
-<div class="codehilite"><pre><span></span><code>aws cloudformation delete-stack --stack-name glueworkshop
-aws cloudformation delete-stack --stack-name glueworkshop-cicd
-</code></pre></div>
-
-<blockquote>
-<p>If you used cloudformation option in Lab 01, you need to cleanup the Cloudforamtion stack for the Glue Data Catalog as well.</p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code>aws cloudformation delete-stack --stack-name demo-covid-lake
+<div class="codehilite"><pre><span></span><code>aws cloudformation delete-stack --stack-name etl-ttt-demo
 </code></pre></div>
 
 <p><strong>8.</strong> Close the browser tab of Cloud9 IDE.</p>
