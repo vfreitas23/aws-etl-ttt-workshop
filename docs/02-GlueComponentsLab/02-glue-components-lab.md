@@ -138,7 +138,7 @@ To create a classifier, click on **Classifiers** in the far left menu, then clic
 
 
 <p align="center">
- <img src=images/glue-add-csv-classifier.png>
+ <img src=https://raw.githubusercontent.com/vfreitas23/aws-etl-ttt-workshop/main/docs/02-GlueComponentsLab/images/glue-add-csv-classifier.png>
 </p>
 
 Click on the **Create** button at the bottom of pop-up page. A **new classifier** will be added to the list of classifiers.

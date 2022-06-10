@@ -44,6 +44,7 @@ aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38
 cat PutRecord_Kinesis.py
 ~~~
 
+<!--
 **RDS MySQL Customer Table**
 
 For the **Part 3 only of this workshop**, you need to delete multiple rows from the **RDS MySQL's customer table**. That's because the **customer** is too big originally so **previewing** such amount of data with **Glue Studio Data Preview** feature is **inneficient and may fail**.
@@ -55,6 +56,9 @@ mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds -e "delete from cus
 mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd -Dtpcds -e "commit"; 
 ~~~
 
+
+-->
+
 </br>
 #### **2.** Validating Streaming Job Logic and Data (Glue Studio Dummy Job)
 
@@ -64,7 +68,7 @@ Let's start building the **dummy** job to validate our Glue Streaming Job logic.
 From the **AWS Glue Console**, click on **AWS Glue Studio** under the **ETL** section in the far left menu.
 
 <p align="center">
- <img src=images/studio-job-menu.png>
+ <img src=https://raw.githubusercontent.com/vfreitas23/aws-etl-ttt-workshop/main/docs/03-StreamingLab/images/studio-job-menu.png>
 </p>
 
 This will take you to the AWS Glue Studio Console where you will be authoring the jobs graphically. For that, click on **Jobs** on the far left menu, select **Visual with a blank** canvas option and click on **Create**.
@@ -143,25 +147,17 @@ group by 1,2
 order by total_clicks desc
 ~~~
 
+
+> IMPORTANT: Save the job right now and go back to Glue Studio main screen. Then, reopen the job. This is required for the assets required for this job to get properly saved which includes the RDS Connection that is part of the job and doesn't get loaded properly if that step is not followed which causes Data Preview to fail!
+
 - Click on **Data Preview** tab
 	- Click on the **Start data preview session** button there.
 	- In the pop-up window that will open, choose the IAM role **AWSGlueServiceRole-etl-ttt-demo**
-	- Wait for **Data Preview** to finish (it takes about 5 minutes to preview)
+	- Wait for **Data Preview** to finish (it takes about 2 minutes to preview)
+		- Once preview is completed, Click on **Output schema** tab to see the schema.
+		- Click on the **Use datapreview schema** button that you see right there in the **Output schema** tab.
 
-Note: It will return zero rows because you are previewing the query with **where 1=2** first. This is to make previewing faster and to avoid issues. If issues happen (or previewing is taking more than 5 minutes), **Save** this job, go back to **Jobs** in the **Glue Studio** left menu and, under **Your jobs** select the *dummy* job you created and clone it into a new one. Rename it **dummy-streaming-job-2**. **TIP:** You can delete the first job **dummy-streaming-job** later too.
-
-- Once preview is completed, Click on **Output schema** tab to see the schemas(s)
-
-Note that you have 2 outputs: **Output 1** and **Output 2**.
-
-- Click on the **Use datapreview schema** button that you see right there in the **Output schema** tab.
-
-Note that the schema now matches only the relevant columns of the query. 
-
-- Click on **Transform** tab again and remove the **where 1=2** clause.
-- Click on the **Data Preview** tab one last time to see the data appearing there.
-
-Note that that only relevant columns were brought from the SQL query. Click **Save**.
+Note that the schema now matches only the relevant columns brought from the SQL query. Click **Save**.
 
 ![PREVIEW OUTPUT](images/studio-preview-output.png)
 
@@ -205,7 +201,7 @@ Go back to **Jobs** in the **Glue Studio** left menu and, under **Your jobs** se
 
 ![CLONE](images/studio-your-jobs-clone.png)
 
-The visual canvas will open and you will notice that the cloned job contains the exact same nodes with the exact same definitions you choose for the *dummy* job. Rename this new job to **glue-streaming-job** and **Save** it.
+The visual canvas will open and you will notice that the cloned job contains the exact same nodes with the exact same definitions you choose for the *dummy* job. Rename this new job to `glue-streaming-job` and **Save** it.
 
 Now, all you have to do is:
 
@@ -221,11 +217,13 @@ Now, all you have to do is:
 
 ![CLONE](images/studio-isolated-kinesis-node.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **6.** Now, click on the **SQL** joint node at the center of the canvans to highlight it. Go to **Node Properties** tab and under **Node parents** check the **Web Page Stream** node to complete the **Join**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **6.** Now, click on the **SQL** join node at the center of the canvans to highlight it. Go to **Node Properties** tab and under **Node parents** check the **Web Page Stream** node to complete the **Join**.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **7.** Click on the **Transform** tab and fix the **SQL aliases** for the **Amazon Kinesis Input Source** by typing **wp** there to match the alias in the **SQL query**. Click **Save**.
 
 ![CLONE](images/studio-streaming-job-done.png)
+
+<!--
 
 <h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS JOB YET !!! !!! </h4>
 
@@ -243,13 +241,14 @@ mysql -h ${mysqlendpoint} -u etluser -petltttdemopwd --local-infile -Dtpcds -e "
 ~~~
 
 You should have **100.000** rows in the **customer** table now.
+-->
 
-Now, you are free to run the **Glue Streaming Job**. Go back to the **Glue Studio** tab and click **Run**. A green banner will appear at the top with a message **"Successfully started job glue-streaming-job. Navigate to Run Details for more details."**. Click on **Run Details** to confirm that the job is indeed **Running**. 
+Now, you are free to run the **Glue Streaming Job**. Click **Run** and a green banner will appear at the top with a message **"Successfully started job glue-streaming-job. Navigate to Run Details for more details."**. Click on **Run Details** to confirm that the job is indeed **Running**. 
 
 ![CLONE](images/studio-job-running.png)
 
 
-**TIP:** You can delete all the *dummy* jobs now (Once you validate the data previewed previously).
+**TIP:** You can delete the *dummy* job now (Once you validate the data previewed previously).
 
 <br/>
 

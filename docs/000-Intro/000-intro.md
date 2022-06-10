@@ -27,7 +27,7 @@ WORKSHOP PARTS & STEPS
 
 #### Part 2 - AWS GLUE DISCOVERY COMPONENTS (Databases, Tables, Connections, Crawlers and Classifiers)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1.** Understanding the Glue Resources Provided (CloudFormation Resources)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.** Testing and running pre-created Glue Resources (Connection & MySQL-RDS-Crawler)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.** Testing and running pre-created Glue Resources (Connection & MySQL-RDS-Crawler)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**3.** Creating new Glue Resources (Crawler & Classifier)
 
 #### Part 3 - GLUE (STUDIO) STREAMING
@@ -45,7 +45,7 @@ WORKSHOP PARTS & STEPS
 #### Part 5 - MACHINE LEARNING WITH GLUE & GLUE STUDIO NOTEBOOKS
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**0.** (Pre Steps) - Understading & Setting up the Resources for the ML Lab  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1.** Creating and Training the Glue FindMatches ML Transform  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.** Testing FindMatches Transform with Glue Studio Notebook
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2.** Testing FindMatches Transform with Glue Studio Notebook  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**3.** Deploying & Running a FindMatches Glue Job 
 
 #### Part 6 - WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTIONS

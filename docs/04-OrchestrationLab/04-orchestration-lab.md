@@ -14,8 +14,6 @@ Go to [AWS CloudTrail](https://console.aws.amazon.com/cloudtrail/) console ***(s
 
 Note that this Trail is monitoring for **write events** for two paths in the **etl-ttt-demo-${AWS\_ACCOUNT\_ID}-${AWS_REGION}** Bucket as you can see in the following picture:
 
-[ADD UPDATED PICTURE HERE WITH THE TWO DATA EVENTS - NEW CFN TEMPLATE!!!0
-
 ![TRAIL](images/orch-data-event-trail.png)
 
 
@@ -152,7 +150,7 @@ Once the workflow completes, you will noticed that the **Crawler** triggered by 
 In the **Glue Console's Table** page, click on the checkbox near the **total_clicks** table, then click on the **Action** dropdown button to launch the table in the **Amazon Athena Console**. *(Hit the* ***Preview Button*** *if a pop-up is prompted)*
 
 <p align="center">
- <img src=images/orch-view-data.png>
+ <img src=https://raw.githubusercontent.com/vfreitas23/aws-etl-ttt-workshop/main/docs/04-OrchestrationLab/images/orch-view-data.png>
 </p>
 
 In the **Athena Query Editor Console**, you may see a blue banner at the top that says *"Before you run your first query, you need to set up a query result location in Amazon S3."*. Just click on the **View settings** button you see there, then click on the **Manage** button in the far top right of the page, then click on **Browse S3**. Search for a bucket that starts with **aws-glue-assets-** and select it. Complement this bucket with **`/athena-output/`** and hit **Save**
