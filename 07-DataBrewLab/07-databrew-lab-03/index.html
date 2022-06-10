@@ -13,7 +13,7 @@
     
     
       
-        <title>DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW - Amazon ETL Train-The-Trainer Workshop</title>
+        <title>CREATE AND PROFILE 2ND DATASET - Amazon ETL Train-The-Trainer Workshop</title>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" class="md-skip">
+        <a href="#3-creating-an-rds-based-datasets-profiling-the-data-with-quality-rules" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+              CREATE AND PROFILE 2ND DATASET
             
           </span>
         </div>
@@ -729,6 +729,34 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../07-databrew-lab-01/" class="md-nav__link">
+        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-databrew-lab-02/" class="md-nav__link">
+        CREATE AND PROFILE 1ST DATASET
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -739,12 +767,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+          CREATE AND PROFILE 2ND DATASET
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+        CREATE AND PROFILE 2ND DATASET
       </a>
       
         
@@ -761,29 +789,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" class="md-nav__link">
-    1. Creating Datasets &amp; Profiling the Data (with Quality Rules). (switch to your right region if needed!)
+  <a href="#3-creating-an-rds-based-datasets-profiling-the-data-with-quality-rules" class="md-nav__link">
+    3. Creating an RDS-based datasets &amp; Profiling the Data (with Quality Rules).
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#-table-name-income_band" class="md-nav__link">
-    - Table Name: income_band
+  <a href="#4-profiling-the-second-dataset-leveraging-quality-rules" class="md-nav__link">
+    4. Profiling the second Dataset leveraging Quality Rules.
   </a>
-  
-    <nav class="md-nav" aria-label="- Table Name: income_band">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2-working-with-databrew-recipes-projects" class="md-nav__link">
-    2. Working with DataBrew Recipes &amp; Projects
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -791,6 +806,34 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-databrew-lab-04/" class="md-nav__link">
+        WORKING WITH RECIPES & PROJECTS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-databrew-lab-05/" class="md-nav__link">
+        RUNNING GLUE DATABREW JOBS
+      </a>
     </li>
   
 
@@ -842,29 +885,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" class="md-nav__link">
-    1. Creating Datasets &amp; Profiling the Data (with Quality Rules). (switch to your right region if needed!)
+  <a href="#3-creating-an-rds-based-datasets-profiling-the-data-with-quality-rules" class="md-nav__link">
+    3. Creating an RDS-based datasets &amp; Profiling the Data (with Quality Rules).
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#-table-name-income_band" class="md-nav__link">
-    - Table Name: income_band
+  <a href="#4-profiling-the-second-dataset-leveraging-quality-rules" class="md-nav__link">
+    4. Profiling the second Dataset leveraging Quality Rules.
   </a>
-  
-    <nav class="md-nav" aria-label="- Table Name: income_band">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#2-working-with-databrew-recipes-projects" class="md-nav__link">
-    2. Working with DataBrew Recipes &amp; Projects
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -880,110 +910,52 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/07-DataBrewLab/07-databrew-lab.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/vfreitas23/aws-etl-ttt-workshop/edit/master/docs/07-DataBrewLab/07-databrew-lab-03.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
 
 <h1 id="toc_0" align="center">
-< THIS LAB IS STILL UNDER CONSTRUCTION >
-<br/>
-DATA QUALITY & DATA PREPARATION
-<br/>
-WITH AWS GLUE DATABREW
+CREATING AND PROFILING THE SECOND DATASET
 </h1>
 
-<p><strong>AWS Glue DataBrew</strong> is a visual data preparation tool that makes it easy for data analysts and data scientists to prepare data with an interactive, point-and-click visual interface without writing code. With Glue DataBrew, you can easily visualize, clean, and normalize terabytes, and even petabytes of data directly from your data lake, data warehouses, and databases, including Amazon S3, Amazon Redshift, Amazon Aurora, and Amazon RDS.</p>
-<p>AWS Glue DataBrew is built for users who need to clean and normalize data for analytics and machine learning. Data analysts and data scientists are the primary users.</p>
-<p>In this final lab, <strong>Part 7 - Data Quality &amp; Data Preparation with AWS Glue DataBrew -</strong> You, as part of the fictitious <strong>Data Analytics Team</strong>, will work with it the AWS Glue Databrew to create, profile and prepare datasets while, at the same time, work, evolve and public Step Recipes using Glue DataBrew Recipes.</p>
-<h4 id="1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed"><strong>1.</strong> Creating Datasets &amp; Profiling the Data (with Quality Rules). <strong><em>(switch to your right region if needed!)</em></strong><a class="headerlink" href="#1-creating-datasets-profiling-the-data-with-quality-rules-switch-to-your-right-region-if-needed" title="Permanent link">&para;</a></h4>
-<p>Go to the <a href="https://console.aws.amazon.com/databrew/">AWS Glue DataBrew</a> console.</p>
-<p>[CREATE A DATASET FROM THE SHIVS THIRD DEMO (INCOME BAND AND CUSTOMER TABLE]</p>
-<ul>
-<li>
-<p>Create TopCustomer Dataset from Data Catalog  </p>
-</li>
-<li>
-<p>(Cataloged via crawler + step functions in the previous lab after removing duplicates with ML Transform job)  </p>
-</li>
-</ul>
-<p>[PROFILE THE CUSTOMER DATASET WITH DATA QUALITY RULES - 3-5 minutes for profile job to finish]</p>
-<ul>
-<li>
-<p>Full dataset</p>
-</li>
-<li>
-<p>Output Settings: Navigate to -  s3://$BUCKET_NAME/etl-ttt-demo/output/databrew/jobprofiles/
-[CREATE RULE SET]</p>
-</li>
-<li>
-<p>TopCustomer-Ruleset
-[ADD RECOMMENDED QUALITY RULES + ANY OTHER I WANT]
-Rule Set Name: TopCustomer-Ruleset
-Associated Dataset: TopCustomers
-recommended rules:</p>
-</li>
-<li>
-<p>duplicates? (The rule will pass if dataset has duplicate rows count &lt;= 1 )</p>
-</li>
-<li>
-<p>missing values less than 2%</p>
-</li>
-</ul>
-<p>custom rules:</p>
-<ul>
-<li>
-<p>The rule will pass if c_email_address has length &gt;= 5 FOR greater than or equal to 100% of rows </p>
-</li>
-<li>
-<p>Create Income Band from RDS (JDBC connection)</p>
-<h2 id="-table-name-income_band">- Table Name: income_band<a class="headerlink" href="#-table-name-income_band" title="Permanent link">&para;</a></h2>
+<h4 id="3-creating-an-rds-based-datasets-profiling-the-data-with-quality-rules"><strong>3.</strong> Creating an RDS-based datasets &amp; Profiling the Data (with Quality Rules).<a class="headerlink" href="#3-creating-an-rds-based-datasets-profiling-the-data-with-quality-rules" title="Permanent link">&para;</a></h4>
+<p>Follow the steps below to create another DataBrew dataset</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> Click the <strong>DATASETS</strong> icon on the left.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> Click the <strong>Connect new dataset</strong> button in the middle.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Under New dataset details set Dataset name to <code>IncomeBand</code>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Under <strong>Connect to new dataset</strong> click <strong>JDBC</strong> this time which is under the <strong>Database Connections</strong> section. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> In the <strong>JDBC connections</strong> list, click  on <strong>rds-mysql-connection</strong>, then type <code>income_band</code> in the <strong>Table name</strong> textfield.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Click on the <strong>Create dataset</strong> button.</p>
+<p><img alt="DATASET2" src="../images/10-jdbc-connection.png" /></p>
+<h4 id="4-profiling-the-second-dataset-leveraging-quality-rules"><strong>4.</strong> Profiling the second Dataset leveraging Quality Rules.<a class="headerlink" href="#4-profiling-the-second-dataset-leveraging-quality-rules" title="Permanent link">&para;</a></h4>
 <p>[PROFILE INCOME_BAND DATASET WITH 1 QUALITY RULE]</p>
-</li>
-</ul>
 <p>Full dataset  </p>
 <p>Ruleset: Income-Band-Ruleset
 Rule Name: Income Check for Negative Values<br />
 Rule Summary: The rule will pass if <strong>ib_lower_bound</strong>, <strong>ib_upper_bound</strong> has values &gt;= 0 FOR greater than or equal to 100% of rows</p>
-<h4 id="2-working-with-databrew-recipes-projects"><strong>2.</strong> Working with DataBrew Recipes &amp; Projects<a class="headerlink" href="#2-working-with-databrew-recipes-projects" title="Permanent link">&para;</a></h4>
-<p>[CREATE A PROJECT FOR INCOME_BAND DATASET]</p>
-<p>Project Name: TopCustomers-PerBand</p>
-<ul>
-<li>show all the transformations available (quick overview)
-Choose: Join
-            - Choose Customer Dataset to join with A RIGHT JOIN
-                -Join by Income_Band Sk and Birthday_day (income band goes from 1-20 only)
-                -Remove ib_income_band_sk</li>
-</ul>
-<p>Ask people to download the recipe to APPEND steps by doing the following in Cloud9 Terminal:</p>
-<div class="codehilite"><pre><span></span><code>mkdir -p /tmp/dsd/databrew-recipe/
-aws s3 cp s3://ee-assets-prod-<span class="si">${</span><span class="nv">AWS_REGION</span><span class="si">}</span>/modules/31e125cc66e9400c9244049b3b243c38/v1/downloads/etl-ttt-workshop/databrew/TopCustomers-PerBand-recipe.json  /tmp/dsd/databrew-recipe/TopCustomers-PerBand-recipe.json
-
-aws s3 cp --recursive /tmp/dsd/databrew-recipe/ s3://<span class="nv">$BUCKET_NAME</span>/etl-ttt-demo/databrew-recipe/ 
-</code></pre></div>
-
-<p>After running these commands, go to the bucket and download the recipe <strong>TopCuustomers-PerBand-recipe.json</strong></p>
-<ul>
-<li>
-<p>To add the steps:</p>
-<ul>
-<li>Go to Recipes and import the recipe received from data analytics team</li>
-<li>Show all the steps in the recipe and the JSON original recipe.</li>
-<li>Publish the recipe</li>
-<li>Go back to the Project:    <br />
-            - Import the Recipe into the project (Append!!)
-            - Explain step validation (append/overwrite)<br />
-            - Reorder the Rename steps (17,18 and 19)<br />
-            - Create an Age field using DATE_DIFF only. (between date_of_birth and todays date )<br />
-            - Drop the c_birth__month, date_of_birth, c_login and match_id columns<br />
-            - Save and Publish this as a new recipe.</li>
-</ul>
-</li>
-<li>
-<p>Run the Job and share the results.</p>
-</li>
-</ul>
+<p>Once the second dataset is created, we will run the profiling job on the new dataset.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> Click the checkbox next to the <strong>IncomeBand</strong> dataset.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> Click ▶ <strong>Run data profile</strong> on the top. On the pop-up window click <strong>Create profile job</strong> to open <strong>Create job</strong> page.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Under Job details, set Job name to <code>IncomeBand-profile-job</code>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Under Job run sample select <strong>Full dataset</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> Under <strong>Job output settings</strong> click on the <strong>Browse</strong> button to set the <strong>S3 location</strong> to <strong>s3://\$BUCKET_NAME/etl-ttt-demo/output/databrew/jobprofiles/</strong> (You should have the full path now!).</p>
+<p><img alt="JOB2" src="../images/11-create-profile-job-2.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Skip the next <strong>Dataset profile configurations -</strong> <strong><em>optional</em></strong> and scroll down to <strong>Data quality rules</strong>. Click on the <strong>Apply data quality ruleset</strong> button.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> On the pop-up window, click on the button <strong>Create data quality ruleset</strong>. (This will take you to a different tab in your browser. <strong><em>Do not close the previous tab!</em></strong>)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>8.</strong> On this new tab, name the <strong>Ruleset</strong> as <code>IncomeBand-Ruleset</code> and verify that <strong>Associated dataset</strong> shows <strong>IncomeBand</strong> there.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>9.</strong> This time, <strong>DO NOT</strong> click on the <strong>Recommendations(2)</strong> tab on the right side of the screen. Just edit the existing <strong>Rule 1</strong> already there.</p>
+<p>Note: For this <strong>Rule 1</strong>, under <strong>Selected Columns</strong>, choose <strong>Selected columns</strong> and click on the <strong>Select columns</strong> button, then select <strong>Custom columns</strong>, type <code>ib_lower_bound</code> in the field and click <strong>Add</strong>, then type <code>ib_upper_bound</code> and click <strong>Add</strong> again. Then, click the oragne <strong>Select columns</strong> button. See the following picture:</p>
+<p><img alt="SELECT" src="../images/12-select-column-2.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>13.</strong> Confirm that all the <strong>Rule Summaries</strong> (Blue banner) says: "<em>The rule will pass if</em> <strong><em>ib_lower_bound</em></strong>, <strong><em>ib_upper_bound</em></strong> <em>has values &gt;= 0 FOR greater than or equal to 100% of rows</em></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>14.</strong> Click on <strong>Create ruleset</strong> button at the bottom of the page. You can close this tab now and you should get back to previous one where the <strong>Apply data quality rules</strong> pop-up window is still open.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>15.</strong> Still on this pop-up window, click on the <strong>refresh button</strong>, choose the ruleset <strong>IncomeBand-Ruleset</strong> you just created and click on <strong>Apply selected rulesets</strong>.</p>
+<p><img alt="QUALYRULE1" src="../images/14-quality-rule-3.png" /></p>
+<p>You should see this now:</p>
+<p><img alt="QUALYRULE1" src="../images/15-quality-rule-4.png" /></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>16.</strong>  Scroll to <strong>Permission</strong>, select <strong>AWSGlueDataBrewServiceRole-etl-ttt-demo</strong> for <strong>Role name</strong>. Then, click <strong>Create and run job</strong>.</p>
+<p>The profile job takes about 5 minutes. You don't need to wait for it to finish. Let's now start the project!</p>
 
               
             </article>
@@ -997,7 +969,7 @@ aws s3 cp --recursive /tmp/dsd/databrew-recipe/ s3://<span class="nv">$BUCKET_NA
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../06-StepFunctionsLab/06-step-functions-lab/" class="md-footer__link md-footer__link--prev" aria-label="Previous: WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION" rel="prev">
+        <a href="../07-databrew-lab-02/" class="md-footer__link md-footer__link--prev" aria-label="Previous: CREATE AND PROFILE 1ST DATASET" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -1006,20 +978,20 @@ aws s3 cp --recursive /tmp/dsd/databrew-recipe/ s3://<span class="nv">$BUCKET_NA
               <span class="md-footer__direction">
                 Previous
               </span>
-              WORKFLOW ORCHESTRATION WITH AWS STEP FUNCTION
+              CREATE AND PROFILE 1ST DATASET
             </div>
           </div>
         </a>
       
       
         
-        <a href="../../08-CleanUp/08-clean-up/" class="md-footer__link md-footer__link--next" aria-label="Next: Clean Up" rel="next">
+        <a href="../07-databrew-lab-04/" class="md-footer__link md-footer__link--next" aria-label="Next: WORKING WITH RECIPES &amp; PROJECTS" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Clean Up
+              WORKING WITH RECIPES & PROJECTS
             </div>
           </div>
           <div class="md-footer__button md-icon">

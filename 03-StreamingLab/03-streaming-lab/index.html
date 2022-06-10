@@ -782,8 +782,64 @@
   
   
     <li class="md-nav__item">
-      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+      <a href="../../07-DataBrewLab/07-databrew-lab-01/" class="md-nav__link">
         DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-02/" class="md-nav__link">
+        CREATE AND PROFILE 1ST DATASET
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-03/" class="md-nav__link">
+        CREATE AND PROFILE 2ND DATASET
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-04/" class="md-nav__link">
+        WORKING WITH RECIPES & PROJECTS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-05/" class="md-nav__link">
+        RUNNING GLUE DATABREW JOBS
       </a>
     </li>
   
@@ -899,12 +955,22 @@ aws s3 cp s3://ee-assets-prod-us-east-1/modules/31e125cc66e9400c9244049b3b243c38
 cat PutRecord_Kinesis.py
 </code></pre></div>
 
-<p><strong>RDS MySQL Customer Table</strong></p>
-<p>For the <strong>Part 3 only of this workshop</strong>, you need to delete multiple rows from the <strong>RDS MySQL's customer table</strong>. That's because the <strong>customer</strong> is too big originally so <strong>previewing</strong> such amount of data with <strong>Glue Studio Data Preview</strong> feature is <strong>inneficient and may fail</strong>.</p>
-<p>Run the following <strong>SQL Delete Statement</strong> to reduce the table to only <strong>1000 rows</strong>:</p>
+<!--
+**RDS MySQL Customer Table**
+
+For the **Part 3 only of this workshop**, you need to delete multiple rows from the **RDS MySQL's customer table**. That's because the **customer** is too big originally so **previewing** such amount of data with **Glue Studio Data Preview** feature is **inneficient and may fail**.
+
+Run the following **SQL Delete Statement** to reduce the table to only **1000 rows**:
+
+
 <div class="codehilite"><pre><span></span><code>mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;delete from customer where c_customer_sk &gt; 1000&quot;</span><span class="p">;</span>
 mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd -Dtpcds -e <span class="s2">&quot;commit&quot;</span><span class="p">;</span> 
 </code></pre></div>
+
+
+
+
+-->
 
 <p></br></p>
 <h4 id="2-validating-streaming-job-logic-and-data-glue-studio-dummy-job"><strong>2.</strong> Validating Streaming Job Logic and Data (Glue Studio Dummy Job)<a class="headerlink" href="#2-validating-streaming-job-logic-and-data-glue-studio-dummy-job" title="Permanent link">&para;</a></h4>
@@ -979,28 +1045,22 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">total_clicks</span><span class="w"> </span><span class="k">desc</span><span class="w"></span>
 </code></pre></div>
 
+<blockquote>
+<p>IMPORTANT: Save the job right now and go back to Glue Studio main screen. Then, reopen the job. This is required for the assets required for this job to get properly saved which includes the RDS Connection that is part of the job and doesn't get loaded properly if that step is not followed which causes Data Preview to fail!</p>
+</blockquote>
 <ul>
 <li>Click on <strong>Data Preview</strong> tab<ul>
 <li>Click on the <strong>Start data preview session</strong> button there.</li>
 <li>In the pop-up window that will open, choose the IAM role <strong>AWSGlueServiceRole-etl-ttt-demo</strong></li>
-<li>Wait for <strong>Data Preview</strong> to finish (it takes about 5 minutes to preview)</li>
+<li>Wait for <strong>Data Preview</strong> to finish (it takes about 2 minutes to preview)<ul>
+<li>Once preview is completed, Click on <strong>Output schema</strong> tab to see the schema.</li>
+<li>Click on the <strong>Use datapreview schema</strong> button that you see right there in the <strong>Output schema</strong> tab.</li>
 </ul>
 </li>
 </ul>
-<p>Note: It will return zero rows because you are previewing the query with <strong>where 1=2</strong> first. This is to make previewing faster and to avoid issues. If issues happen (or previewing is taking more than 5 minutes), <strong>Save</strong> this job, go back to <strong>Jobs</strong> in the <strong>Glue Studio</strong> left menu and, under <strong>Your jobs</strong> select the <em>dummy</em> job you created and clone it into a new one. Rename it <strong>dummy-streaming-job-2</strong>. <strong>TIP:</strong> You can delete the first job <strong>dummy-streaming-job</strong> later too.</p>
-<ul>
-<li>Once preview is completed, Click on <strong>Output schema</strong> tab to see the schemas(s)</li>
+</li>
 </ul>
-<p>Note that you have 2 outputs: <strong>Output 1</strong> and <strong>Output 2</strong>.</p>
-<ul>
-<li>Click on the <strong>Use datapreview schema</strong> button that you see right there in the <strong>Output schema</strong> tab.</li>
-</ul>
-<p>Note that the schema now matches only the relevant columns of the query. </p>
-<ul>
-<li>Click on <strong>Transform</strong> tab again and remove the <strong>where 1=2</strong> clause.</li>
-<li>Click on the <strong>Data Preview</strong> tab one last time to see the data appearing there.</li>
-</ul>
-<p>Note that that only relevant columns were brought from the SQL query. Click <strong>Save</strong>.</p>
+<p>Note that the schema now matches only the relevant columns brought from the SQL query. Click <strong>Save</strong>.</p>
 <p><img alt="PREVIEW OUTPUT" src="../images/studio-preview-output.png" /></p>
 <p>Now, add an <strong>Apply Mapping</strong> transform by clickinng on the <strong>SQL</strong> node first to highlight it, then click on <strong>Transform</strong> dropdown icon and choose <strong>Apply Mapping</strong> from the list.</p>
 <p>A new <strong>Apply Mapping</strong> node will be linked to the <strong>SQL</strong> node. Click on this new <strong>Apply Mapping</strong> node to highligt it and do the following:</p>
@@ -1030,7 +1090,7 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <h4 id="3-creating-the-glue-streaming-job-cloning-jobs"><strong>3.</strong> Creating the Glue Streaming Job (Cloning Jobs!)<a class="headerlink" href="#3-creating-the-glue-streaming-job-cloning-jobs" title="Permanent link">&para;</a></h4>
 <p>Go back to <strong>Jobs</strong> in the <strong>Glue Studio</strong> left menu and, under <strong>Your jobs</strong> select the <em>dummy-streaming-job</em>  (or any clone of it). Click on the <strong>Actions</strong> dropdown button and choose <strong>Clone Job</strong>.</p>
 <p><img alt="CLONE" src="../images/studio-your-jobs-clone.png" /></p>
-<p>The visual canvas will open and you will notice that the cloned job contains the exact same nodes with the exact same definitions you choose for the <em>dummy</em> job. Rename this new job to <strong>glue-streaming-job</strong> and <strong>Save</strong> it.</p>
+<p>The visual canvas will open and you will notice that the cloned job contains the exact same nodes with the exact same definitions you choose for the <em>dummy</em> job. Rename this new job to <code>glue-streaming-job</code> and <strong>Save</strong> it.</p>
 <p>Now, all you have to do is:</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> Remove the <strong>Web Page S3</strong> by clicking on it to highlight it first, then clicking on <strong>Remove</strong> (trash icon)   </p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> click on the <strong>Source</strong> dropdown icon and choose <strong>Amazon Kinesis</strong> in dropdown list. A new and isolated <strong>Amazon Kinesis</strong> node will appear.</p>
@@ -1038,12 +1098,16 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Click on <strong>Data source properties - Kinesis Stream</strong> tab and under <strong>Amazon Kinesis Source</strong> choose <strong>Data Catalog table</strong>. Then, under <strong>Database</strong> choose <strong>glue_ttt_demo_db</strong> and under <strong>Table</strong> choose <strong>web-page-streaming-table</strong>.  </p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong>  Uncheck <strong>Detect Schema</strong>, set <strong>Starting position</strong> to <strong>Latest</strong> and set <strong>Window size</strong> to <strong>60</strong>. Click <strong>Save</strong></p>
 <p><img alt="CLONE" src="../images/studio-isolated-kinesis-node.png" /></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Now, click on the <strong>SQL</strong> joint node at the center of the canvans to highlight it. Go to <strong>Node Properties</strong> tab and under <strong>Node parents</strong> check the <strong>Web Page Stream</strong> node to complete the <strong>Join</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>6.</strong> Now, click on the <strong>SQL</strong> join node at the center of the canvans to highlight it. Go to <strong>Node Properties</strong> tab and under <strong>Node parents</strong> check the <strong>Web Page Stream</strong> node to complete the <strong>Join</strong>.</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>7.</strong> Click on the <strong>Transform</strong> tab and fix the <strong>SQL aliases</strong> for the <strong>Amazon Kinesis Input Source</strong> by typing <strong>wp</strong> there to match the alias in the <strong>SQL query</strong>. Click <strong>Save</strong>.</p>
 <p><img alt="CLONE" src="../images/studio-streaming-job-done.png" /></p>
+<!--
+
 <h4 id="toc_0" align="center"> !!! !!! DO NOT RUN THIS JOB YET !!! !!! </h4>
 
-<p>Before running this job, go back to your <strong>Cloud9 Enviroment</strong> tab and run the following commands to repopulate the <strong>RDS MySQL's customer table</strong>:</p>
+Before running this job, go back to your **Cloud9 Enviroment** tab and run the following commands to repopulate the **RDS MySQL's customer table**:
+
+
 <div class="codehilite"><pre><span></span><code><span class="nb">cd</span> /tmp/dsd/
 <span class="nv">file</span><span class="o">=</span>customer_1_2.dat
 mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="s2">&quot;truncate table tpcds.customer&quot;</span>
@@ -1054,10 +1118,14 @@ mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span cl
 mysql -h <span class="si">${</span><span class="nv">mysqlendpoint</span><span class="si">}</span> -u etluser -petltttdemopwd --local-infile -Dtpcds -e <span class="s2">&quot;select count(*) from tpcds.customer&quot;</span>
 </code></pre></div>
 
-<p>You should have <strong>100.000</strong> rows in the <strong>customer</strong> table now.</p>
-<p>Now, you are free to run the <strong>Glue Streaming Job</strong>. Go back to the <strong>Glue Studio</strong> tab and click <strong>Run</strong>. A green banner will appear at the top with a message <strong>"Successfully started job glue-streaming-job. Navigate to Run Details for more details."</strong>. Click on <strong>Run Details</strong> to confirm that the job is indeed <strong>Running</strong>. </p>
+
+
+You should have **100.000** rows in the **customer** table now.
+-->
+
+<p>Now, you are free to run the <strong>Glue Streaming Job</strong>. Click <strong>Run</strong> and a green banner will appear at the top with a message <strong>"Successfully started job glue-streaming-job. Navigate to Run Details for more details."</strong>. Click on <strong>Run Details</strong> to confirm that the job is indeed <strong>Running</strong>. </p>
 <p><img alt="CLONE" src="../images/studio-job-running.png" /></p>
-<p><strong>TIP:</strong> You can delete all the <em>dummy</em> jobs now (Once you validate the data previewed previously).</p>
+<p><strong>TIP:</strong> You can delete the <em>dummy</em> job now (Once you validate the data previewed previously).</p>
 <p><br/></p>
 <p>You have finshed <strong>creating &amp; running a Glue Streaming Job</strong>. At this point, there's no data being pushed into the <strong>Kinesis Data Stream source</strong> of this job. Once you are ready move to the <strong>Part 4 - Orchestration &amp; Data Analytsis</strong> where you will start to push data into the <strong>Kinesis Stream</strong>.</p>
 

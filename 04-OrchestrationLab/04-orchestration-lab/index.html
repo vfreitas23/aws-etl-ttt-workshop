@@ -796,8 +796,64 @@
   
   
     <li class="md-nav__item">
-      <a href="../../07-DataBrewLab/07-databrew-lab/" class="md-nav__link">
+      <a href="../../07-DataBrewLab/07-databrew-lab-01/" class="md-nav__link">
         DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-02/" class="md-nav__link">
+        CREATE AND PROFILE 1ST DATASET
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-03/" class="md-nav__link">
+        CREATE AND PROFILE 2ND DATASET
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-04/" class="md-nav__link">
+        WORKING WITH RECIPES & PROJECTS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07-DataBrewLab/07-databrew-lab-05/" class="md-nav__link">
+        RUNNING GLUE DATABREW JOBS
       </a>
     </li>
   
@@ -911,7 +967,6 @@ ORCHESTRATION & DATA ANALYSIS</h1>
 <p>Go to <a href="https://console.aws.amazon.com/cloudtrail/">AWS CloudTrail</a> console <strong><em>(switch to your right region if needed!)</em></strong> to explore the Trail created for your named <strong>etl-ttt-demo-trail</strong></p>
 <p><img alt="TRAIL" src="../images/orch-trail.png" /></p>
 <p>Note that this Trail is monitoring for <strong>write events</strong> for two paths in the <strong>etl-ttt-demo-${AWS_ACCOUNT_ID}-${AWS_REGION}</strong> Bucket as you can see in the following picture:</p>
-<p>[ADD UPDATED PICTURE HERE WITH THE TWO DATA EVENTS - NEW CFN TEMPLATE!!!0</p>
 <p><img alt="TRAIL" src="../images/orch-data-event-trail.png" /></p>
 <p>By having such <strong>Trail configuration</strong>, you will be able to leverage <strong>AWS Event Bridge</strong> during this lab to trigger <strong>(Step Function and Glue) Workflows</strong> as soon as streaming data lands in the <strong>trail-enabled S3 Bucket</strong>.</p>
 <p>That is possible because once a file lands in this bucket it records a <strong>write event</strong> in the <strong>Trail</strong>. This <strong>write event</strong> further triggers an <strong>EventBridge Rule</strong> which, consequently, cat fire <strong>(Step Functionn and Glue) Workflows</strong>.</p>
