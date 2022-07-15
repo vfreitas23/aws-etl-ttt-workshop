@@ -13,7 +13,7 @@
     
     
       
-        <title>RUNNING GLUE DATABREW JOBS - Amazon ETL Train-The-Trainer Workshop</title>
+        <title>07 databrew lab 05 - Amazon ETL Train-The-Trainer Workshop</title>
       
     
     
@@ -92,7 +92,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              RUNNING GLUE DATABREW JOBS
+              07 databrew lab 05
             
           </span>
         </div>
@@ -701,14 +701,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
       
       
       
@@ -731,102 +729,9 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-databrew-lab-01/" class="md-nav__link">
+      <a href="../07-databrew-lab.md" class="md-nav__link">
         DATA QUALITY & PREPARATION WITH AWS GLUE DATABREW
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07-databrew-lab-02/" class="md-nav__link">
-        CREATE AND PROFILE 1ST DATASET
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07-databrew-lab-03/" class="md-nav__link">
-        CREATE AND PROFILE 2ND DATASET
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../07-databrew-lab-04/" class="md-nav__link">
-        WORKING WITH RECIPES & PROJECTS
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          RUNNING GLUE DATABREW JOBS
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        RUNNING GLUE DATABREW JOBS
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#6-turning-projects-and-recipes-into-glue-databrew-jobs" class="md-nav__link">
-    6. Turning projects and recipes into Glue DataBrew jobs
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -906,49 +811,41 @@
 RUNNING GLUE DATABREW JOBS
 </h1>
 
-<p>DataBrew takes on the job of transforming your data by running the instructions that you set up when you made a recipe. The process of running these instructions is called a job. A job can put your data recipes into action according to a preset schedule. But you aren't confined to a schedule. You can also run jobs on demand. If you want to profile some data, you don't need a recipe. In that case, you can just set up a profile job to create a data profile.</p>
+<p><strong>DataBrew</strong> takes on the job of transforming your data by running the instructions that you set up when you made a recipe. The process of running these instructions is called a <strong>job</strong>. </p>
+<p><strong>A job can put your data recipes into action</strong> according to a preset schedule. But you aren't confined to a schedule. You can also <strong>run jobs on demand</strong>. If you want to profile some data, you don't need a recipe. In that case, you can just <strong>set up a profile job to create a data profile</strong>.</p>
 <h4 id="6-turning-projects-and-recipes-into-glue-databrew-jobs"><strong>6.</strong> Turning projects and recipes into Glue DataBrew jobs<a class="headerlink" href="#6-turning-projects-and-recipes-into-glue-databrew-jobs" title="Permanent link">&para;</a></h4>
-<p>Create a new DataBrew job.</p>
-<div class="codehilite"><pre><span></span><code>Click JOBS on the left.
-
-Click Create Job button.
+<p>The fastest way to turn your project into a job is from the Project page itself. Once all the steps are in place and the recipe is completed you can simply click on the button <strong>Create job</strong> on the upper right top corner.</p>
+<p><img alt="JOB BUTTON" src="../images/29-create-job.png" /></p>
+<p>The <strong>Create job</strong> page will open. There, do the following:</p>
+<p><strong>Set job details:</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>1.</strong> Under <strong>Job details</strong> set the <strong>Job name</strong> to: <code>TopCustomers-PerBand</code></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>2.</strong> Under <strong>Job type</strong> confimr that the <strong>Associated dataset</strong> is the <strong>IncomeBand</strong> dataset and the <strong>Associated recipe</strong> is the <strong>TopCustomers-PerBand-recipe</strong></p>
+<p><strong>Job output setting</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>3.</strong> Under Job output settings navigate to the S3 location <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/output/databrew/job-run/</strong> where <strong>\${BUCKET_NAME}</strong> is your own S3 bucket name. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>4.</strong> Click on the <strong>Settings</strong> button (with a small gear icon). On the pop-up window that appear, under <strong>File Partitioning</strong>, choose the <strong>Single file output</strong> option and click <strong>Save</strong>.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> Keep everything else default here.</p>
+<p><img alt="JOB PAGE" src="../images/30-create-job-page.png" /></p>
+<p><strong>Job role name</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> Under <strong>Permission</strong> select <strong>AWSGlueDataBrewServiceRole-etl-ttt-demo</strong> in <strong>Role name</strong> dropdown list.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>5.</strong> Click <strong>Create and run job</strong>.</p>
+<p><strong>Run job</strong></p>
+<p>Once the job has been created, click the <strong>JOB</strong> icon on the left. Under the <strong>Recipe jobs</strong> tab you will see a new job with name <strong>TopCustomers-PerBand</strong> in the <strong>Running</strong> state. Wait for the job to finish.</p>
+<p><img alt="JOB RUN" src="../images/31-job-run-01.png" /></p>
+<p><strong>Job lineage</strong></p>
+<p>Once the job finishes, click on the job name. You should see one succeeded job run under <strong>Job run history</strong> tab. Click the <strong>Data linage</strong> tab to see the data linage graph for the job.</p>
+<p><img alt="JOB LINEAGE" src="../images/32-data-lineage.png" /></p>
+<p>You should see a new folder in S3 under <strong>s3://\${BUCKET_NAME}/etl-ttt-demo/output/databrew/job-run/</strong> which contains the output of the job. Go inside this folder and click on the file that starts with <strong>TopCustomers-PerBand_</strong>. Use <strong>S3 Select</strong> to explore the file contents.</p>
+<p><img alt="S3 SELECT" src="../images/33-s3-select.png" /></p>
+<p>Under <strong>Query with S3 Select</strong>, keep <strong>CSV</strong> and <strong>Comma</strong> as the selected options for both <strong>Input settings</strong> and  <strong>Output settings</strong>. Scroll to the <strong>SQL query</strong> section and explore the generated data with the following query:</p>
+<div class="codehilite"><pre><span></span><code>SELECT * FROM s3object s LIMIT <span class="m">500</span>
 </code></pre></div>
 
-<p>Create job</p>
-<div class="codehilite"><pre><span></span><code>Under Job details set the Job name to covid-testing-recipe-job.
-
-Under Job type select Create a recipe job.
-</code></pre></div>
-
-<p>Set job type</p>
-<div class="codehilite"><pre><span></span><code>Under Job input select Run on Project. In Select a project select covid-testing from the list.
-</code></pre></div>
-
-<p>Set run type</p>
-<div class="codehilite"><pre><span></span><code>Under Job output settings set S3 location to s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/output/lab5/csv/ replacing <span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span> with your own S3 bucket name.
-</code></pre></div>
-
-<p>Job output setting</p>
-<div class="codehilite"><pre><span></span><code>Under Permission select AWSGlueDataBrewServiceRole-glueworkshop in Role name.
-</code></pre></div>
-
-<p>Job role name</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">Click</span> <span class="nv">Create</span> <span class="nv">and</span> <span class="nv">run</span> <span class="nv">job</span>.
-
-<span class="nv">Once</span> <span class="nv">the</span> <span class="nv">job</span> <span class="nv">has</span> <span class="nv">been</span> <span class="nv">created</span>, <span class="nv">click</span> <span class="nv">the</span> <span class="nv">JOB</span> <span class="nv">icon</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">left</span>. <span class="nv">Under</span> <span class="nv">the</span> <span class="nv">Recipe</span> <span class="nv">jobs</span> <span class="nv">tab</span> <span class="nv">you</span> <span class="nv">will</span> <span class="nv">see</span> <span class="nv">a</span> <span class="nv">new</span> <span class="nv">job</span> <span class="nv">with</span> <span class="nv">name</span> <span class="nv">covid</span><span class="o">-</span><span class="nv">testing</span><span class="o">-</span><span class="nv">job</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">Running</span> <span class="nv">state</span>. <span class="k">Wait</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">job</span> <span class="nv">to</span> <span class="nv">finish</span>.
-</code></pre></div>
-
-<p>Run job</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">Once</span> <span class="nv">the</span> <span class="nv">job</span> <span class="nv">finishes</span>, <span class="nv">click</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">job</span> <span class="nv">name</span>. <span class="nv">You</span> <span class="nv">should</span> <span class="nv">see</span> <span class="nv">one</span> <span class="nv">succeeded</span> <span class="nv">job</span> <span class="nv">run</span> <span class="nv">under</span> <span class="nv">Job</span> <span class="nv">run</span> <span class="nv">history</span> <span class="nv">tab</span>. <span class="nv">Click</span> <span class="nv">the</span> <span class="nv">Data</span> <span class="nv">linage</span> <span class="nv">tab</span> <span class="nv">to</span> <span class="nv">see</span> <span class="nv">the</span> <span class="nv">data</span> <span class="nv">linage</span> <span class="nv">graph</span> <span class="k">for</span> <span class="nv">the</span> <span class="nv">job</span>.
-</code></pre></div>
-
-<p>Data linage</p>
-<div class="codehilite"><pre><span></span><code>You should see a new folder in S3 under s3://<span class="cp">${</span><span class="n">BUCKET_NAME</span><span class="cp">}</span>/output/lab5/csv/ which contains the output of the job. Use the command below to copy the output files locally in Cloud9 and explore the output in Cloud9.
-</code></pre></div>
-
-<p>1
-aws s3 cp s3://${BUCKET_NAME}/output/lab5/ ~/environment/glue-workshop/output/lab5 --recursive</p>
-<p>View output file</p>
+<p>Click on <strong>Run SQL Query</strong> then scroll to the <strong>Query results</strong> section and choose the <strong>Formatted</strong> tab to see the data in a nice tabular format:</p>
+<p><img alt="S3 RESULTS" src="../images/34-s3-query-results.png" /></p>
+<p><br></p>
+<h3 id="toc_0" align="center">
+With that, you have concluded all the labs for this workshop. I hope you have enjoyed! Congratulations!!
+</h3>
 
               
             </article>
@@ -958,41 +855,6 @@ aws s3 cp s3://${BUCKET_NAME}/output/lab5/ ~/environment/glue-workshop/output/la
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../07-databrew-lab-04/" class="md-footer__link md-footer__link--prev" aria-label="Previous: WORKING WITH RECIPES &amp; PROJECTS" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              WORKING WITH RECIPES & PROJECTS
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../../08-CleanUp/08-clean-up/" class="md-footer__link md-footer__link--next" aria-label="Next: Clean Up" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Clean Up
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
