@@ -10,4 +10,4 @@ WITH AWS GLUE DATABREW
 
 AWS Glue DataBrew is built for users who need to clean and normalize data for analytics and machine learning. Data analysts and data scientists are the primary users.
 
-In this final lab, **Part 7 - Data Quality & Data Preparation with AWS Glue DataBrew -** You, as part of the fictitious **Data Analytics Team**, will work with it the AWS Glue Databrew to create, profile and prepare datasets while, at the same time, work, evolve and public **Step Recipes** using **Glue DataBrew Recipes**.
+In this final lab, **Part 7 - Data Quality & Data Preparation with AWS Glue DataBrew -** You, as part of the fictitious **Data Analytics Team**, will work with it the **AWS Glue Databrew to create, profile and prepare** datasets while, at the same time, **work, evolve and publish** Step Recipes using **Glue DataBrew Recipes**.

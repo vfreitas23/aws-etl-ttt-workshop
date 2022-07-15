@@ -5,11 +5,13 @@ CREATING AND PROFILING THE FIRST DATASET
 
 #### **1.** Creating the first Dataset 
 
------- CHANGE THAT --------
+We will first create a **DataBrew Dataset** based on the table **ml\_final\_top\_customers** that was crawled previously during the Machine Learning lab and stored in the database **glue\_ttt\_demo\_db** which is cataloged in the **AWS Glue Data Catalog**.
 
-We will first create a DataBrew Dataset using a Glue crawler to explore the COVID-19 data stored in a Data Catalog table. In DataBrew, Dataset simply means a set of data—rows or records that are divided into columns or fields. When you create a DataBrew project, you connect to or upload data that you want to transform or prepare. DataBrew can work with data from any source, imported from formatted files, and it connects directly to a growing list of data stores. In DataBrew, a Dataset is a read-only connection to your data. DataBrew collects a set of descriptive metadata to refer to the data. No actual data can be altered or stored by DataBrew. For simplicity, we use the word dataset to refer to both the actual dataset and the metadata that DataBrew uses.
+In DataBrew, **Dataset** simply means a set of data—rows or records that are divided into columns or fields. When you create a **DataBrew project**, you connect to or upload data that you want to transform or prepare. DataBrew can work with data from any source, imported from formatted files, and it connects directly to a growing list of data stores. 
 
-----
+In DataBrew, a **Dataset is a read-only connection to your data**. DataBrew collects a set of descriptive metadata to refer to the data. **No actual data can be altered or stored by DataBrew**. For simplicity, we use the word dataset to refer to both the actual dataset and the metadata that DataBrew uses.
+
+<br>
 
 To start the lab, first go to the [AWS Glue DataBrew](https://console.aws.amazon.com/databrew/) console. ***(switch to the right region if needed!)***
 
