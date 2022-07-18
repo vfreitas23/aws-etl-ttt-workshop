@@ -23,16 +23,6 @@ Follow the steps below to create another DataBrew dataset
 
 #### **4.** Profiling the second Dataset leveraging Quality Rules.
 	
-
-[PROFILE INCOME_BAND DATASET WITH 1 QUALITY RULE]
-  
-Full dataset  
-
-Ruleset: Income-Band-Ruleset
-Rule Name: Income Check for Negative Values  
-Rule Summary: The rule will pass if **ib\_lower\_bound**, **ib\_upper\_bound** has values >= 0 FOR greater than or equal to 100% of rows
-
-
 Once the second dataset is created, we will run the profiling job on the new dataset.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **1.** Click the checkbox next to the **IncomeBand** dataset.
@@ -63,6 +53,7 @@ Once the second dataset is created, we will run the profiling job on the new dat
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **13.** Confirm that all the **Rule Summaries** (Blue banner) says: "*The rule will pass if* ***ib\_lower\_bound***, ***ib\_upper\_bound*** *has values >= 0 FOR greater than or equal to 100% of rows*
 
+![JOB2](images/13-rule-3.png)
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **14.** Click on **Create ruleset** button at the bottom of the page. You can close this tab now and you should get back to previous one where the **Apply data quality rules** pop-up window is still open.
